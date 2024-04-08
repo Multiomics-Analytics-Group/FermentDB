@@ -10,6 +10,7 @@
 ## Table of Contents
 
 - [Abstract](#abstract) 
+- [Data Model](#data-model) 
 
 <br>
 
@@ -23,3 +24,9 @@ These systems are difficult to design, operate, and scale up and down, which has
 Our goal is to establish a standardized and aggregated database, consolidating high-density fermentation data for accessibility within the scientific community.
 
 The database will harmonize a previously generated comprehensive dataset from more than 600 fermentations using different strains under varied conditions to produce melatonin and tryptophan. Furthermore, this resource will allow the analysis and visualization of these experiments as well as streamlining the integration of new fermentation datasets. By compiling comprehensive data, we aim to expedite the development of "fermenterphiles" and enhance bioproduction, marking a significant stride toward sustainable industrial practices.
+
+## Data Model
+Design of the FermentDB data model.  
+<br>
+
+<img src="./assets/images/initial_draft_data_model_080424.png" alt="data model" />
