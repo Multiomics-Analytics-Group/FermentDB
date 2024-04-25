@@ -1,0 +1,41 @@
+Run:
+    id: id
+    Culture Type: culture_type
+    Seed: seed
+    Sample ID: sample_id
+    Experiment: experiment
+    'Replicate #': replicate_number
+    Strain Batch: strain_batch
+    Base Medium: base_medium
+    Container ID (calculated): container_id
+    Container Type: container_type
+    Control?: is_control
+    DO Control Cascade Level 1: DO_control_cascade_level1
+    DO Control Cascade Level 2: DO_control_cascade_level2
+    DO Control Cascade Level 3: DO_control_cascade_level3
+    'Feed Medium #1': feed_medium_1
+    'Feed Medium #2': feed_medium_2
+    Main Culture ID: main_culture_id
+    'Reactor/Plate/Flask Number': reactor_plate_flask_number
+    Comments: comments
+    'Feed #1 Profile': feed_1_profile
+    Aeration Profile: aeration_profile
+    SOP: SOP
+    Inducer: inducer
+    Volume Unit_INDUCTION: volume_unit_induction
+    Condition: condition
+Initial_conditions:
+    Aeration Gas Type: aeration_gas_type 
+    pH Control Base Solution: ph_control_base_solution
+    pH Control Acid Solution: ph_control_acid_solution
+    Initial Culture VolumeNone: initial_volume
+    Maximum Aeration (slpm): maximum_aeration_slpm
+    Maximum Stirring or Shaking Speed (rpm): maximum_stirring_speed_rpm
+    Minimum Aeration (slpm): minimum_aeration_slpm
+    Minimum Stirring or Shaking Speed (rpm): minimum_stirring_speed_rpm
+    Temperature Setpoint (C): temperature_setpoint_celsius
+    pH Setpoint: pH_setpoint
+    Culture Volume Unit: culture_volume_unit
+    DO Control Setpoint (%): DO_control_setpoint_percentage
+    Starting OD: starting_OD
+    
