@@ -1,6 +1,6 @@
 Project:
-    _key: project
-    # id: id
+    key: 'project'
+    id: project
     name: name
     description: description
     progress: progress
@@ -14,26 +14,21 @@ Project:
     start: start
     end: end
 Country:
-    _key: country
+    _key: 'country'
+    id: country
     name: country
 User:
-    _key: manager/username
+    key: 'manager/username'
+    id: manager/username
     name: manager/first_name
     surname: manager/last_name
-# Institution:
-#     _key: 
-#     name:
-#     address:
-#     email:
-#     phone_number:
 Batch_cell_culture:
-    _key: id
+    _key: 'id'
+    id: id
     name: name
-    # events: event_names
-    # workflow: workflow
 Run:
     batches:
-        _key: id
+        id: id
         name: name
         description: description
         creation_time: creation_time
@@ -42,8 +37,8 @@ Run:
         batch_end: batch_end
         first_timestamp: first_timestamp
         last_timestamp: last_timestamp
-        # workflow: workflow/calculator_use_groups/id
         variables: variables 
+        phases: phases
 
 
 
