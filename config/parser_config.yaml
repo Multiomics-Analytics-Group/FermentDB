@@ -1,5 +1,5 @@
 Project:
-    key: 'project'
+    _key: 'project'
     id: project
     name: name
     description: description
@@ -18,7 +18,7 @@ Country:
     id: country
     name: country
 User:
-    key: 'manager/username'
+    _key: 'manager/username'
     id: manager/username
     name: manager/first_name
     surname: manager/last_name
