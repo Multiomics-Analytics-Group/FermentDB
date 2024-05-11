@@ -1,0 +1,3 @@
+[ArangoDB]
+host = "http://localhost:8529"
+database = "fermentdb"
