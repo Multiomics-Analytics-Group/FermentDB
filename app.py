@@ -21,12 +21,6 @@ from streamlit_arango.config import Config
 # from pyArango.connection import *
 
 ## 3. Connect to ArangoDB
-# conn = Connection(username="root", password="psswrd")
-# db = conn["fermentdb"]
-# collection = db["fermentdb"]
-
-
-
 # Initialize the ArangoDB client. 
 client = ArangoClient(hosts=Config.ArangoDB.host)
 
@@ -47,14 +41,38 @@ def get_aql():
     return connect_to_db().aql
 
 
-
-
 ## 4. Streamlit UI
+st.set_page_config(
+    page_title="FermentDB",
+    page_icon="👋" # Favicon 
+)
 
-# st.set_page_config(
-#     page_title="FermentDB",
-#     page_icon="👋" # Favicon 
-# )
+aql = get_aql()
+
+
+
+
+
+# cursor = aql.execute( '''
+#      FOR doc IN Country
+#     RETURN doc.name
+#                       ''')
+
+# result = []
+# for item in cursor:
+#    if item == "DK":
+#     result.append(item)
+
+
+# st.write(result)
+
+if st.button("View Node Collections"):
+   nodes = connect_to_db().graph('fermentdb').vertex_collections()
+   st.write(nodes)
+          
+if st.button("View Edge Collections"):
+   edges = connect_to_db().graph('fermentdb').edge_definitions()
+   st.write(edges)
 
 # st.title('FermentDB')
 # st.header('FermentDB')
@@ -68,21 +86,6 @@ def get_aql():
 
 # How it worked before for database connection
 # st.cache_resource
-
-# Now with st.experimental_connection
-
-# conn = st.connection("my_database")
-# df = conn.query("select * from my_table")
-# st.dataframe(df)
-
-# conn = st.experimental_connection('pets_db', type='sql')
-# pet_owners = conn.query('select * from pet_owners')
-# st.dataframe(pet_owners)
-
-
-
-
-
 
 # st.write("text")
 # st.markdown(
@@ -190,5 +193,3 @@ def get_aql():
 #     st.session_state.strain = 0
 
 # st.write(f"Selected options: strain = {st.session_state.strain}.")
-
-# st.button("Search in FermentDB")
