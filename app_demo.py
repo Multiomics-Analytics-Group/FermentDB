@@ -49,7 +49,8 @@ st.set_page_config(
 
 aql = get_aql()
 
-
+st.title('FermentDB')
+st.subheader('A Database for High-cell Density Fermentations')
 
 
 
