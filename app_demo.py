@@ -1,5 +1,5 @@
 '''
-FermentDB Streamlit App
+FermentDB Streamlit App DEMO
 '''
 
 ## 1.Install dependencies
