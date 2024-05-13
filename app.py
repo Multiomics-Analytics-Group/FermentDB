@@ -79,24 +79,58 @@ def get_doc(collection):
     
     return list(result)
 
-def query_collections_from_arangodb(collection):
-    cursor = get_aql().execute( f'''
-        FOR doc IN {collection}
-        RETURN doc.name                               
-''')
+def query_sum_strains_from_db():
+    cursor = get_aql().execute('''
+                               
+        FOR doc IN Run
+            FOR v, e IN 1..1 OUTBOUND doc cultures_strain
+                COLLECT strain = e.strain_batch WITH COUNT INTO counter 
+                RETURN { strain: strain, count: counter}                          
+    ''')
     
     result = []
     for item in cursor:
         result.append(item)
-    
+    print(result)
     return result
 
-def create_df_from_query_collections(query_result):
-    collection_counter = Counter(query_result)
+def query_sum_runs_from_db():
+    cursor = get_aql().execute('''
+                               
+        FOR doc IN Run
+            COLLECT run = doc.name WITH COUNT INTO counter 
+                RETURN { run: run, count: counter}                          
+    ''')
+    
+    result = []
+    for item in cursor:
+        result.append(item)
+    print(result)
+    return result
 
-    df = pd.DataFrame.from_dict(collection_counter, orient='index', columns=['Count'])
-    df.index.name = 'Strain name'
-    return df
+def get_hash(key, prefix=""):
+    hkey = str(int(hashlib.sha1(key.encode("utf-8")).hexdigest(), 16) % (10 ** 8))
+    hkey = f"{prefix}{hkey}"
+    
+    return hkey
+
+def query_sum_pconditions_from_db():
+    cursor = get_aql().execute('''
+        FOR doc IN Run
+            FOR v, e IN 1..1 OUTBOUND doc has_condition
+                LET pcondition = SPLIT(e._to, '/')[1] //Extract part after "/"
+                COLLECT pcondition_hash = e._to WITH COUNT INTO counter 
+                RETURN { process_condition: pcondition_hash, count: counter}                          
+    ''')
+    
+    result = []
+    for item in cursor:
+        pcondition_hash = item['process_condition']
+        pcondition_name = get_hash(pcondition_hash, "C")
+        item['process_condition'] = pcondition_name
+        result.append(item)
+    return result
+
 
 # ------- Statistical Section ----------- #
 
@@ -104,6 +138,9 @@ st.header('FermentDB', divider='grey')
 
 st.markdown("<h1 style='text-align: center; font-size: 30px;'>Welcome to <span style= 'font-size: 40px;'>FermentDB</span></h1>", unsafe_allow_html=True)
 st.markdown("<h5 style='text-align: center;'>A Database for High-cell Density Fermentations</h5>", unsafe_allow_html=True)
+st.write("")
+st.write("")
+st.write("")
 
 left_column, middle_column, right_column = st.columns(3)
 
@@ -112,17 +149,46 @@ runs_sum = len(get_doc('Run'))
 pcond_sum = len(get_doc('Process_condition'))
 
 with left_column:
-    query_result = query_collections_from_arangodb('Strain')
-    df = create_df_from_query_collections(query_result)
-    fig = px.pie(df, values='Count', names=df.index, title='Strains')
-    st.plotly_chart(fig, theme='streamlit')
-    st.write(f" {strains_sum} Strains")
+
+    df = pd.DataFrame(query_sum_strains_from_db()) 
+    fig = px.pie(df, values='count', names='strain', color_discrete_sequence=px.colors.sequential.RdBu)
+    fig.update_layout(showlegend=False,
+                      width=175,
+                      height=175,
+                      margin=dict(l=1,r=1,b=1,t=1))
+
+    fig.update_traces(marker=dict(line=dict(color='#000000', width=2)))
+    
+    st.plotly_chart(fig, theme='streamlit', use_container_width=False)
+    st.markdown(f"<p style='text-align: left; padding-left: 60px'> {strains_sum} Strains <p>", unsafe_allow_html=True)
 
 with middle_column:
-    st.write(f"{runs_sum} Runs")
+    df = pd.DataFrame(query_sum_runs_from_db()) 
+    fig = px.pie(df, values='count', names='run', color_discrete_sequence=px.colors.sequential.RdBu)
+    fig.update_layout(showlegend=False,
+                      width=175,
+                      height=175,
+                      margin=dict(l=1,r=1,b=1,t=1))
+    fig.update_traces(marker=dict(line=dict(color='#000000', width=2)),
+                      textposition='none') # or inside
+    
+    st.plotly_chart(fig, theme='streamlit', use_container_width=False)
+    st.markdown(f"<p style='text-align: left; padding-left: 60px'> {runs_sum} Runs <p>", unsafe_allow_html=True)
 
 with right_column:
-    st.write(f"{pcond_sum} Bioprocess Conditions")
+    df = pd.DataFrame(query_sum_pconditions_from_db()) 
+    fig = px.pie(df, values='count', names='process_condition', color_discrete_sequence=px.colors.sequential.RdBu)
+    fig.update_layout(showlegend=False,
+                    #   width=400,
+                    #   height=400,
+                      width=175,
+                      height=175,
+                      margin=dict(l=1,r=1,b=1,t=1))
+    fig.update_traces(marker=dict(line=dict(color='#000000', width=2)),
+                      textposition='none') # or inside
+    
+    st.plotly_chart(fig, theme='streamlit', use_container_width=False)
+    st.markdown(f"<p style='text-align: left; padding-left: 30px'> {pcond_sum} Process Conditions <p>", unsafe_allow_html=True)
     st.write("")
     st.markdown("<p style='text-align: right;font-size: 12px'> Version 1.0 released on June 18th, 2024<p>", unsafe_allow_html=True)
 
@@ -221,7 +287,7 @@ def get_condition_data(strain, condition):
 
     return result
 
-get_condition_data(strain="HMP3427-012", condition=["D-glucose"])
+get_condition_data(strain="Strain1", condition=["D-glucose"])
 
 
 # def plot_condition(strain, pcondition, fermenter ):
@@ -242,7 +308,7 @@ get_condition_data(strain="HMP3427-012", condition=["D-glucose"])
 #     #fig.show(renderer='notebook')
 
 
-# plot_condition(strain="HMP3427-012", pcondition=["D-glucose"], fermenter=["Ambr250"])
+# plot_condition(strain="Strain1", pcondition=["D-glucose"], fermenter=["Ambr250"])
 
 
 tab1, tab2, tab3 = st.tabs(["Line Graph", "Bar Graph", "Table"])
@@ -289,29 +355,29 @@ st.divider()
 # st.plotly_chart(fig, use_container_width=True)
 
 
-df = px.data.gapminder()
+# df = px.data.gapminder()
 
-fig = px.scatter(
-    df.query("year==2007"),
-    x="gdpPercap",
-    y="lifeExp",
-    size="pop",
-    color="continent",
-    hover_name="country",
-    log_x=True,
-    size_max=60,
-)
+# fig = px.scatter(
+#     df.query("year==2007"),
+#     x="gdpPercap",
+#     y="lifeExp",
+#     size="pop",
+#     color="continent",
+#     hover_name="country",
+#     log_x=True,
+#     size_max=60,
+# )
 
-tab1, tab2, tab3 = st.tabs(["Line Graph", "Bar Graph", "Table"])
-with tab1:
-    # Line graph.
-    st.plotly_chart(fig, theme="streamlit", use_container_width=True)
-with tab2:
-    # Bar graph or table in another tab.
-    st.plotly_chart(fig, theme=None, use_container_width=True)
-with tab3:
-    # Bar graph or table in another tab.
-    st.plotly_chart(fig, theme=None, use_container_width=True)
+# tab1, tab2, tab3 = st.tabs(["Line Graph", "Bar Graph", "Table"])
+# with tab1:
+#     # Line graph.
+#     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+# with tab2:
+#     # Bar graph or table in another tab.
+#     st.plotly_chart(fig, theme=None, use_container_width=True)
+# with tab3:
+#     # Bar graph or table in another tab.
+#     st.plotly_chart(fig, theme=None, use_container_width=True)
 
 
 
