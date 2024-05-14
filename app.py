@@ -79,12 +79,23 @@ def get_doc(collection):
     
     return list(result)
 
-def get_strains_name(collection):
+def get_strain_batch():
     cursor = get_aql().execute('''
                                
         FOR doc IN Run
-            COLLECT strain = doc.strain_batch 
-                RETURN { strain: strain}                          
+            RETURN doc.strain_batch                           
+    ''')
+    
+    result = set()
+    for item in cursor:
+        result.add(item)
+    return result
+
+def get_container_type():
+    cursor = get_aql().execute('''
+                               
+        FOR doc IN Run
+            RETURN doc.container_type                           
     ''')
     
     result = set()
@@ -186,8 +197,11 @@ if 'clicked' not in st.session_state:
 def click_GO():
     st.session_state.clicked = True
 
-# ------- Statistical Section ----------- #
 
+
+
+
+# ------- Statistical Section ----------- #
 st.header('FermentDB', divider='grey')
 
 st.markdown("<h1 style='text-align: center; font-size: 30px;'>Welcome to <span style= 'font-size: 40px;'>FermentDB</span></h1>", unsafe_allow_html=True)
@@ -256,54 +270,77 @@ st.divider()
 
 # Define variables 
 if "strain" not in st.session_state:
-    st.session_state.strain = " "
+    st.session_state.species = "none"
+if "strain" not in st.session_state:
+    st.session_state.strain = "none"
 if "ferm_type" not in st.session_state:
-    st.session_state.ferm_type = " "
+    st.session_state.ferm_type = "none"
 if "pcondition" not in st.session_state:
-    st.session_state.pcondition = " "
+    st.session_state.pcondition = "none"
 
-is_disable_ferm_type = st.session_state.strain == " "
+    
+# 'Species: ', st.session_state.species
+# 'Strain: ', st.session_state.strain
+# 'Ferm_type: ', st.session_state.ferm_type
+# 'Pcond: ', st.session_state.pcondition
+
+is_disable_strain = st.session_state.species == "none"
+is_disable_ferm_type = st.session_state.strain == "none"
 #is_disable_pcond = not (st.session_state.strain and st.session_state.ferm_type)
-is_disable_pcond = st.session_state.ferm_type ==" "
+is_disable_pcond = st.session_state.ferm_type == "none"
 
 
 
 st.markdown("<h3 style='text-align: center;'>Explore Fermentations</h3>", unsafe_allow_html=True)
 
 st.markdown("<p style='text-align: center;'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>", unsafe_allow_html=True)
+# st.markdown("<p style='text-align: center;'>Discover the intricate world of fermentation by selecting your organism, strain, fermenter type, and process conditions to tailor your experiment. Dive deep into the science of microbial growth and product formation. </p>", unsafe_allow_html=True)
 st.write("")
 st.write("")
-st.write("")
+# st.markdown("<p style='text-align: left;'>Select organism of interest: </p>", unsafe_allow_html=True)
+
+left_column, middle_column, right_column = st.columns(3)
+
+with left_column:
+    st.session_state.species = st.selectbox(
+        'Select organism of interest:',
+        get_doc('Species'),
+        index=None,
+        placeholder="Choose organism")
+# Tooltip: Select the type of microoganism you wish to study
 
 left_column, middle_column, right_column = st.columns(3)
 
 with left_column:
     st.session_state.strain = st.selectbox(
         'Select strain:',
-        get_strains_name('Strain'),
+        get_strain_batch(),
         index=None,
-        placeholder="Choose a strain")
+        placeholder="Choose strain",
+        disabled = is_disable_strain)
 
     #'Strain: ', st.session_state.strain
+# Tooltip: "Select a specific strain of your chosen organism. Each strain has unique characteristics and applications".    
 with right_column:
     st.session_state.pcondition = st.selectbox(
         'Select process condition:',
         get_doc('Process_condition'),
         index=None,
-        placeholder='Choose a condition',
+        placeholder='Choose condition',
         disabled = is_disable_pcond)
 
-    #'Process condition: ', st.session_state.pcondition
-
+    # 'Process condition: ', st.session_state.pcondition
+    # Tooltip: "Select the specific conditions under which the fermentation will be carried out. Process conditions are crucial for optimal growth and product formation."
 with middle_column:
     st.session_state.ferm_type = st.selectbox(
         'Select fermenter type:',
-        get_doc('Fermenter'),
+        get_container_type(),
         index=None,
-        placeholder='Choose a fermenter',
+        placeholder='Choose fermenter',
         disabled = is_disable_ferm_type)
 
-    #'Fermenter Type: ', st.session_state.ferm_type
+    # 'Fermenter Type: ', st.session_state.ferm_type
+    # Tooltip: "Choose the type of fermenter to be used. Each type affects the fermentation process differently."
     st.write("")
     st.write("")
     st.write("")
