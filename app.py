@@ -243,11 +243,15 @@ st.divider()
 
 # Define variables 
 if "strain" not in st.session_state:
-    st.session_state.strain = ""
+    st.session_state.strain = " "
 if "ferm_type" not in st.session_state:
-    st.session_state.ferm_type = ""
+    st.session_state.ferm_type = " "
 if "pcondition" not in st.session_state:
-    st.session_state.pcondition = ""
+    st.session_state.pcondition = " "
+
+is_disable_ferm_type = st.session_state.strain == " "
+#is_disable_pcond = not (st.session_state.strain and st.session_state.ferm_type)
+is_disable_pcond = st.session_state.ferm_type ==" "
 
 
 
@@ -262,26 +266,31 @@ left_column, middle_column, right_column = st.columns(3)
 
 with left_column:
     st.session_state.strain = st.selectbox(
-        'Strain:',
+        'Select strain:',
         get_doc('Strain'),
+        index=None,
         placeholder="Choose a strain")
 
-    'Strain: ', st.session_state.strain
+    #'Strain: ', st.session_state.strain
 with right_column:
     st.session_state.pcondition = st.selectbox(
-        'Process condition:',
+        'Select process condition:',
         get_doc('Process_condition'),
-        placeholder='Choose a condition')
+        index=None,
+        placeholder='Choose a condition',
+        disabled = is_disable_pcond)
 
-    'Process condition: ', st.session_state.pcondition
+    #'Process condition: ', st.session_state.pcondition
 
 with middle_column:
-    st.selectbox(
-        'Fermenter Type:',
+    st.session_state.ferm_type = st.selectbox(
+        'Select fermenter type:',
         get_doc('Fermenter'),
-        placeholder='Choose a fermenter')
+        index=None,
+        placeholder='Choose a fermenter',
+        disabled = is_disable_ferm_type)
 
-    'Fermenter Type: ', st.session_state.ferm_type
+    #'Fermenter Type: ', st.session_state.ferm_type
     st.write("")
     st.write("")
     st.write("")
@@ -350,7 +359,12 @@ with tab1:
 
 st.divider()
 
+# options = st.multiselect(
+#     "What are your favorite colors",
+#     ["Green", "Yellow", "Red", "Blue"],
+#     ["Yellow", "Red"])
 
+# st.write("You selected:", options)
 
 
 
