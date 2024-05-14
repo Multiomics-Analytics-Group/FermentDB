@@ -79,6 +79,19 @@ def get_doc(collection):
     
     return list(result)
 
+def get_strains_name(collection):
+    cursor = get_aql().execute('''
+                               
+        FOR doc IN Run
+            COLLECT strain = doc.strain_batch 
+                RETURN { strain: strain}                          
+    ''')
+    
+    result = set()
+    for item in cursor:
+        result.add(item)
+    return result
+
 def query_sum_strains_from_db():
     cursor = get_aql().execute('''
                                
@@ -267,7 +280,7 @@ left_column, middle_column, right_column = st.columns(3)
 with left_column:
     st.session_state.strain = st.selectbox(
         'Select strain:',
-        get_doc('Strain'),
+        get_strains_name('Strain'),
         index=None,
         placeholder="Choose a strain")
 
@@ -314,9 +327,9 @@ with middle_column:
 if st.session_state.clicked:
     st.divider()
     st.markdown("<h3>Data Visualization</h3>", unsafe_allow_html=True)
-    tab1, tab2, tab3 = st.tabs(["Line Graph", "Bar Graph", "Table"])
+    tab1, tab2 = st.tabs(["Line Graph", "Table"])
     with tab1:
-        plot_condition(strain="HMP3427-012", pcondition=["D-glucose"], fermenter="AMBR 250")
+        plot_condition(strain="Strain1", pcondition=[st.session_state.pcondition], fermenter="AMBR 250")
 
 
     # # Store the original key in the dictionary using the hash as the key
