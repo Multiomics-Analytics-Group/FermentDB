@@ -131,6 +131,42 @@ def query_sum_pconditions_from_db():
         result.append(item)
     return result
 
+def get_condition_data(strain, condition, fermenter):
+    condition = [f"Process_condition/{get_hash(c, prefix='C')}" for c in condition]
+    
+    query = '''FOR doc IN Run
+      FILTER doc.strain_batch == @val AND doc.container_type == @fermenter
+      FOR v, e IN 1..1 OUTBOUND doc has_condition
+        FILTER e._to IN @condition
+        RETURN { source: doc, target: v, edge: e }
+    '''
+                   
+    cursor = get_aql().execute(query,bind_vars={'val': strain,
+                              'condition': condition, 'fermenter': fermenter})
+
+    
+    result = [doc for doc in cursor]
+
+    print(result)
+
+    return result
+
+def plot_condition(strain, pcondition, fermenter ):
+    result = get_condition_data(strain, pcondition, fermenter)
+    rows = []
+    for r in result:
+        source = r['source']['_key']
+        target = r['target']['name']
+        data = r['edge']['data']
+        timestamps = r['edge']['timestamps']
+        rows.append(pd.DataFrame({'run': source, 'data':data, 'time': timestamps, 'condition': target}))
+    
+    df = pd.concat(rows)
+    df['time'] = df['time'].apply(lambda t: datetime.fromtimestamp(t))
+    df = df.sort_values(by="time")
+    fig = px.line(df, x="time", y="data", color='run', line_dash='condition')
+    st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+
 
 # ------- Statistical Section ----------- #
 
@@ -258,14 +294,14 @@ with middle_column:
 
 
 st.divider()
+
 st.markdown("<h3>Data Visualization</h3>", unsafe_allow_html=True)
 
 
-def get_hash(key, prefix=""):
-    hkey = str(int(hashlib.sha1(key.encode("utf-8")).hexdigest(), 16) % (10 ** 8))
-    hkey = f"{prefix}{hkey}"
+    # # Store the original key in the dictionary using the hash as the key
+    # hash_to_key={}
+    # hash_to_key[hkey] = key
     
-    return hkey
 
 def get_condition_data(strain, condition):
     condition = [f"Process_condition/{get_hash(c, prefix='C')}" for c in condition]
@@ -290,31 +326,9 @@ def get_condition_data(strain, condition):
 get_condition_data(strain="Strain1", condition=["D-glucose"])
 
 
-# def plot_condition(strain, pcondition, fermenter ):
-#     result = get_condition_data(strain, pcondition, fermenter)
-#     rows = []
-#     for r in result:
-#         source = r['source']['_key']
-#         target = r['target']['name']
-#         data = r['edge']['data']
-#         timestamps = r['edge']['timestamps']
-#         rows.append(pd.DataFrame({'run': source, 'data':data, 'time': timestamps, 'condition': target}))
-    
-#     df = pd.concat(rows)
-#     df['time'] = df['time'].apply(lambda t: datetime.fromtimestamp(t))
-#     df = df.sort_values(by="time")
-#     fig = px.line(df, x="time", y="data", color='run', line_dash='condition')
-#     st.plotly_line(fig, theme="streamlit", use_container_width=True)
-#     #fig.show(renderer='notebook')
-
-
-# plot_condition(strain="Strain1", pcondition=["D-glucose"], fermenter=["Ambr250"])
-
-
 tab1, tab2, tab3 = st.tabs(["Line Graph", "Bar Graph", "Table"])
-# with tab1:
-#     # Line graph.
-#     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+with tab1:
+    plot_condition(strain="Strain1", pcondition=["D-glucose"], fermenter="AMBR 250")
 # with tab2:
 #     # Bar graph or table in another tab.
 #     st.plotly_chart(fig, theme=None, use_container_width=True)
