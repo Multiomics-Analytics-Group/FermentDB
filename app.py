@@ -238,6 +238,7 @@ with right_column:
 
 
 st.divider()
+
 # ------- Explore Section ----------- #
 
 # Define variables 
@@ -262,20 +263,23 @@ left_column, middle_column, right_column = st.columns(3)
 with left_column:
     st.session_state.strain = st.selectbox(
         'Strain:',
-        get_doc('Strain'))
+        get_doc('Strain'),
+        placeholder="Choose a strain")
 
     'Strain: ', st.session_state.strain
 with right_column:
     st.session_state.pcondition = st.selectbox(
         'Process condition:',
-        get_doc('Process_condition'))
+        get_doc('Process_condition'),
+        placeholder='Choose a condition')
 
     'Process condition: ', st.session_state.pcondition
 
 with middle_column:
-    st.session_state.ferm_type = st.selectbox(
+    st.selectbox(
         'Fermenter Type:',
-        get_doc('Fermenter'))
+        get_doc('Fermenter'),
+        placeholder='Choose a fermenter')
 
     'Fermenter Type: ', st.session_state.ferm_type
     st.write("")
@@ -296,9 +300,6 @@ with middle_column:
         unsafe_allow_html=True
         )
         st.button('GO!', on_click=click_GO)
-
-
-
 
 
 if st.session_state.clicked:
@@ -358,96 +359,6 @@ st.divider()
 
 
 
-
-
-
-
-# # Add histogram data
-# x1 = np.random.randn(200) - 2
-# x2 = np.random.randn(200)
-# x3 = np.random.randn(200) + 2
-
-# # Group data together
-# hist_data = [x1, x2, x3]
-
-# group_labels = ['Group 1', 'Group 2', 'Group 3']
-
-# # Create distplot with custom bin_size
-# fig = ff.create_distplot(
-#         hist_data, group_labels, bin_size=[.1, .25, .5])
-
-# # Plot!
-# st.plotly_chart(fig, use_container_width=True)
-
-
-# df = px.data.gapminder()
-
-# fig = px.scatter(
-#     df.query("year==2007"),
-#     x="gdpPercap",
-#     y="lifeExp",
-#     size="pop",
-#     color="continent",
-#     hover_name="country",
-#     log_x=True,
-#     size_max=60,
-# )
-
-# tab1, tab2, tab3 = st.tabs(["Line Graph", "Bar Graph", "Table"])
-# with tab1:
-#     # Line graph.
-#     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
-# with tab2:
-#     # Bar graph or table in another tab.
-#     st.plotly_chart(fig, theme=None, use_container_width=True)
-# with tab3:
-#     # Bar graph or table in another tab.
-#     st.plotly_chart(fig, theme=None, use_container_width=True)
-
-
-
-#------ Example with line graph, more grpahs as tabs
-# df = px.data.gapminder()
-
-# fig = px.scatter(
-#     df.query("year==2007"),
-#     x="gdpPercap",
-#     y="lifeExp",
-#     size="pop",
-#     color="continent",
-#     hover_name="country",
-#     log_x=True,
-#     size_max=60,
-# )
-
-# tab1, tab2 = st.tabs(["Line Graph", "Plotly native theme"])
-# with tab1:
-#     # Line graph.
-#     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
-# with tab2:
-#     # Use the native Plotly theme.
-#     st.plotly_chart(fig, theme=None, use_container_width=True)
-
-
-
-
-
-
-# if st.checkbox('Show dataframe'):
-#     chart_data = pd.DataFrame(
-#        np.random.randn(20, 3),
-#        columns=['a', 'b', 'c'])
-
-#     chart_data
-
-
-
-
-# #Add a selectbox to the sidebar:
-# add_selectbox = st.sidebar.selectbox(
-#     'How would you like to be contacted?',
-#     ('Email', 'Home phone', 'Mobile phone')
-# )
 
 
 
