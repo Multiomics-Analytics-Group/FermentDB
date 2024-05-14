@@ -167,6 +167,11 @@ def plot_condition(strain, pcondition, fermenter ):
     fig = px.line(df, x="time", y="data", color='run', line_dash='condition')
     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
+if 'clicked' not in st.session_state:
+    st.session_state.clicked = False
+
+def click_GO():
+    st.session_state.clicked = True
 
 # ------- Statistical Section ----------- #
 
@@ -290,12 +295,18 @@ with middle_column:
         "<style>div.stButton > button { width: 100%; text-align: center; }</style>", 
         unsafe_allow_html=True
         )
-        st.button('GO!')
+        st.button('GO!', on_click=click_GO)
 
 
-st.divider()
 
-st.markdown("<h3>Data Visualization</h3>", unsafe_allow_html=True)
+
+
+if st.session_state.clicked:
+    st.divider()
+    st.markdown("<h3>Data Visualization</h3>", unsafe_allow_html=True)
+    tab1, tab2, tab3 = st.tabs(["Line Graph", "Bar Graph", "Table"])
+    with tab1:
+        plot_condition(strain="HMP3427-012", pcondition=["D-glucose"], fermenter="AMBR 250")
 
 
     # # Store the original key in the dictionary using the hash as the key
