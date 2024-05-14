@@ -366,7 +366,7 @@ if st.session_state.clicked:
     st.markdown("<h3>Data Visualization</h3>", unsafe_allow_html=True)
     tab1, tab2 = st.tabs(["Line Graph", "Table"])
     with tab1:
-        plot_condition(strain="Strain1", pcondition=[st.session_state.pcondition], fermenter="AMBR 250")
+        plot_condition(strain=st.session_state.strain, pcondition=[st.session_state.pcondition], fermenter= st.session_state.ferm_type)
 
 
     # # Store the original key in the dictionary using the hash as the key
