@@ -229,7 +229,42 @@ def plot_condition_table(strain, pcondition, fermenter ):
     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 
+# Icicle Chart:
 
+# def get_icicle_data():
+
+# def get_icicle_chart():
+#     result = get_icicle_data()
+#     rows = []
+#     for r in result:
+#         node_ids = r['source']['_key']
+#         node_name = r['target']['name']
+#         parent_node = r['edge']['data']
+#         rows.append(pd.DataFrame({'ids': node_ids, 'labels':node_name, 'parents': parent_node}))
+    
+#     df = pd.concat(rows)
+
+#     # Generate color map
+#     unique_labels = df['labels'].unique()
+#     color_map = {label: px.colors.sequential.RdBu[i % len(px.colors.sequential.RdBu)] for i, label in enumerate(unique_labels)}
+#     df['color'] = df['labels'].map(color_map)
+
+
+#     fig = go.Figure(
+#         go.Icicle(
+#             ids = df.ids,
+#             labels = df.labels,
+#             parents = df.parents,
+#             root_color="lightgrey",
+#             tiling = dict(
+#                 orientation='v'
+#             ),
+#             marker=dict(colors=df['color'])
+
+#         )
+#     )
+#     fig.update_layout(margin = dict(t=50, l=25, r=25, b=25))
+#     st.plotly_chart(fig, theme="streamlit")
 
 
 # ------- Statistical Section ----------- #
@@ -241,7 +276,7 @@ st.write("")
 st.write("")
 st.write("")
 
-left_column, middle_column, right_column = st.columns(3)
+left_column, right_column = st.columns(2)
 
 strains_sum = len(get_doc('Strain'))
 runs_sum = len(get_doc('Run'))
@@ -258,10 +293,11 @@ with left_column:
 
     fig.update_traces(marker=dict(line=dict(color='#000000', width=2)))
     
-    st.plotly_chart(fig, theme='streamlit', use_container_width=False)
-    st.markdown(f"<p style='text-align: left; padding-left: 60px'> {strains_sum} Strains <p>", unsafe_allow_html=True)
+    st.plotly_chart(fig, theme='streamlit', use_container_width=True)
 
-with middle_column:
+    st.markdown(f"<p style='text-align: center;'> {strains_sum} Strains <p>", unsafe_allow_html=True)
+
+with right_column:
     df = pd.DataFrame(query_sum_runs_from_db()) 
     fig = px.pie(df, values='count', names='run', color_discrete_sequence=px.colors.sequential.RdBu)
     fig.update_layout(showlegend=False,
@@ -271,24 +307,24 @@ with middle_column:
     fig.update_traces(marker=dict(line=dict(color='#000000', width=2)),
                       textposition='none') # or inside
     
-    st.plotly_chart(fig, theme='streamlit', use_container_width=False)
-    st.markdown(f"<p style='text-align: left; padding-left: 60px'> {runs_sum} Runs <p>", unsafe_allow_html=True)
+    st.plotly_chart(fig, theme='streamlit', use_container_width=True)
+    st.markdown(f"<p style='text-align: center;'> {runs_sum} Runs <p>", unsafe_allow_html=True)
 
-with right_column:
-    df = pd.DataFrame(query_sum_pconditions_from_db()) 
-    fig = px.pie(df, values='count', names='process_condition', color_discrete_sequence=px.colors.sequential.RdBu)
-    fig.update_layout(showlegend=False,
-                    #   width=400,
-                    #   height=400,
-                      width=175,
-                      height=175,
-                      margin=dict(l=1,r=1,b=1,t=1))
-    fig.update_traces(marker=dict(line=dict(color='#000000', width=2)),
-                      textposition='none') # or inside
+# with right_column:
+#     df = pd.DataFrame(query_sum_pconditions_from_db()) 
+#     fig = px.pie(df, values='count', names='process_condition', color_discrete_sequence=px.colors.sequential.RdBu)
+#     fig.update_layout(showlegend=False,
+#                     #   width=400,
+#                     #   height=400,
+#                       width=175,
+#                       height=175,
+#                       margin=dict(l=1,r=1,b=1,t=1))
+#     fig.update_traces(marker=dict(line=dict(color='#000000', width=2)),
+#                       textposition='none') # or inside
     
-    st.plotly_chart(fig, theme='streamlit', use_container_width=False)
-    st.markdown(f"<p style='text-align: left; padding-left: 30px'> {pcond_sum} Process Conditions <p>", unsafe_allow_html=True)
-    st.write("")
+#     st.plotly_chart(fig, theme='streamlit', use_container_width=False)
+#     st.markdown(f"<p style='text-align: left; padding-left: 30px'> {pcond_sum} Process Conditions <p>", unsafe_allow_html=True)
+#     st.write("")
     st.markdown("<p style='text-align: right;font-size: 12px'> Version 1.0 released on June 18th, 2024<p>", unsafe_allow_html=True)
 
 
@@ -442,13 +478,15 @@ with tab2:
 
 st.divider()
 
+# get_icicle_chart()
+
+
 # options = st.multiselect(
 #     "What are your favorite colors",
 #     ["Green", "Yellow", "Red", "Blue"],
 #     ["Yellow", "Red"])
 
 # st.write("You selected:", options)
-
 
 
 
