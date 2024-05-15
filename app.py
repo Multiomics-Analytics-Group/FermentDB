@@ -13,6 +13,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.figure_factory as ff
+import plotly.graph_objects as go
 import plotly.express as px
 from datetime import datetime
 import hashlib
@@ -196,6 +197,36 @@ if 'clicked' not in st.session_state:
 
 def click_GO():
     st.session_state.clicked = True
+
+def plot_condition_table(strain, pcondition, fermenter ):
+    result = get_condition_data(strain, pcondition, fermenter)
+    rows = []
+    for r in result:
+        source = r['source']['_key']
+        strain = r['source']['strain_batch']
+        fermenter = r['source']['container_type']
+        target = r['target']['name']
+        # data = r['edge']['data']
+        # timestamps = r['edge']['timestamps']
+        rows.append(pd.DataFrame({'run': [source],'strain': [strain], 'fermenter': [fermenter], 'condition': [target]}))
+    
+    df = pd.concat(rows, ignore_index=True)
+    # df['time'] = df['time'].apply(lambda t: datetime.fromtimestamp(t))
+    # df = df.sort_values(by="time")
+
+    df = df.drop_duplicates(subset=['run', 'strain', 'fermenter', 'condition']) # unique values
+    
+    table_data = df[['run', 'strain', 'fermenter', 'condition']] # Prepare data for table
+
+
+    fig = go.Figure(data=[go.Table(
+        header=dict(values=list(table_data.columns),
+                    fill_color='grey',
+                    align='center'),
+        cells=dict(values=[table_data['run'], table_data['strain'], table_data['fermenter'], table_data['condition']],
+                   align='center'))
+    ])
+    st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 
 
@@ -406,6 +437,8 @@ with tab1:
 # with tab3:
 #     # Bar graph or table in another tab.
 #     st.plotly_chart(fig, theme=None, use_container_width=True)
+with tab2:
+    plot_condition_table(strain= st.session_state.strain, pcondition=[st.session_state.pcondition], fermenter= st.session_state.ferm_type)
 
 st.divider()
 
