@@ -41,7 +41,6 @@ def connect_to_db():
             username = Config.ArangoDB.username,
             password = Config.ArangoDB.password
         )
-        #st.write(f"Connected to database '{st.session_state.db.name}' as {st.session_state.db.username}.")
 
     return st.session_state.db
 
@@ -52,7 +51,6 @@ def get_aql():
 
 
 ## 4. Streamlit UI
-
 # Page confing
 page_icon = "./assets/images/page_icon.png"
 
@@ -61,8 +59,7 @@ st.set_page_config(
     page_icon=page_icon # Favicon 
 )
 
-
-# 4.1 Query data from ArangoDB
+# Query data from ArangoDB
 
 def get_doc(collection):
     '''
@@ -199,15 +196,12 @@ def plot_condition(strain, pcondition, fermenter ):
     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 
+#TODO: check function to update new chart
 if 'go_clicked' not in st.session_state:
     st.session_state.go_clicked = False
 
 def click_go():
     st.session_state.go_clicked = True
-
-if 'clear' not in st.session_state:
-    st.session_state.clear_clicked = False
-
 
 
 def plot_condition_table(strain, pcondition, fermenter ):
@@ -226,6 +220,7 @@ def plot_condition_table(strain, pcondition, fermenter ):
     df['time'] = df['time'].apply(lambda t: datetime.fromtimestamp(t))
     df = df.sort_values(by="time")
 
+    #TODO: Table with timestamps and data GROUPED_BY RUN!
     # df = df.drop_duplicates(subset=['run', 'strain', 'fermenter', 'condition']) # unique values
     
     table_data = df[['run', 'strain', 'fermenter', 'condition', 'data', 'time']] # Prepare data for table
@@ -244,6 +239,7 @@ def plot_condition_table(strain, pcondition, fermenter ):
 # Icicle Chart:
 
 # def get_icicle_data():
+#TODO: query data for icicle chart
                    
 @st.cache_data
 def get_icicle_chart():
@@ -284,7 +280,6 @@ def get_icicle_chart():
 
 
 
-
 ###############################################
 ### --------- Statistical Section --------- ###
 ###############################################
@@ -293,79 +288,34 @@ st.header('FermentDB', divider='grey')
 st.markdown("<h1 style='text-align: center; font-size: 30px;'>Welcome to <span style= 'font-size: 40px;'>FermentDB</span></h1>", unsafe_allow_html=True)
 st.markdown("<h5 style='text-align: center; margin-bottom: 50px'>A Database for High-cell Density Fermentations</h5>", unsafe_allow_html=True)
 
-ss
 
-@st.cache_data
-def get_chart_79899895():
-    import plotly.express as px
-    import numpy as np
-    df = px.data.gapminder().query("year == 2007")
-    fig = px.icicle(df, path=[px.Constant("world"), 'continent', 'country'], values='pop',
-                      color='lifeExp', hover_data=['iso_alpha'],
-                      color_continuous_scale='RdBu',
-                      color_continuous_midpoint=np.average(df['lifeExp'], weights=df['pop']))
-    fig.update_layout(margin = dict(t=50, l=25, r=25, b=25))
-
-    st.plotly_chart(fig, theme="streamlit")
-
-get_chart_79899895()
+# get icicle_chart()
 
 
+left_column, middle_column, right_column = st.columns(3)
 
-# left_column, right_column = st.columns(2)
+strains_count = len(get_doc('Strain'))
+runs_count = len(get_doc('Run'))
+pcondition_count = len(get_doc('Process_condition'))
 
-# strains_sum = len(get_doc('Strain'))
-# runs_sum = len(get_doc('Run'))
-# pcond_sum = len(get_doc('Process_condition'))
+with left_column:
+    st.markdown(f"<p style='text-align: left; margin-bottom: 10px; padding-left: 30px'> {strains_count} Strains <p>",
+                unsafe_allow_html=True
+                )
 
-# with left_column:
+with middle_column:
+    st.markdown(f"<p style='text-align: left; margin-bottom: 10px; padding-left: 30px'> {runs_count} Runs <p>",
+                unsafe_allow_html=True
+                )
 
-#     df = pd.DataFrame(query_sum_strains_from_db()) 
-#     fig = px.pie(df, values='count', names='strain', color_discrete_sequence=px.colors.sequential.RdBu)
-#     fig.update_layout(showlegend=False,
-#                       width=175,
-#                       height=175,
-#                       margin=dict(l=1,r=1,b=1,t=1))
-
-#     fig.update_traces(marker=dict(line=dict(color='#000000', width=2)))
+with right_column:
+    st.markdown(f"<p style='text-align: left; margin-bottom: 10px; padding-left: 30px'> {pcondition_count} process conditions <p>",
+                unsafe_allow_html=True
+                )
     
-#     st.plotly_chart(fig, theme='streamlit', use_container_width=True)
-
-#     st.markdown(f"<p style='text-align: center;'> {strains_sum} Strains <p>", unsafe_allow_html=True)
-
-# with right_column:
-#     df = pd.DataFrame(query_sum_runs_from_db()) 
-#     fig = px.pie(df, values='count', names='run', color_discrete_sequence=px.colors.sequential.RdBu)
-#     fig.update_layout(showlegend=False,
-#                       width=175,
-#                       height=175,
-#                       margin=dict(l=1,r=1,b=1,t=1))
-#     fig.update_traces(marker=dict(line=dict(color='#000000', width=2)),
-#                       textposition='none') # or inside
-    
-#     st.plotly_chart(fig, theme='streamlit', use_container_width=True)
-#     st.markdown(f"<p style='text-align: center;'> {runs_sum} Runs <p>", unsafe_allow_html=True)
-
-# with right_column:
-#     df = pd.DataFrame(query_sum_pconditions_from_db()) 
-#     fig = px.pie(df, values='count', names='process_condition', color_discrete_sequence=px.colors.sequential.RdBu)
-#     fig.update_layout(showlegend=False,
-#                     #   width=400,
-#                     #   height=400,
-#                       width=175,
-#                       height=175,
-#                       margin=dict(l=1,r=1,b=1,t=1))
-#     fig.update_traces(marker=dict(line=dict(color='#000000', width=2)),
-#                       textposition='none') # or inside
-    
-#     st.plotly_chart(fig, theme='streamlit', use_container_width=False)
-st.markdown(f"<p style='text-align: left; padding-left: 30px'> Strains, Runs and Process Conditions <p>", unsafe_allow_html=True)
-#     st.write("")
 st.markdown("<p style='text-align: right;font-size: 12px'> Version 1.0 released on June 18th, 2024<p>", unsafe_allow_html=True)
 
-
-
-
+ss
 
 ###############################################
 ### ----------- Explore Section ----------- ###
@@ -530,6 +480,7 @@ with tab1:
     with tab2:
         plot_condition_table(strain= ss.sb_strain, pcondition=[ss.sb_pcondition], fermenter= ss.sb_fermenter_type)
 
+ss
 
 ###############################################
 ### ------ iModulon Explore Section ------- ###
@@ -540,7 +491,6 @@ st.markdown("<h3 style='text-align: center;'> Explore iModulons </h3>", unsafe_a
 st.markdown("<p style='text-align: center;'> Dive deep into the science of iModulons and high-cell density fermentations </p>", unsafe_allow_html=True)
 
 
-ss
 
 
 
