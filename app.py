@@ -21,6 +21,7 @@ from collections import Counter
 
 from arango import ArangoClient
 from streamlit_arango.config import Config
+from streamlit import session_state as ss
 
 ## 3. Connect to ArangoDB
 # Initialize the ArangoDB client. 
@@ -192,11 +193,17 @@ def plot_condition(strain, pcondition, fermenter ):
     fig = px.line(df, x="time", y="data", color='run', line_dash='condition')
     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
-if 'clicked' not in st.session_state:
-    st.session_state.clicked = False
 
-def click_GO():
-    st.session_state.clicked = True
+if 'go_clicked' not in st.session_state:
+    st.session_state.go_clicked = False
+
+def click_go():
+    st.session_state.go_clicked = True
+
+if 'clear' not in st.session_state:
+    st.session_state.clear_clicked = False
+
+
 
 def plot_condition_table(strain, pcondition, fermenter ):
     result = get_condition_data(strain, pcondition, fermenter)
@@ -228,43 +235,64 @@ def plot_condition_table(strain, pcondition, fermenter ):
     ])
     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
+# @st.cache_data
+def click_clear():
+#    st.session_state.clear_clicked = True
+# if st.session_state.clear_clicked:
+    st.session_state.species = None
+    st.session_state.strain = None
+    st.session_state.ferm_type = None
+    st.session_state.cultivation_type = None
+    st.session_state.pcondition = None
+    print("Species:", st.session_state.species)
+
+
+
 
 # Icicle Chart:
 
 # def get_icicle_data():
+ 
 
-# def get_icicle_chart():
-#     result = get_icicle_data()
-#     rows = []
-#     for r in result:
-#         node_ids = r['source']['_key']
-#         node_name = r['target']['name']
-#         parent_node = r['edge']['data']
-#         rows.append(pd.DataFrame({'ids': node_ids, 'labels':node_name, 'parents': parent_node}))
+                   
+@st.cache_data
+def get_icicle_chart():
+    # Fermenter, Species, Strain, Condition type
+    query = '''FOR doc IN Run
+      FILTER doc.strain_batch == @val AND doc.container_type == @fermenter
+      FOR v, e IN 1..1 OUTBOUND doc has_condition
+        FILTER e._to IN @condition
+        RETURN { source: doc, target: v, edge: e }
+    '''
+        
+    cursor = get_aql().execute(query)
+
     
-#     df = pd.concat(rows)
+    result = [doc for doc in cursor]
 
-#     # Generate color map
-#     unique_labels = df['labels'].unique()
-#     color_map = {label: px.colors.sequential.RdBu[i % len(px.colors.sequential.RdBu)] for i, label in enumerate(unique_labels)}
-#     df['color'] = df['labels'].map(color_map)
+        
+    # result = get_icicle_data()
+    # rows = []
+    # for r in result:
+    #     node_ids = r['source']['_key']
+    #     node_name = r['target']['name']
+    #     parent_node = r['edge']['data']
+    #     rows.append(pd.DataFrame({'ids': node_ids, 'labels':node_name, 'parents': parent_node}))
+    
+    # df = pd.concat(rows)
+
+    df = px.data.gapminder().query("year == 2007")
+
+    fig = px.icicle(df, path=[px.Constant("species"), 'strains', 'runs'], values='pop',
+                   color='lifeExp', hover_data=['iso_alpha'],
+                      color_continuous_scale='RdBu',
+                      color_continuous_midpoint=np.average(df['lifeExp'], weights=df['pop']))
 
 
-#     fig = go.Figure(
-#         go.Icicle(
-#             ids = df.ids,
-#             labels = df.labels,
-#             parents = df.parents,
-#             root_color="lightgrey",
-#             tiling = dict(
-#                 orientation='v'
-#             ),
-#             marker=dict(colors=df['color'])
+    fig.update_layout(margin = dict(t=50, l=25, r=25, b=25))
+    st.plotly_chart(fig, theme="streamlit")
 
-#         )
-#     )
-#     fig.update_layout(margin = dict(t=50, l=25, r=25, b=25))
-#     st.plotly_chart(fig, theme="streamlit")
+
 
 
 # ------- Statistical Section ----------- #
@@ -276,39 +304,58 @@ st.write("")
 st.write("")
 st.write("")
 
-left_column, right_column = st.columns(2)
+ss
 
-strains_sum = len(get_doc('Strain'))
-runs_sum = len(get_doc('Run'))
-pcond_sum = len(get_doc('Process_condition'))
+@st.cache_data
+def get_chart_79899895():
+    import plotly.express as px
+    import numpy as np
+    df = px.data.gapminder().query("year == 2007")
+    fig = px.icicle(df, path=[px.Constant("world"), 'continent', 'country'], values='pop',
+                      color='lifeExp', hover_data=['iso_alpha'],
+                      color_continuous_scale='RdBu',
+                      color_continuous_midpoint=np.average(df['lifeExp'], weights=df['pop']))
+    fig.update_layout(margin = dict(t=50, l=25, r=25, b=25))
 
-with left_column:
+    st.plotly_chart(fig, theme="streamlit")
 
-    df = pd.DataFrame(query_sum_strains_from_db()) 
-    fig = px.pie(df, values='count', names='strain', color_discrete_sequence=px.colors.sequential.RdBu)
-    fig.update_layout(showlegend=False,
-                      width=175,
-                      height=175,
-                      margin=dict(l=1,r=1,b=1,t=1))
+get_chart_79899895()
 
-    fig.update_traces(marker=dict(line=dict(color='#000000', width=2)))
+
+
+# left_column, right_column = st.columns(2)
+
+# strains_sum = len(get_doc('Strain'))
+# runs_sum = len(get_doc('Run'))
+# pcond_sum = len(get_doc('Process_condition'))
+
+# with left_column:
+
+#     df = pd.DataFrame(query_sum_strains_from_db()) 
+#     fig = px.pie(df, values='count', names='strain', color_discrete_sequence=px.colors.sequential.RdBu)
+#     fig.update_layout(showlegend=False,
+#                       width=175,
+#                       height=175,
+#                       margin=dict(l=1,r=1,b=1,t=1))
+
+#     fig.update_traces(marker=dict(line=dict(color='#000000', width=2)))
     
-    st.plotly_chart(fig, theme='streamlit', use_container_width=True)
+#     st.plotly_chart(fig, theme='streamlit', use_container_width=True)
 
-    st.markdown(f"<p style='text-align: center;'> {strains_sum} Strains <p>", unsafe_allow_html=True)
+#     st.markdown(f"<p style='text-align: center;'> {strains_sum} Strains <p>", unsafe_allow_html=True)
 
-with right_column:
-    df = pd.DataFrame(query_sum_runs_from_db()) 
-    fig = px.pie(df, values='count', names='run', color_discrete_sequence=px.colors.sequential.RdBu)
-    fig.update_layout(showlegend=False,
-                      width=175,
-                      height=175,
-                      margin=dict(l=1,r=1,b=1,t=1))
-    fig.update_traces(marker=dict(line=dict(color='#000000', width=2)),
-                      textposition='none') # or inside
+# with right_column:
+#     df = pd.DataFrame(query_sum_runs_from_db()) 
+#     fig = px.pie(df, values='count', names='run', color_discrete_sequence=px.colors.sequential.RdBu)
+#     fig.update_layout(showlegend=False,
+#                       width=175,
+#                       height=175,
+#                       margin=dict(l=1,r=1,b=1,t=1))
+#     fig.update_traces(marker=dict(line=dict(color='#000000', width=2)),
+#                       textposition='none') # or inside
     
-    st.plotly_chart(fig, theme='streamlit', use_container_width=True)
-    st.markdown(f"<p style='text-align: center;'> {runs_sum} Runs <p>", unsafe_allow_html=True)
+#     st.plotly_chart(fig, theme='streamlit', use_container_width=True)
+#     st.markdown(f"<p style='text-align: center;'> {runs_sum} Runs <p>", unsafe_allow_html=True)
 
 # with right_column:
 #     df = pd.DataFrame(query_sum_pconditions_from_db()) 
@@ -323,117 +370,133 @@ with right_column:
 #                       textposition='none') # or inside
     
 #     st.plotly_chart(fig, theme='streamlit', use_container_width=False)
-#     st.markdown(f"<p style='text-align: left; padding-left: 30px'> {pcond_sum} Process Conditions <p>", unsafe_allow_html=True)
+st.markdown(f"<p style='text-align: left; padding-left: 30px'> Strains, Runs and Process Conditions <p>", unsafe_allow_html=True)
 #     st.write("")
-    st.markdown("<p style='text-align: right;font-size: 12px'> Version 1.0 released on June 18th, 2024<p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: right;font-size: 12px'> Version 1.0 released on June 18th, 2024<p>", unsafe_allow_html=True)
 
 
 
 
 
+###############################################
+### ----------- Explore Section ----------- ###
+###############################################
 st.divider()
 
-# ------- Explore Section ----------- #
+# Initialize variables
+ss.strain_disabled = True
+ss.ferm_disabled = True
+ss.cultivation_disabled = True
+ss.pcond_disabled = True
 
-# Define variables 
-if "strain" not in st.session_state:
-    st.session_state.species = "none"
-if "strain" not in st.session_state:
-    st.session_state.strain = "none"
-if "ferm_type" not in st.session_state:
-    st.session_state.ferm_type = "none"
-if "pcondition" not in st.session_state:
-    st.session_state.pcondition = "none"
 
     
-# 'Species: ', st.session_state.species
-# 'Strain: ', st.session_state.strain
-# 'Ferm_type: ', st.session_state.ferm_type
-# 'Pcond: ', st.session_state.pcondition
-
-is_disable_strain = st.session_state.species == "none"
-is_disable_ferm_type = st.session_state.strain == "none"
-#is_disable_pcond = not (st.session_state.strain and st.session_state.ferm_type)
-is_disable_pcond = st.session_state.ferm_type == "none"
-
-
-
 st.markdown("<h3 style='text-align: center;'>Explore Fermentations</h3>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center;'>Dive into the depths of FermentDB's comprehensive data to cross-reference multiple fermentation experiments at once </p>", unsafe_allow_html=True)
+# st.markdown("<p style='text-align: center;'>Dive deep into the science of microbial growth and product formation. </p>", unsafe_allow_html=True)
 
-st.markdown("<p style='text-align: center;'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>", unsafe_allow_html=True)
-# st.markdown("<p style='text-align: center;'>Discover the intricate world of fermentation by selecting your organism, strain, fermenter type, and process conditions to tailor your experiment. Dive deep into the science of microbial growth and product formation. </p>", unsafe_allow_html=True)
 st.write("")
 st.write("")
-# st.markdown("<p style='text-align: left;'>Select organism of interest: </p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: left;'>Select organism of interest: </p>", unsafe_allow_html=True)
 
-left_column, middle_column, right_column = st.columns(3)
-
+left_column, right_column = st.columns(2)
 with left_column:
-    st.session_state.species = st.selectbox(
-        'Select organism of interest:',
+    st.selectbox(
+        'Species: ',
         get_doc('Species'),
+        key = "sb_species",
         index=None,
-        placeholder="Choose organism")
-# Tooltip: Select the type of microoganism you wish to study
+        placeholder="Choose species",
+        help = "Select the type of microorganism you wish to study")
 
-left_column, middle_column, right_column = st.columns(3)
+if ss. sb_species is not None:
+    ss.strain_disabled = False
 
-with left_column:
-    st.session_state.strain = st.selectbox(
-        'Select strain:',
+
+with right_column:
+    st.selectbox(
+        'Strain:',
         get_strain_batch(),
+        key = "sb_strain",
         index=None,
         placeholder="Choose strain",
-        disabled = is_disable_strain)
+        disabled = ss.strain_disabled,
+        help = "Select a specific strain of your chosen organism. Each strain has unique characteristics and applications")
 
-    #'Strain: ', st.session_state.strain
-# Tooltip: "Select a specific strain of your chosen organism. Each strain has unique characteristics and applications".    
-with right_column:
-    st.session_state.pcondition = st.selectbox(
-        'Select process condition:',
-        get_doc('Process_condition'),
-        index=None,
-        placeholder='Choose condition',
-        disabled = is_disable_pcond)
+if ss.sb_strain is not None:
+    ss.ferm_disabled = False
 
-    # 'Process condition: ', st.session_state.pcondition
-    # Tooltip: "Select the specific conditions under which the fermentation will be carried out. Process conditions are crucial for optimal growth and product formation."
-with middle_column:
-    st.session_state.ferm_type = st.selectbox(
-        'Select fermenter type:',
+st.write("")
+st.write("")
+st.markdown("<p style='text-align: left;'>Select Fermenter: </p>", unsafe_allow_html=True)
+
+left_column, right_column = st.columns(2)
+with left_column:
+    st.selectbox(
+        'Fermenter type:',
         get_container_type(),
+        key = 'sb_fermenter_type',
         index=None,
         placeholder='Choose fermenter',
-        disabled = is_disable_ferm_type)
+        disabled = ss.ferm_disabled,
+        help = "Select a specific fermenter type.")
 
-    # 'Fermenter Type: ', st.session_state.ferm_type
-    # Tooltip: "Choose the type of fermenter to be used. Each type affects the fermentation process differently."
-    st.write("")
-    st.write("")
-    st.write("")
-    st.write("")
+if ss.sb_fermenter_type is not None:
+    ss.cultivation_disabled = False
 
+with right_column:
+    st.selectbox(
+        'Cultivation Type:',
+        ("Fed-Batch"),
+        key = 'sb_cultivationtype',
+        index=None,
+        placeholder="Choose cultivation type",
+        disabled = ss.cultivation_disabled,
+        help = "Select a specific cultivation type of your fermenter")
+
+if ss.sb_cultivationtype is not None:
+    ss.pcond_disabled = False
+
+st.write("")
+st.write("")
+st.markdown("<p style='text-align: left;'> Select Condition of Interest: </p>", unsafe_allow_html=True)
+
+left_column, right_column = st.columns(2)
+with left_column:
+    st.selectbox(
+        'Bioprocess Condition:',
+        get_doc('Process_condition'),
+        key = 'sb_pcondition',
+        index=None,
+        placeholder='Choose condition',
+        disabled = ss.pcond_disabled,
+        help = "Select the specific process condition")
+    
+    st.write("")
+    st.write("")
+    st.write("")
+left_column, middle_column, right_column = st.columns(3)
+with middle_column:    
     left_column, right_column = st.columns(2)
     with left_column:
         st.markdown(
         "<style>div.stButton > button { width: 100%; text-align: center; }</style>", 
         unsafe_allow_html=True
         )
-        st.button('Clear')
+        st.button('Clear', on_click=click_clear)
     with right_column:
         st.markdown(
         "<style>div.stButton > button { width: 100%; text-align: center; }</style>", 
         unsafe_allow_html=True
         )
-        st.button('GO!', on_click=click_GO)
+        st.button('GO!', on_click=click_go)
 
-
-if st.session_state.clicked:
+if ss.go_clicked:
     st.divider()
-    st.markdown("<h3>Data Visualization</h3>", unsafe_allow_html=True)
+    st.markdown("<h4>Data Visualization</h4>", unsafe_allow_html=True)
     tab1, tab2 = st.tabs(["Line Graph", "Table"])
     with tab1:
-        plot_condition(strain=st.session_state.strain, pcondition=[st.session_state.pcondition], fermenter= st.session_state.ferm_type)
+        plot_condition(strain=ss.sb_strain, pcondition=[ss.sb_pcondition], fermenter= ss.sb_fermenter_type)
 
 
     # # Store the original key in the dictionary using the hash as the key
@@ -473,20 +536,17 @@ with tab1:
 # with tab3:
 #     # Bar graph or table in another tab.
 #     st.plotly_chart(fig, theme=None, use_container_width=True)
-with tab2:
-    plot_condition_table(strain= st.session_state.strain, pcondition=[st.session_state.pcondition], fermenter= st.session_state.ferm_type)
+    with tab2:
+        plot_condition_table(strain= ss.sb_strain, pcondition=[ss.sb_pcondition], fermenter= ss.sb_fermenter_type)
 
+
+###############################################
+### ------ iModulon Explore Section ------- ###
+###############################################
 st.divider()
 
-# get_icicle_chart()
 
-
-# options = st.multiselect(
-#     "What are your favorite colors",
-#     ["Green", "Yellow", "Red", "Blue"],
-#     ["Yellow", "Red"])
-
-# st.write("You selected:", options)
+ss
 
 
 
