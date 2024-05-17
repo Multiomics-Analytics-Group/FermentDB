@@ -218,47 +218,32 @@ def plot_condition_table(strain, pcondition, fermenter ):
         strain = r['source']['strain_batch']
         fermenter = r['source']['container_type']
         target = r['target']['name']
-        # data = r['edge']['data']
-        # timestamps = r['edge']['timestamps']
-        rows.append(pd.DataFrame({'run': [source],'strain': [strain], 'fermenter': [fermenter], 'condition': [target]}))
+        data = r['edge']['data']
+        timestamps = r['edge']['timestamps']
+        rows.append(pd.DataFrame({'run': source,'strain': strain, 'fermenter': fermenter, 'condition': target, 'data': data, 'time': timestamps}))
     
     df = pd.concat(rows, ignore_index=True)
-    # df['time'] = df['time'].apply(lambda t: datetime.fromtimestamp(t))
-    # df = df.sort_values(by="time")
+    df['time'] = df['time'].apply(lambda t: datetime.fromtimestamp(t))
+    df = df.sort_values(by="time")
 
-    df = df.drop_duplicates(subset=['run', 'strain', 'fermenter', 'condition']) # unique values
+    # df = df.drop_duplicates(subset=['run', 'strain', 'fermenter', 'condition']) # unique values
     
-    table_data = df[['run', 'strain', 'fermenter', 'condition']] # Prepare data for table
+    table_data = df[['run', 'strain', 'fermenter', 'condition', 'data', 'time']] # Prepare data for table
 
 
     fig = go.Figure(data=[go.Table(
         header=dict(values=list(table_data.columns),
                     fill_color='grey',
                     align='center'),
-        cells=dict(values=[table_data['run'], table_data['strain'], table_data['fermenter'], table_data['condition']],
+        cells=dict(values=[table_data['run'], table_data['strain'], table_data['fermenter'], table_data['condition'], table_data['data'], table_data['time'] ],
                    align='center'))
     ])
     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
-
-# @st.cache_data
-def click_clear():
-#    st.session_state.clear_clicked = True
-# if st.session_state.clear_clicked:
-    st.session_state.species = None
-    st.session_state.strain = None
-    st.session_state.ferm_type = None
-    st.session_state.cultivation_type = None
-    st.session_state.pcondition = None
-    print("Species:", st.session_state.species)
-
-
 
 
 # Icicle Chart:
 
 # def get_icicle_data():
- 
-
                    
 @st.cache_data
 def get_icicle_chart():
