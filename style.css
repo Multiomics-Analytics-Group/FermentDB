@@ -1,0 +1,8 @@
+.stButton {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+.stButton > button {
+    padding: 10px 40px; /* Adjust padding as needed */
+}

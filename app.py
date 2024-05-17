@@ -23,6 +23,11 @@ from arango import ArangoClient
 from streamlit_arango.config import Config
 from streamlit import session_state as ss
 
+
+with open('style.css') as f:
+    css = f.read()
+
+
 ## 3. Connect to ArangoDB
 # Initialize the ArangoDB client. 
 client = ArangoClient(hosts=Config.ArangoDB.host)
@@ -295,14 +300,13 @@ def get_icicle_chart():
 
 
 
-# ------- Statistical Section ----------- #
+###############################################
+### --------- Statistical Section --------- ###
+###############################################
 st.header('FermentDB', divider='grey')
 
 st.markdown("<h1 style='text-align: center; font-size: 30px;'>Welcome to <span style= 'font-size: 40px;'>FermentDB</span></h1>", unsafe_allow_html=True)
-st.markdown("<h5 style='text-align: center;'>A Database for High-cell Density Fermentations</h5>", unsafe_allow_html=True)
-st.write("")
-st.write("")
-st.write("")
+st.markdown("<h5 style='text-align: center; margin-bottom: 50px'>A Database for High-cell Density Fermentations</h5>", unsafe_allow_html=True)
 
 ss
 
@@ -393,7 +397,6 @@ ss.pcond_disabled = True
     
 st.markdown("<h3 style='text-align: center;'>Explore Fermentations</h3>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center;'>Dive into the depths of FermentDB's comprehensive data to cross-reference multiple fermentation experiments at once </p>", unsafe_allow_html=True)
-# st.markdown("<p style='text-align: center;'>Dive deep into the science of microbial growth and product formation. </p>", unsafe_allow_html=True)
 
 st.write("")
 st.write("")
@@ -447,7 +450,7 @@ if ss.sb_fermenter_type is not None:
 with right_column:
     st.selectbox(
         'Cultivation Type:',
-        ("Fed-Batch"),
+        ("Fed-Batch",),
         key = 'sb_cultivationtype',
         index=None,
         placeholder="Choose cultivation type",
@@ -472,28 +475,31 @@ with left_column:
         disabled = ss.pcond_disabled,
         help = "Select the specific process condition")
     
-    st.write("")
-    st.write("")
-    st.write("")
 left_column, middle_column, right_column = st.columns(3)
+st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
+# st.markdown(
+#     """
+#     <style>
+#     .stButton {
+#         display: flex;
+#         justify-content: center;
+#         margin-top: 50px;
+#     }
+#     .stButton > button {
+#         padding: 10px 40px; /* Adjust padding as needed */
+#     }
+#     </style>
+#     """, 
+#     unsafe_allow_html=True
+# )
+
+
 with middle_column:    
-    left_column, right_column = st.columns(2)
-    with left_column:
-        st.markdown(
-        "<style>div.stButton > button { width: 100%; text-align: center; }</style>", 
-        unsafe_allow_html=True
-        )
-        st.button('Clear', on_click=click_clear)
-    with right_column:
-        st.markdown(
-        "<style>div.stButton > button { width: 100%; text-align: center; }</style>", 
-        unsafe_allow_html=True
-        )
-        st.button('GO!', on_click=click_go)
+    st.button('GO!', on_click=click_go)
 
 if ss.go_clicked:
     st.divider()
-    st.markdown("<h4>Data Visualization</h4>", unsafe_allow_html=True)
+    st.markdown("<h5>Fermentation Data Visualization</h5>", unsafe_allow_html=True)
     tab1, tab2 = st.tabs(["Line Graph", "Table"])
     with tab1:
         plot_condition(strain=ss.sb_strain, pcondition=[ss.sb_pcondition], fermenter= ss.sb_fermenter_type)
@@ -544,6 +550,9 @@ with tab1:
 ### ------ iModulon Explore Section ------- ###
 ###############################################
 st.divider()
+
+st.markdown("<h3 style='text-align: center;'> Explore iModulons </h3>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center;'> Dive deep into the science of iModulons and high-cell density fermentations </p>", unsafe_allow_html=True)
 
 
 ss
