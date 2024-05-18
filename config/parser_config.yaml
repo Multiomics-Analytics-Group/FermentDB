@@ -1,5 +1,5 @@
 Project:
-    _key: 'project'
+    _key: project
     id: project
     name: name
     description: description
@@ -14,16 +14,16 @@ Project:
     start: start
     end: end
 Country:
-    _key: 'country'
+    _key: country
     id: country
     name: country
 User:
-    _key: 'manager/username'
+    _key: manager/username
     id: manager/username
     name: manager/first_name
     surname: manager/last_name
 Batch_cell_culture:
-    _key: 'id'
+    _key: id
     id: id
     name: name
 Run:
