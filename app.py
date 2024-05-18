@@ -61,29 +61,39 @@ st.set_page_config(
 
 # Query data from ArangoDB
 
-def get_doc(collection):
-    '''
-    Retrieve docuents for a given collection
-    
-    parameters:
-        collection (dict): dictionary structure 
-
-    return:
-        result: list of documents in the choosen collection. 
-    '''
+def get_doc_count(collection):
 
     cursor = get_aql().execute( f'''
         FOR doc IN {collection}
         RETURN doc.name
     ''')
 
-    result = set()
+    result = []
     for item in cursor:
-        result.add(item)
-    
-    return list(result)
+        result.append(item)
+    #print(f"Get doc: {result}")
+    return len(result)
 
-def get_strain_batch():
+def get_doc_name(collection):
+
+    cursor = get_aql().execute( f'''
+        FOR doc IN {collection}
+        RETURN doc.name
+    ''')
+
+    result = []
+    for item in cursor:
+        result.append(item)
+    #print(f"Get doc: {result}")
+    return result
+
+def get_hash(key, prefix=""):
+    hkey = str(int(hashlib.sha1(key.encode("utf-8")).hexdigest(), 16) % (10 ** 8))
+    hkey = f"{prefix}{hkey}"
+    
+    return hkey
+
+def get_strains():
     cursor = get_aql().execute('''
                                
         FOR doc IN Run
@@ -95,7 +105,100 @@ def get_strain_batch():
         result.add(item)
     return result
 
-def get_container_type():
+def get_strains_2(species):
+    species = [f"Species/{get_hash(s, prefix='SP')}" for s in species]
+    
+    query= """
+        FOR doc IN Strain
+            FOR v, e IN 1..1 OUTBOUND doc belongs_to
+                FILTER e._to IN @species
+                RETURN doc.name
+    """
+
+    cursor = get_aql().execute(query, bind_vars={'species': species})
+    
+    result = [doc for doc in cursor]
+    # result = set()
+    # for item in cursor:
+    #     result.add(item)
+    # print(result)
+    return result
+
+def get_fermenter_type_2(strains):
+    strains = [f"Strain/{get_hash(s, prefix='S')}" for s in strains]
+
+    query = """
+        FOR doc IN Run
+            FOR strain_v, strain_e IN 1..1 OUTBOUND doc cultures_strain
+                FILTER strain_e._to IN @strains
+                    FOR fermenter_v, fermenter_e IN 1..1 OUTBOUND doc uses_fermenter
+                    RETURN fermenter_v.name
+    """
+
+    cursor = get_aql().execute(query, bind_vars={'strains': strains})
+
+    result = [doc for doc in cursor]
+    # result = set()
+    # for item in cursor:
+    #     result.add(item)
+    # print(result)
+    return result
+
+def get_pconditions_2(strains, fermenters):
+    strains = [f"Strain/{get_hash(s, prefix='S')}" for s in strains]
+    fermenters = [f"Fermenter/{get_hash(f, prefix='F')}" for f in fermenters]
+
+    query = """
+        FOR doc IN Run
+            FOR strain_v, strain_e IN 1..1 OUTBOUND doc cultures_strain
+                FILTER strain_e._to IN @strains
+                FOR fermenter_v, fermenter_e IN 1..1 OUTBOUND doc uses_fermenter
+                    FILTER fermenter_e._to IN @fermenters
+                    FOR v, e IN 1..1 doc has_condition
+                        RETURN v.name
+    """
+
+    cursor = get_aql().execute(query, bind_vars={'strains': strains,
+                                                 'fermenters': fermenters})
+    
+    result = [doc for doc in cursor]
+    # result = set()
+    # for item in cursor:
+    #     result.add(item)
+    # print(result)
+    return result
+
+
+
+def get_pcondition_data2(strains, conditions, fermenters):
+    conditions = [f"Process_condition/{get_hash(c, prefix='C')}" for c in conditions]
+    strains = [f"Strain/{get_hash(s, prefix='S')}" for s in strains]
+    fermenters = [f"Fermenter/{get_hash(f, prefix='F')}" for f in fermenters]
+    
+    query = '''
+        FOR doc IN Run
+            FOR strain_vertex, strain_edge IN 1..1 INBOUND doc cultures_strain
+                FILTER strain_edge._to IN @strains
+                FOR fermenter_vertex, fermenter_edge IN 1..1 INBOUND doc uses_fermenter
+                    FILTER fermenter_edge._to IN @fermenters
+                    FOR v, e IN 1..1 OUTBOUND doc has_condition
+                        FILTER e._to IN @conditions
+                        RETURN { source: doc, target: v, edge: e}
+    '''
+
+    cursor = get_aql().execute(query, bind_vars={'strains': strains,
+                                                'conditions': conditions, 
+                                                'fermenters': fermenters})
+
+    
+    result = [doc for doc in cursor]
+
+    print(result)
+
+    return result
+
+
+def get_fermenter_types():
     cursor = get_aql().execute('''
                                
         FOR doc IN Run
@@ -107,60 +210,54 @@ def get_container_type():
         result.add(item)
     return result
 
-def query_sum_strains_from_db():
-    cursor = get_aql().execute('''
+# def query_sum_strains_from_db():
+#     cursor = get_aql().execute('''
                                
-        FOR doc IN Run
-            FOR v, e IN 1..1 OUTBOUND doc cultures_strain
-                COLLECT strain = e.strain_batch WITH COUNT INTO counter 
-                RETURN { strain: strain, count: counter}                          
-    ''')
+#         FOR doc IN Run
+#             FOR v, e IN 1..1 OUTBOUND doc cultures_strain
+#                 COLLECT strain = e.strain_batch WITH COUNT INTO counter 
+#                 RETURN { strain: strain, count: counter}                          
+#     ''')
     
-    result = []
-    for item in cursor:
-        result.append(item)
-    print(result)
-    return result
+#     result = []
+#     for item in cursor:
+#         result.append(item)
+#     print(result)
+#     return result
 
-def query_sum_runs_from_db():
-    cursor = get_aql().execute('''
+# def query_sum_runs_from_db():
+#     cursor = get_aql().execute('''
                                
-        FOR doc IN Run
-            COLLECT run = doc.name WITH COUNT INTO counter 
-                RETURN { run: run, count: counter}                          
-    ''')
+#         FOR doc IN Run
+#             COLLECT run = doc.name WITH COUNT INTO counter 
+#                 RETURN { run: run, count: counter}                          
+#     ''')
     
-    result = []
-    for item in cursor:
-        result.append(item)
-    print(result)
-    return result
+#     result = []
+#     for item in cursor:
+#         result.append(item)
+#     print(result)
+#     return result
 
-def get_hash(key, prefix=""):
-    hkey = str(int(hashlib.sha1(key.encode("utf-8")).hexdigest(), 16) % (10 ** 8))
-    hkey = f"{prefix}{hkey}"
+# def query_sum_pconditions_from_db():
+#     cursor = get_aql().execute('''
+#         FOR doc IN Run
+#             FOR v, e IN 1..1 OUTBOUND doc has_condition
+#                 LET pcondition = SPLIT(e._to, '/')[1] //Extract part after "/"
+#                 COLLECT pcondition_hash = e._to WITH COUNT INTO counter 
+#                 RETURN { process_condition: pcondition_hash, count: counter}                          
+#     ''')
     
-    return hkey
+#     result = []
+#     for item in cursor:
+#         pcondition_hash = item['process_condition']
+#         pcondition_name = get_hash(pcondition_hash, "C")
+#         item['process_condition'] = pcondition_name
+#         result.append(item)
+#     return result
 
-def query_sum_pconditions_from_db():
-    cursor = get_aql().execute('''
-        FOR doc IN Run
-            FOR v, e IN 1..1 OUTBOUND doc has_condition
-                LET pcondition = SPLIT(e._to, '/')[1] //Extract part after "/"
-                COLLECT pcondition_hash = e._to WITH COUNT INTO counter 
-                RETURN { process_condition: pcondition_hash, count: counter}                          
-    ''')
-    
-    result = []
-    for item in cursor:
-        pcondition_hash = item['process_condition']
-        pcondition_name = get_hash(pcondition_hash, "C")
-        item['process_condition'] = pcondition_name
-        result.append(item)
-    return result
-
-def get_condition_data(strain, condition, fermenter):
-    condition = [f"Process_condition/{get_hash(c, prefix='C')}" for c in condition]
+def get_pcondition_data(strain, pcondition, fermenter):
+    pcondition = [f"Process_condition/{get_hash(c, prefix='C')}" for c in pcondition]
     
     query = '''FOR doc IN Run
       FILTER doc.strain_batch == @val AND doc.container_type == @fermenter
@@ -170,17 +267,16 @@ def get_condition_data(strain, condition, fermenter):
     '''
                    
     cursor = get_aql().execute(query,bind_vars={'val': strain,
-                              'condition': condition, 'fermenter': fermenter})
+                                                'condition': pcondition,
+                                                'fermenter': fermenter})
 
     
     result = [doc for doc in cursor]
-
-    print(result)
-
+    #print(result)
     return result
 
-def plot_condition(strain, pcondition, fermenter ):
-    result = get_condition_data(strain, pcondition, fermenter)
+def plot_pcondition_chart(strain, pcondition, fermenter ):
+    result = get_pcondition_data(strain, pcondition, fermenter)
     rows = []
     for r in result:
         source = r['source']['_key']
@@ -204,9 +300,11 @@ def click_go():
     st.session_state.go_clicked = True
 
 
-def plot_condition_table(strain, pcondition, fermenter ):
-    result = get_condition_data(strain, pcondition, fermenter)
-    rows = []
+def plot_pcondition_table(strain, pcondition, fermenter ):
+    result = get_pcondition_data(strain, pcondition, fermenter)
+    
+    data_dict = {}
+    
     for r in result:
         source = r['source']['_key']
         strain = r['source']['strain_batch']
@@ -214,15 +312,37 @@ def plot_condition_table(strain, pcondition, fermenter ):
         target = r['target']['name']
         data = r['edge']['data']
         timestamps = r['edge']['timestamps']
-        rows.append(pd.DataFrame({'run': source,'strain': strain, 'fermenter': fermenter, 'condition': target, 'data': data, 'time': timestamps}))
+        
+        # Create a unique key for grouping
+        key = (source, strain, fermenter, target)
+        
+        if key not in data_dict:
+            data_dict[key] = {'data': [], 'timestamps': []}
+        
+        data_dict[key]['data'].extend(data)
+        data_dict[key]['timestamps'].extend(timestamps)
     
-    df = pd.concat(rows, ignore_index=True)
-    df['time'] = df['time'].apply(lambda t: datetime.fromtimestamp(t))
-    df = df.sort_values(by="time")
+    rows = []
+    for (source, strain, fermenter, target), values in data_dict.items():
+        sorted_pairs = sorted(zip(values['timestamps'], values['data']))
+        sorted_timestamps, sorted_data = zip(*sorted_pairs)
+    
+        row = {
+            'run': source,
+            'strain': strain,
+            'fermenter': fermenter,
+            'condition': target,
+            'data': list(sorted_data),
+            'time': [datetime.fromtimestamp(t).strftime('%Y-%m-%d %H:%M:%S') for t in sorted_timestamps]
+        }
+        rows.append(row)
 
-    #TODO: Table with timestamps and data GROUPED_BY RUN!
-    # df = df.drop_duplicates(subset=['run', 'strain', 'fermenter', 'condition']) # unique values
-    
+    df = pd.DataFrame(rows)
+
+    # Convert lists to string with line breaks 
+    df['data'] = df['data'].apply(lambda x: '<br>'.join(map(str, x)))
+    df['time'] = df['time'].apply(lambda x: '<br>'.join(x))
+
     table_data = df[['run', 'strain', 'fermenter', 'condition', 'data', 'time']] # Prepare data for table
 
 
@@ -231,48 +351,39 @@ def plot_condition_table(strain, pcondition, fermenter ):
                     fill_color='grey',
                     align='center'),
         cells=dict(values=[table_data['run'], table_data['strain'], table_data['fermenter'], table_data['condition'], table_data['data'], table_data['time'] ],
-                   align='center'))
+                   align='center', height=900))
     ])
     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 
 # Icicle Chart:
-
-# def get_icicle_data():
-#TODO: query data for icicle chart
-                   
-@st.cache_data
+#@st.cache_data
 def get_icicle_chart():
-    # Fermenter, Species, Strain, Condition type
-    query = '''FOR doc IN Run
-      FILTER doc.strain_batch == @val AND doc.container_type == @fermenter
-      FOR v, e IN 1..1 OUTBOUND doc has_condition
-        FILTER e._to IN @condition
-        RETURN { source: doc, target: v, edge: e }
-    '''
-        
+    
+    query = """
+        FOR doc IN Run
+            FOR fermenter_v, fermenter_e IN 1..1 OUTBOUND doc uses_fermenter
+                FOR strain_v, strain_e IN 1..1 OUTBOUND doc cultures_strain
+                    FOR species_v, species_e IN 1..1 OUTBOUND strain_v belongs_to
+                        COLLECT fermenter = fermenter_v.name, species = species_v.name, strain = strain_v.name
+                        WITH COUNT INTO num_runs 
+                        RETURN { fermenter: fermenter, species: species, strain: strain, num_runs: num_runs  }  
+    """
+
     cursor = get_aql().execute(query)
 
     
     result = [doc for doc in cursor]
-
         
-    # result = get_icicle_data()
-    # rows = []
-    # for r in result:
-    #     node_ids = r['source']['_key']
-    #     node_name = r['target']['name']
-    #     parent_node = r['edge']['data']
-    #     rows.append(pd.DataFrame({'ids': node_ids, 'labels':node_name, 'parents': parent_node}))
-    
-    # df = pd.concat(rows)
+    df = pd.DataFrame(result)
 
-    df = px.data.gapminder().query("year == 2007")
-
-    fig = px.icicle(df, path=[px.Constant("species"), 'strains', 'runs'], values='pop',
-                   color='lifeExp', hover_data=['iso_alpha'],
+    fig = px.icicle(df, path=[px.Constant("Fermentations"), 'fermenter','species', 'strain'], values='num_runs',
+                   color='num_runs', hover_data=['num_runs'],
                       color_continuous_scale='RdBu',
-                      color_continuous_midpoint=np.average(df['lifeExp'], weights=df['pop']))
+                      color_continuous_midpoint=np.average(df['num_runs'], weights=df['num_runs']))
+                #    color='lifeExp', hover_data=['iso_alpha'],
+                #       color_continuous_scale='RdBu',
+                #       color_continuous_midpoint=np.average(df['lifeExp'], weights=df['pop']))
 
 
     fig.update_layout(margin = dict(t=50, l=25, r=25, b=25))
@@ -293,27 +404,22 @@ st.markdown("<h5 style='text-align: center; margin-bottom: 50px'>A Database for 
 
 
 left_column, middle_column, right_column = st.columns(3)
-
-strains_count = len(get_doc('Strain'))
-runs_count = len(get_doc('Run'))
-pcondition_count = len(get_doc('Process_condition'))
-
 with left_column:
-    st.markdown(f"<p style='text-align: left; margin-bottom: 10px; padding-left: 30px'> {strains_count} Strains <p>",
+    st.markdown(f"<p style='text-align: left; margin-bottom: 10px; padding-left: 30px'> {get_doc_count('Strain')} Strains <p>",
                 unsafe_allow_html=True
                 )
 
 with middle_column:
-    st.markdown(f"<p style='text-align: left; margin-bottom: 10px; padding-left: 30px'> {runs_count} Runs <p>",
+    st.markdown(f"<p style='text-align: left; margin-bottom: 10px; padding-left: 30px'> {get_doc_count('Run')} Runs <p>",
                 unsafe_allow_html=True
                 )
 
 with right_column:
-    st.markdown(f"<p style='text-align: left; margin-bottom: 10px; padding-left: 30px'> {pcondition_count} process conditions <p>",
+    st.markdown(f"<p style='text-align: left; margin-bottom: 10px; padding-left: 30px'> {get_doc_count('Process_condition')} process conditions <p>",
                 unsafe_allow_html=True
                 )
     
-st.markdown("<p style='text-align: right;font-size: 12px'> Version 1.0 released on June 18th, 2024<p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: right;font-size: 12px'> Version 1.0 released on June 18th, 2024 <p>", unsafe_allow_html=True)
 
 ss
 
@@ -333,15 +439,14 @@ ss.pcond_disabled = True
 st.markdown("<h3 style='text-align: center;'>Explore Fermentations</h3>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center;'>Dive into the depths of FermentDB's comprehensive data to cross-reference multiple fermentation experiments at once </p>", unsafe_allow_html=True)
 
-st.write("")
-st.write("")
-st.markdown("<p style='text-align: left;'>Select organism of interest: </p>", unsafe_allow_html=True)
+
+st.markdown("<p style='text-align: left; margin-top: 30px'>Select organism of interest: </p>", unsafe_allow_html=True)
 
 left_column, right_column = st.columns(2)
 with left_column:
     st.selectbox(
         'Species: ',
-        get_doc('Species'),
+        get_doc_name('Species'),
         key = "sb_species",
         index=None,
         placeholder="Choose species",
@@ -354,7 +459,7 @@ if ss. sb_species is not None:
 with right_column:
     st.selectbox(
         'Strain:',
-        get_strain_batch(),
+        get_strains(),
         key = "sb_strain",
         index=None,
         placeholder="Choose strain",
@@ -364,15 +469,14 @@ with right_column:
 if ss.sb_strain is not None:
     ss.ferm_disabled = False
 
-st.write("")
-st.write("")
-st.markdown("<p style='text-align: left;'>Select Fermenter: </p>", unsafe_allow_html=True)
+
+st.markdown("<p style='text-align: left; margin-top: 30px'>Select Fermenter: </p>", unsafe_allow_html=True)
 
 left_column, right_column = st.columns(2)
 with left_column:
     st.selectbox(
         'Fermenter type:',
-        get_container_type(),
+        get_fermenter_types(),
         key = 'sb_fermenter_type',
         index=None,
         placeholder='Choose fermenter',
@@ -395,15 +499,14 @@ with right_column:
 if ss.sb_cultivationtype is not None:
     ss.pcond_disabled = False
 
-st.write("")
-st.write("")
-st.markdown("<p style='text-align: left;'> Select Condition of Interest: </p>", unsafe_allow_html=True)
+
+st.markdown("<p style='text-align: left; margin-top: 30px'> Select Condition of Interest: </p>", unsafe_allow_html=True)
 
 left_column, right_column = st.columns(2)
 with left_column:
     st.selectbox(
-        'Bioprocess Condition:',
-        get_doc('Process_condition'),
+        'Process Condition:',
+        get_doc_name('Process_condition'),
         key = 'sb_pcondition',
         index=None,
         placeholder='Choose condition',
@@ -437,7 +540,7 @@ if ss.go_clicked:
     st.markdown("<h5>Fermentation Data Visualization</h5>", unsafe_allow_html=True)
     tab1, tab2 = st.tabs(["Line Graph", "Table"])
     with tab1:
-        plot_condition(strain=ss.sb_strain, pcondition=[ss.sb_pcondition], fermenter= ss.sb_fermenter_type)
+        plot_pcondition_chart(strain=ss.sb_strain, pcondition=[ss.sb_pcondition], fermenter= ss.sb_fermenter_type)
 
 
     # # Store the original key in the dictionary using the hash as the key
@@ -478,7 +581,7 @@ with tab1:
 #     # Bar graph or table in another tab.
 #     st.plotly_chart(fig, theme=None, use_container_width=True)
     with tab2:
-        plot_condition_table(strain= ss.sb_strain, pcondition=[ss.sb_pcondition], fermenter= ss.sb_fermenter_type)
+        plot_pcondition_table(strain= ss.sb_strain, pcondition=[ss.sb_pcondition], fermenter= ss.sb_fermenter_type)
 
 ss
 
