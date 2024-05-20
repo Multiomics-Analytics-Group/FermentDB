@@ -91,7 +91,7 @@ def get_icicle_chart():
     """
     cursor = get_aql().execute(query)
     result = [doc for doc in cursor] 
-    print(f"Result icicle: {result}")  
+    # print(f"Result icicle: {result}")  
     df = pd.DataFrame(result)
     fig = px.icicle(df, path=[px.Constant("High-cell density fermentations"), 'fermenter', 'species', 'strains'], values='num_runs',
                    color='num_runs', hover_data=['num_runs'],
@@ -110,7 +110,6 @@ def get_doc_count(collection):
     result = []
     for item in cursor:
         result.append(item)
-    #print(f"Get doc: {result}")
     return len(result)
 
 @st.cache_data(show_spinner=False)
@@ -204,7 +203,6 @@ def get_doc_name(collection):
     result = []
     for item in cursor:
         result.append(item)
-    #print(f"Get doc: {result}")
     return result
 
 def get_hash(key, prefix=""):
@@ -212,20 +210,9 @@ def get_hash(key, prefix=""):
     hkey = f"{prefix}{hkey}"
     return hkey
 
-def get_strains():
-    cursor = get_aql().execute('''
-                               
-        FOR doc IN Run
-            RETURN doc.strain_batch                           
-    ''')
-    
-    result = set()
-    for item in cursor:
-        result.add(item)
-    return result
-
-def get_strains_2(species):
-    species = [f"Species/{get_hash(s, prefix='SP')}" for s in species]
+def get_strains(species):
+    # species = [f"Species/{get_hash(s, prefix='SP')}" for s in species]
+    species = [f"Species/{get_hash(species, prefix='SP')}"]
     
     query= """
         FOR doc IN Strain
@@ -237,14 +224,11 @@ def get_strains_2(species):
     cursor = get_aql().execute(query, bind_vars={'species': species})
     
     result = [doc for doc in cursor]
-    # result = set()
-    # for item in cursor:
-    #     result.add(item)
-    # print(result)
     return result
 
-def get_fermenter_type_2(strains):
-    strains = [f"Strain/{get_hash(s, prefix='S')}" for s in strains]
+def get_fermenter_type(strains):
+    # strains = [f"Strain/{get_hash(s, prefix='ST')}" for s in strains]
+    strains = [f"Strain/{get_hash(strains, prefix='ST')}"]
 
     query = """
         FOR doc IN Run
@@ -256,16 +240,17 @@ def get_fermenter_type_2(strains):
 
     cursor = get_aql().execute(query, bind_vars={'strains': strains})
 
-    result = [doc for doc in cursor]
-    # result = set()
-    # for item in cursor:
-    #     result.add(item)
-    # print(result)
+    # result = [doc for doc in cursor]
+    result = set()
+    for item in cursor:
+        result.add(item)
     return result
 
-def get_pconditions_2(strains, fermenters):
-    strains = [f"Strain/{get_hash(s, prefix='S')}" for s in strains]
-    fermenters = [f"Fermenter/{get_hash(f, prefix='F')}" for f in fermenters]
+def get_pconditions(strains, fermenters):
+    strains = [f"Strain/{get_hash(strains, prefix='ST')}"]
+    fermenters = [f"Fermenter/{get_hash(fermenters, prefix='F')}"]
+    # strains = [f"Strain/{get_hash(s, prefix='ST')}" for s in strains]
+    # fermenters = [f"Fermenter/{get_hash(f, prefix='F')}" for f in fermenters]
 
     query = """
         FOR doc IN Run
@@ -273,7 +258,7 @@ def get_pconditions_2(strains, fermenters):
                 FILTER strain_e._to IN @strains
                 FOR fermenter_v, fermenter_e IN 1..1 OUTBOUND doc uses_fermenter
                     FILTER fermenter_e._to IN @fermenters
-                    FOR v, e IN 1..1 doc has_condition
+                    FOR v, e IN 1..1 OUTBOUND doc has_condition
                         RETURN v.name
     """
 
@@ -284,25 +269,27 @@ def get_pconditions_2(strains, fermenters):
     # result = set()
     # for item in cursor:
     #     result.add(item)
-    # print(result)
     return result
 
 
 
-def get_pcondition_data2(strains, conditions, fermenters):
-    conditions = [f"Process_condition/{get_hash(c, prefix='C')}" for c in conditions]
-    strains = [f"Strain/{get_hash(s, prefix='S')}" for s in strains]
-    fermenters = [f"Fermenter/{get_hash(f, prefix='F')}" for f in fermenters]
+def get_pcondition_data(strains, conditions, fermenters):
+    conditions = [f"Process_condition/{get_hash(conditions, prefix='C')}"]
+    strains = [f"Strain/{get_hash(strains, prefix='ST')}"]
+    fermenters = [f"Fermenter/{get_hash(fermenters, prefix='F')}"]
+    # conditions = [f"Process_condition/{get_hash(c, prefix='C')}" for c in conditions]
+    # strains = [f"Strain/{get_hash(s, prefix='S')}" for s in strains]
+    # fermenters = [f"Fermenter/{get_hash(f, prefix='F')}" for f in fermenters]
     
     query = '''
         FOR doc IN Run
-            FOR strain_vertex, strain_edge IN 1..1 INBOUND doc cultures_strain
+            FOR strain_vertex, strain_edge IN 1..1 OUTBOUND doc cultures_strain
                 FILTER strain_edge._to IN @strains
-                FOR fermenter_vertex, fermenter_edge IN 1..1 INBOUND doc uses_fermenter
+                FOR fermenter_vertex, fermenter_edge IN 1..1 OUTBOUND doc uses_fermenter
                     FILTER fermenter_edge._to IN @fermenters
                     FOR v, e IN 1..1 OUTBOUND doc has_condition
                         FILTER e._to IN @conditions
-                        RETURN { source: doc, target: v, edge: e}
+                        RETURN { source: doc.name, target: v, edge: e}
     '''
     cursor = get_aql().execute(query, bind_vars={'strains': strains,
                                                 'conditions': conditions, 
@@ -328,21 +315,6 @@ def get_pcondition_data2(strains, conditions, fermenters):
 #         result.append(item)
 #     return result
 
-def get_pcondition_data(strain, pcondition, fermenter):
-    pcondition = [f"Process_condition/{get_hash(c, prefix='C')}" for c in pcondition]
-    
-    query = '''FOR doc IN Run
-      FILTER doc.strain_batch == @val AND doc.container_type == @fermenter
-      FOR v, e IN 1..1 OUTBOUND doc has_condition
-        FILTER e._to IN @condition
-        RETURN { source: doc, target: v, edge: e }
-    '''           
-    cursor = get_aql().execute(query,bind_vars={'val': strain,
-                                                'condition': pcondition,
-                                                'fermenter': fermenter})
-    result = [doc for doc in cursor]
-    #print(result)
-    return result
 
 def plot_pcondition_chart(strain, pcondition, fermenter ):
     result = get_pcondition_data(strain, pcondition, fermenter)
@@ -359,15 +331,6 @@ def plot_pcondition_chart(strain, pcondition, fermenter ):
     df = df.sort_values(by="time")
     fig = px.line(df, x="time", y="data", color='run', line_dash='condition')
     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
-
-
-#TODO: check function to update new chart
-if 'go_clicked' not in st.session_state:
-    st.session_state.go_clicked = False
-
-def click_go():
-    st.session_state.go_clicked = True
-
 
 def plot_pcondition_table(strain, pcondition, fermenter ):
     result = get_pcondition_data(strain, pcondition, fermenter)
@@ -419,6 +382,28 @@ def plot_pcondition_table(strain, pcondition, fermenter ):
     ])
     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
+
+
+def click_go_button():
+    st.session_state.display_data = True
+
+
+# def get_pcondition_data(strain, pcondition, fermenter):
+#     pcondition = [f"Process_condition/{get_hash(c, prefix='C')}" for c in pcondition]
+    
+#     query = '''FOR doc IN Run
+#       FILTER doc.strain_batch == @val AND doc.container_type == @fermenter
+#       FOR v, e IN 1..1 OUTBOUND doc has_condition
+#         FILTER e._to IN @condition
+#         RETURN { source: doc, target: v, edge: e }
+#     '''           
+#     cursor = get_aql().execute(query,bind_vars={'val': strain,
+#                                                 'condition': pcondition,
+#                                                 'fermenter': fermenter})
+#     result = [doc for doc in cursor]
+#     # print(result)
+#     return result
+
 # - - - - - - - - - - - - - - - - - - - APP LOGIC - - - - - - - - - - - - - - - - - - - 
 def app(): 
 # - - - - - - - - - - - - - - - - STATISTICAL SECTION - - - - - - - - - - - - - - - - - 
@@ -433,47 +418,43 @@ def app():
     # - - - - - - - - - - - - - - - - FERMENTATION EXPLORE SECTION - - - - - - - - - - - - - - - - - 
     st.divider()
 
-    ss
+
+  
 
     # Initialize variables
-    ss.strain_disabled = True
-    ss.ferm_disabled = True
-    ss.cultivation_disabled = True
-    ss.pcond_disabled = True
-    #ss.sb_species = ""
+    if 'strain_disabled' not in ss:
+        ss.strain_disabled = True
+    if 'ferm_disabled' not in ss:
+        ss.ferm_disabled = True
+    if 'cultivation_disabled' not in ss:
+        ss.cultivation_disabled = True
+    if 'pcond_disabled' not in ss:
+        ss.pcond_disabled = True
+    if 'display_data' not in ss:
+        st.session_state.display_data = False
 
+    ss
 
-        
     st.markdown("<h3 style='text-align: center;'>Explore Fermentations</h3>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: center;'>Dive into the depths of FermentDB's comprehensive data to cross-reference multiple fermentation experiments at once </p>", unsafe_allow_html=True)
 
-    st.write(f"sb_species: {ss.sb_species}")
-    st.write(f"ss.strain_disabled: {ss.strain_disabled}")
-
     st.markdown("<p style='text-align: left; margin-top: 30px'>Select organism of interest: </p>", unsafe_allow_html=True)
-
-    # if ss.sb_species is not None:
-        # ss.strain_disabled = False
     
     col1, col2 = st.columns(2)
     col1.selectbox(
             'Species: ',
             get_doc_name('Species'),
             key = "sb_species",
-            index=None,
+            index= None,
             placeholder="Choose species",
             help = "Select the type of microorganism you wish to study")
 
-
-    st.write(f"sb_species: {ss.sb_species}")
-    st.write(f"ss.strain_disabled: {ss.strain_disabled}")
-
-    # if ss.sb_species is not None:
-        # ss.strain_disabled = False
+    if ss.sb_species is not None:
+        ss.strain_disabled = False
     
     col2.selectbox( # st.multiselect()
             'Strain:',
-            get_strains_2(ss.sb_species),
+            get_strains(ss.sb_species),
             key = "sb_strain",
             index=None,
             placeholder="Choose strain",
@@ -489,8 +470,8 @@ def app():
     col1, col2 = st.columns(2)
     col1.selectbox(
             'Fermenter type:',
-            get_fermenter_type_2(ss.sb_strain),
-            key = 'sb_fermenter_type',
+            get_fermenter_type(ss.sb_strain),
+            key = "sb_fermenter_type",
             index=None,
             placeholder='Choose fermenter',
             disabled = ss.ferm_disabled,
@@ -510,32 +491,35 @@ def app():
 
     if ss.sb_cultivationtype is not None:
         ss.pcond_disabled = False
-
+    
     st.markdown("<p style='text-align: left; margin-top: 30px'> Select Condition of Interest: </p>", unsafe_allow_html=True)
     col1, col2 = st.columns(2)
+
     col1.selectbox(
         'Process Condition:',
-        get_doc_name('Process_condition'),
+        get_pconditions(ss.sb_strain, ss.sb_fermenter_type),
         key = 'sb_pcondition',
         index=None,
         placeholder='Choose condition',
         disabled = ss.pcond_disabled,
         help = "Select the specific process condition")
-        
-    col1, col2, col3 = st.columns(3)   
-    col2.button('GO!', on_click=click_go)
 
-    if ss.go_clicked:
+
+
+
+    col1, col2, col3 = st.columns(3)   
+    col2.button('GO!', on_click=click_go_button)
+
+    if ss.display_data: 
         st.divider()
         st.markdown("<h5>Fermentation Data Visualization</h5>", unsafe_allow_html=True)
         tab1, tab2 = st.tabs(["Line Graph", "Table"])
         with tab1:
+            st.write("hi")
             plot_pcondition_chart(strain=ss.sb_strain, pcondition=[ss.sb_pcondition], fermenter= ss.sb_fermenter_type)
         with tab2:
-            plot_pcondition_table(strain= ss.sb_strain, pcondition=[ss.sb_pcondition], fermenter= ss.sb_fermenter_type)
-
-    ss
-
+            st.write("Hi")
+        #     plot_pcondition_table(strain= ss.sb_strain, pcondition=[ss.sb_pcondition], fermenter= ss.sb_fermenter_type)
 
     # - - - - - - - - - - - - -  iMODULON EXPLORE SECTION - - - - - - - - - - - - - - - - - 
     st.divider()
@@ -591,6 +575,7 @@ st.divider()
 st.markdown("<h3 style='text-align: center;'> Explore iModulons </h3>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center;'> Dive deep into the science of iModulons and high-cell density fermentations </p>", unsafe_allow_html=True)
 
+    ss
 if __name__ == '__main__':
     app()
 
