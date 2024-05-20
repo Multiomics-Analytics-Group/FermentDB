@@ -33,8 +33,8 @@ st.markdown(f'<style>{style_css}</style>', unsafe_allow_html=True)
 client = ArangoClient(hosts=Config.ArangoDB.host)
 
 # Initialize connection to database: "fermentdb" as root user
-@st.cache_data
-def connect_to_db():
+@st.cache_resource
+def get_database_session():
     if 'db' not in ss:
         ss.db = client.db(
             name = Config.ArangoDB.database,
@@ -43,10 +43,10 @@ def connect_to_db():
     )
     return ss.db
 
-@st.cache_data
+@st.cache_resource
 def get_aql():
     if 'aql' not in ss:
-        ss.aql = connect_to_db().aql
+        ss.aql = get_database_session().aql
     return ss.aql
 
 
@@ -56,30 +56,30 @@ def get_aql():
 
 @st.cache_data(show_spinner=False)
 def get_num_node_documents():
-    vertex_collections = connect_to_db().graph('fermentdb').vertex_collections()
+    vertex_collections = get_database_session().graph('fermentdb').vertex_collections()
     total_nodes = 0
 
     for collection_name in vertex_collections:
-        collection = connect_to_db().collection(collection_name)
+        collection = get_database_session().collection(collection_name)
         total_nodes += collection.count()
 
     return total_nodes
 
 @st.cache_data(show_spinner=False)
 def get_num_edge_documents():
-    edge_definitions = connect_to_db().graph('fermentdb').edge_definitions()
+    edge_definitions = get_database_session().graph('fermentdb').edge_definitions()
     total_edges = 0
 
     for edge_def in edge_definitions:
         collection_name = edge_def['edge_collection']
-        collection = connect_to_db().collection(collection_name)
+        collection = get_database_session().collection(collection_name)
         total_edges += collection.count()
     
     return total_edges
 
 @st.cache_data(show_spinner=False)
 def get_icicle_chart():
-    time.sleep(8)
+    # time.sleep(4)
     query = """
         FOR doc IN Run
             FOR fermenter_v, fermenter_e IN 1..1 OUTBOUND doc uses_fermenter
@@ -100,6 +100,18 @@ def get_icicle_chart():
     fig.update_layout(margin = dict(t=50, l=25, r=25, b=25))
 
     st.plotly_chart(fig, theme="streamlit")
+
+@st.cache_data
+def get_doc_count(collection):
+    cursor = get_aql().execute( f'''
+        FOR doc IN {collection}
+        RETURN doc.name
+    ''')
+    result = []
+    for item in cursor:
+        result.append(item)
+    #print(f"Get doc: {result}")
+    return len(result)
 
 @st.cache_data(show_spinner=False)
 def graph_statistics():
@@ -179,16 +191,6 @@ def load_statistics_data():
 
 #     st.plotly_chart(fig)
 
-def get_doc_count(collection):
-    cursor = get_aql().execute( f'''
-        FOR doc IN {collection}
-        RETURN doc.name
-    ''')
-    result = []
-    for item in cursor:
-        result.append(item)
-    #print(f"Get doc: {result}")
-    return len(result)
 
 #### ------ FERMENTATION EXPLORE SECTION -------- ####
 
