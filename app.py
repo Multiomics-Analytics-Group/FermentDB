@@ -311,36 +311,6 @@ def get_pcondition_data2(strains, conditions, fermenters):
     print(result)
     return result
 
-
-# def query_sum_strains_from_db():
-#     cursor = get_aql().execute('''
-                               
-#         FOR doc IN Run
-#             FOR v, e IN 1..1 OUTBOUND doc cultures_strain
-#                 COLLECT strain = e.strain_batch WITH COUNT INTO counter 
-#                 RETURN { strain: strain, count: counter}                          
-#     ''')
-    
-#     result = []
-#     for item in cursor:
-#         result.append(item)
-#     print(result)
-#     return result
-
-# def query_sum_runs_from_db():
-#     cursor = get_aql().execute('''
-                               
-#         FOR doc IN Run
-#             COLLECT run = doc.name WITH COUNT INTO counter 
-#                 RETURN { run: run, count: counter}                          
-#     ''')
-    
-#     result = []
-#     for item in cursor:
-#         result.append(item)
-#     print(result)
-#     return result
-
 # def query_sum_pconditions_from_db():
 #     cursor = get_aql().execute('''
 #         FOR doc IN Run
@@ -470,15 +440,21 @@ def app():
     ss.ferm_disabled = True
     ss.cultivation_disabled = True
     ss.pcond_disabled = True
+    #ss.sb_species = ""
 
 
         
     st.markdown("<h3 style='text-align: center;'>Explore Fermentations</h3>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: center;'>Dive into the depths of FermentDB's comprehensive data to cross-reference multiple fermentation experiments at once </p>", unsafe_allow_html=True)
 
-    ss.strain_disabled
+    st.write(f"sb_species: {ss.sb_species}")
+    st.write(f"ss.strain_disabled: {ss.strain_disabled}")
+
     st.markdown("<p style='text-align: left; margin-top: 30px'>Select organism of interest: </p>", unsafe_allow_html=True)
 
+    # if ss.sb_species is not None:
+        # ss.strain_disabled = False
+    
     col1, col2 = st.columns(2)
     col1.selectbox(
             'Species: ',
@@ -488,12 +464,13 @@ def app():
             placeholder="Choose species",
             help = "Select the type of microorganism you wish to study")
 
-    if ss.sb_species is not None:
-        ss.strain_disabled = False
 
     st.write(f"sb_species: {ss.sb_species}")
-    ss.strain_disabled
+    st.write(f"ss.strain_disabled: {ss.strain_disabled}")
 
+    # if ss.sb_species is not None:
+        # ss.strain_disabled = False
+    
     col2.selectbox( # st.multiselect()
             'Strain:',
             get_strains_2(ss.sb_species),
