@@ -1,8 +1,24 @@
+h1 > div > a,
+h2 > div > a,
+h3 > div > a,
+h4 > div > a,
+h5 > div > a,
+h6 > div > a {
+    display: none !important;
+}
 .stButton {
     display: flex;
     justify-content: center;
     margin-top: 50px;
 }
 .stButton > button {
-    padding: 10px 40px; /* Adjust padding as needed */
+    padding: 10px 40px;
+}
+.icicle_centered {
+        display: flex;
+        justify-content: center;
+}
+.statistic {
+    text-align: center;
+    margin-bottom: 10px;
 }
