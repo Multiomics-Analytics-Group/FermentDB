@@ -104,7 +104,7 @@ def get_icicle_chart():
     """
     cursor = get_aql().execute(query)
     result = [doc for doc in cursor] 
-    print(f"Result icicle: {result}")  
+    # print(f"Result icicle: {result}")  
     df = pd.DataFrame(result)
 
 
@@ -290,32 +290,14 @@ def get_pcondition_data(strains, conditions, fermenters):
                     FILTER fermenter_edge._to IN @fermenters
                     FOR v, e IN 1..1 OUTBOUND doc has_condition
                         FILTER e._to IN @conditions
-                        RETURN { source: doc, target: v, edge: e}
+                        RETURN { source: doc, fermenter: fermenter_vertex, strain: strain_vertex, target: v, edge: e}
     '''
     cursor = get_aql().execute(query, bind_vars={'strains': strains,
                                                 'conditions': conditions, 
                                                 'fermenters': fermenters})
     result = [doc for doc in cursor]
-    print(result)
     return result
-
-# def query_sum_pconditions_from_db():
-#     cursor = get_aql().execute('''
-#         FOR doc IN Run
-#             FOR v, e IN 1..1 OUTBOUND doc has_condition
-#                 LET pcondition = SPLIT(e._to, '/')[1] //Extract part after "/"
-#                 COLLECT pcondition_hash = e._to WITH COUNT INTO counter 
-#                 RETURN { process_condition: pcondition_hash, count: counter}                          
-#     ''')
-    
-#     result = []
-#     for item in cursor:
-#         pcondition_hash = item['process_condition']
-#         pcondition_name = get_hash(pcondition_hash, "C")
-#         item['process_condition'] = pcondition_name
-#         result.append(item)
-#     return result
-
+# get_pcondition_data("Strain1", "pH", "AMBR 250")
 
 def plot_pcondition_chart(strain, pcondition, fermenter ):
     result = get_pcondition_data(strain, pcondition, fermenter)
@@ -339,8 +321,8 @@ def plot_pcondition_table(strain, pcondition, fermenter ):
     
     for r in result:
         source = r['source']['_key']
-        strain = r['source']['strain_batch']
-        fermenter = r['source']['container_type']
+        strain = r['strain']['name']
+        fermenter = r['fermenter']['name']
         target = r['target']['name']
         data = r['edge']['data']
         timestamps = r['edge']['timestamps']
@@ -383,27 +365,8 @@ def plot_pcondition_table(strain, pcondition, fermenter ):
     ])
     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
-
-
 def click_go_button():
     st.session_state.display_data = True
-
-
-# def get_pcondition_data(strain, pcondition, fermenter):
-#     pcondition = [f"Process_condition/{get_hash(c, prefix='C')}" for c in pcondition]
-    
-#     query = '''FOR doc IN Run
-#       FILTER doc.strain_batch == @val AND doc.container_type == @fermenter
-#       FOR v, e IN 1..1 OUTBOUND doc has_condition
-#         FILTER e._to IN @condition
-#         RETURN { source: doc, target: v, edge: e }
-#     '''           
-#     cursor = get_aql().execute(query,bind_vars={'val': strain,
-#                                                 'condition': pcondition,
-#                                                 'fermenter': fermenter})
-#     result = [doc for doc in cursor]
-#     # print(result)
-#     return result
 
 # - - - - - - - - - - - - - - - - - - - APP LOGIC - - - - - - - - - - - - - - - - - - - 
 def app(): 
@@ -508,10 +471,10 @@ def app():
         st.divider()
         st.markdown("<h5>Fermentation Data Visualization</h5>", unsafe_allow_html=True)
         tab1, tab2 = st.tabs(["Line Graph", "Table"])
-        tab1.write("hi")
-        # plot_pcondition_chart(strain=ss.sb_strain, pcondition=[ss.sb_pcondition], fermenter= ss.sb_fermenter_type)
-        tab2.write("Hi")
-        # plot_pcondition_table(strain= ss.sb_strain, pcondition=[ss.sb_pcondition], fermenter= ss.sb_fermenter_type)
+        with tab1:
+            plot_pcondition_chart(strain=ss.sb_strain, pcondition=ss.sb_pcondition, fermenter= ss.sb_fermenter_type)
+        with tab2:
+            plot_pcondition_table(strain= ss.sb_strain, pcondition=ss.sb_pcondition, fermenter= ss.sb_fermenter_type)
 
     # - - - - - - - - - - - - -  iMODULON EXPLORE SECTION - - - - - - - - - - - - - - - - - 
     st.divider()
