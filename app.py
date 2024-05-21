@@ -80,26 +80,85 @@ def get_num_edge_documents():
 @st.cache_data(show_spinner=False)
 def get_icicle_chart():
     # time.sleep(4)
+    #filter pcond_v with major pcond_e values
     query = """
+        LET pcond_counts = (
+            FOR doc IN Run
+                FOR pcond_v, pcond_e IN 1..1 OUTBOUND doc has_condition
+                    COLLECT pcond = pcond_v.name WITH COUNT INTO num_pcond
+                    RETURN { pcond, num_pcond }
+        )
         FOR doc IN Run
-            FOR fermenter_v, fermenter_e IN 1..1 OUTBOUND doc uses_fermenter
-                FOR strain_v, strain_e IN 1..1 OUTBOUND doc cultures_strain
-                    FOR species_v, species_e IN 1..1 OUTBOUND strain_v belongs_to
-                        COLLECT fermenter = fermenter_v.name, species = species_v.name, strains = strain_v.name
-                        WITH COUNT INTO num_runs 
-                        RETURN { fermenter: fermenter, species: species, strains: strains, num_runs: num_runs  }  
+            FOR strain_v, strain_e IN 1..1 OUTBOUND doc cultures_strain
+                FOR species_v, species_e IN 1..1 OUTBOUND strain_v belongs_to
+                    FOR pcond_v, pcond_e IN 1..1 OUTBOUND doc has_condition
+                        LET major_pcond = (
+                            FOR item IN pcond_counts
+                                FILTER item.num_pcond >= 10  
+                                RETURN item.pcond
+                        )
+                        FILTER pcond_v.name IN major_pcond
+                        COLLECT species = species_v.name, strains = strain_v.name, pcond = pcond_v.name
+                        AGGREGATE pcond_value = COUNT(pcond_e)
+                        RETURN { species: species, strains: strains, pcond: pcond, pcondition_edges: pcond_value }
     """
     cursor = get_aql().execute(query)
     result = [doc for doc in cursor] 
-    # print(f"Result icicle: {result}")  
+    print(f"Result icicle: {result}")  
     df = pd.DataFrame(result)
-    fig = px.icicle(df, path=[px.Constant("High-cell density fermentations"), 'fermenter', 'species', 'strains'], values='num_runs',
-                   color='num_runs', hover_data=['num_runs'],
+
+
+    fig = px.icicle(df, path=[px.Constant("AMBR 250"), 'species', 'strains' ], values='pcondition_edges',
+                   color='pcondition_edges', hover_data=['pcondition_edges'],
                     color_continuous_scale='RdBu',
-                    color_continuous_midpoint=np.average(df['num_runs'], weights=df['num_runs']))
-    fig.update_layout(margin = dict(t=50, l=25, r=25, b=25))
+                    range_color=[5, 5.3],
+                    color_continuous_midpoint=np.average(df['pcondition_edges'], weights=df['pcondition_edges']))
+    fig.update_layout(margin = dict(t=50, l=75, r=40, b=50),
+                      autosize=True,
+                      title={
+                        'text': "Summary of Strains with Major Process Condition Interactions",
+                        'y': 0.08,
+                        'x': 0.42,
+                        'xanchor': 'center',
+                        'yanchor': 'top'
+                    })
 
     st.plotly_chart(fig, theme="streamlit")
+
+# @st.cache_data(show_spinner=False)
+# def get_icicle_chart():
+#     # time.sleep(4)
+#     query = """
+#         FOR doc IN Run
+#                 FOR strain_v, strain_e IN 1..1 OUTBOUND doc cultures_strain
+#                     FOR species_v, species_e IN 1..1 OUTBOUND strain_v belongs_to
+#                         FOR pcond_v, pcond_e IN 1..1 OUTBOUND doc has_condition
+#                         COLLECT species = species_v.name, strains = strain_v.name, pcond = pcond_v.name
+#                         AGGREGATE pcond_value = COUNT(pcond_e)
+#                         RETURN { species: species, strains: strains, pcond: pcond, pcondition_edges: pcond_value  }  
+#     """
+#     cursor = get_aql().execute(query)
+#     result = [doc for doc in cursor] 
+#     print(f"Result icicle: {result}")  
+#     df = pd.DataFrame(result)
+
+
+#     fig = px.icicle(df, path=[px.Constant("AMBR 250"), 'species', 'strains'], values='pcondition_edges',
+#                    color='pcondition_edges', hover_data=['pcondition_edges'],
+#                     color_continuous_scale='RdBu',
+#                     range_color=[5, 5.3],
+#                     color_continuous_midpoint=np.average(df['pcondition_edges'], weights=df['pcondition_edges']))
+#     fig.update_layout(margin = dict(t=50, l=75, r=50, b=50),
+#                       autosize=True,
+#                       title={
+#                         'text': "Summary of Process Conditions per Strain",
+#                         'y': 0.08,
+#                         'x': 0.33,
+#                         'xanchor': 'center',
+#                         'yanchor': 'top'
+#                     })
+
+#     st.plotly_chart(fig, theme="streamlit")
 
 @st.cache_data
 def get_doc_count(collection):
@@ -134,62 +193,6 @@ def load_statistics_data():
             get_icicle_chart()
             st.markdown('</div>', unsafe_allow_html=True)
         graph_statistics()
-
-
-# @st.cache_data
-# def get_icicle_chart():
-#     # Query to get the number of runs per fermenter, species, and strain
-#     query = """
-#         FOR doc IN Run
-#             FOR fermenter_v, fermenter_e IN 1..1 OUTBOUND doc uses_fermenter
-#                 FOR strain_v, strain_e IN 1..1 OUTBOUND doc cultures_strain
-#                     FOR species_v, species_e IN 1..1 OUTBOUND strain_v belongs_to
-#                         COLLECT fermenter = fermenter_v.name, species = species_v.name, strain = strain_v.name
-#                         WITH COUNT INTO num_runs 
-#                         RETURN { fermenter: fermenter, species: species, strain: strain, num_runs: num_runs }
-#     """
-
-#     # Execute the query
-#     cursor = get_aql().execute(query)
-#     result = [doc for doc in cursor]
-#     df = pd.DataFrame(result)
-
-#     # Group by fermenter and species to get the number of strains at the species level
-#     counts_species_strains = df.groupby(['fermenter', 'species']).nunique('strain').reset_index()
-#     counts_species_strains = counts_species_strains.rename(columns={'strain': 'count_strains'})
-
-#     # Group by fermenter and species to get the number of runs at the species level
-#     counts_species = df.groupby(['fermenter', 'species']).sum('num_runs').reset_index()
-#     counts_species = counts_species.rename(columns={'num_runs': 'edges_species'})
-
-#     # Group by fermenter to get the number of runs at the fermenter level
-#     counts_fermenter = df.groupby(['fermenter']).sum('num_runs').reset_index()
-#     counts_fermenter = counts_fermenter.rename(columns={'num_runs': 'edges_fermenter'})
-
-#     # Merge counts back into the original DataFrame
-#     aux = pd.merge(df, counts_species, on=['fermenter', 'species'], how='left')
-#     aux = pd.merge(aux, counts_species_strains, on=['fermenter', 'species'], how='left')
-#     aux = pd.merge(aux, counts_fermenter, on=['fermenter'], how='left')
-
-#     # Add a color value based on num_runs for strains and edges_species for higher levels
-#     aux['color_value'] = aux.apply(lambda row: row.get('num_runs') if row.get('strain') else row.get('edges_species'), axis=1)
-
-#     # Adjust the color scale based on the cumulative runs at the species level
-#     # max_color_value = aux['color_value'].max()
-#     # min_color_value = aux['color_value'].min()
-
-#     # Create the icicle chart
-#     fig = px.icicle(aux, 
-#                     path=[px.Constant("High-cell density fermentations"), 'fermenter', 'species', 'strain'], 
-#                     values='num_runs_x',  # Adjust 'values' parameter
-#                     color='color_value',  
-#                     hover_data=['edges_fermenter', 'edges_species', 'num_runs_x'],
-#                     color_continuous_scale='Viridis')
-    
-#     fig.update_layout(margin=dict(t=50, l=25, r=25, b=25))
-
-#     st.plotly_chart(fig)
-
 
 #### ------ FERMENTATION EXPLORE SECTION -------- ####
 
@@ -271,8 +274,6 @@ def get_pconditions(strains, fermenters):
     #     result.add(item)
     return result
 
-
-
 def get_pcondition_data(strains, conditions, fermenters):
     conditions = [f"Process_condition/{get_hash(conditions, prefix='C')}"]
     strains = [f"Strain/{get_hash(strains, prefix='ST')}"]
@@ -289,7 +290,7 @@ def get_pcondition_data(strains, conditions, fermenters):
                     FILTER fermenter_edge._to IN @fermenters
                     FOR v, e IN 1..1 OUTBOUND doc has_condition
                         FILTER e._to IN @conditions
-                        RETURN { source: doc.name, target: v, edge: e}
+                        RETURN { source: doc, target: v, edge: e}
     '''
     cursor = get_aql().execute(query, bind_vars={'strains': strains,
                                                 'conditions': conditions, 
@@ -418,9 +419,6 @@ def app():
     # - - - - - - - - - - - - - - - - FERMENTATION EXPLORE SECTION - - - - - - - - - - - - - - - - - 
     st.divider()
 
-
-  
-
     # Initialize variables
     if 'strain_disabled' not in ss:
         ss.strain_disabled = True
@@ -433,12 +431,11 @@ def app():
     if 'display_data' not in ss:
         st.session_state.display_data = False
 
-    ss
 
     st.markdown("<h3 style='text-align: center;'>Explore Fermentations</h3>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: center;'>Dive into the depths of FermentDB's comprehensive data to cross-reference multiple fermentation experiments at once </p>", unsafe_allow_html=True)
 
-    st.markdown("<p style='text-align: left; margin-top: 30px'>Select organism of interest: </p>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: left; margin-top: 30px'>Select organism of interest </p>", unsafe_allow_html=True)
     
     col1, col2 = st.columns(2)
     col1.selectbox(
@@ -465,7 +462,7 @@ def app():
         ss.ferm_disabled = False
 
 
-    st.markdown("<p style='text-align: left; margin-top: 30px'>Select Fermenter: </p>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: left; margin-top: 30px'>Select Fermenter </p>", unsafe_allow_html=True)
 
     col1, col2 = st.columns(2)
     col1.selectbox(
@@ -492,7 +489,7 @@ def app():
     if ss.sb_cultivationtype is not None:
         ss.pcond_disabled = False
     
-    st.markdown("<p style='text-align: left; margin-top: 30px'> Select Condition of Interest: </p>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: left; margin-top: 30px'> Select Condition of Interest </p>", unsafe_allow_html=True)
     col1, col2 = st.columns(2)
 
     col1.selectbox(
@@ -504,9 +501,6 @@ def app():
         disabled = ss.pcond_disabled,
         help = "Select the specific process condition")
 
-
-
-
     col1, col2, col3 = st.columns(3)   
     col2.button('GO!', on_click=click_go_button)
 
@@ -514,12 +508,10 @@ def app():
         st.divider()
         st.markdown("<h5>Fermentation Data Visualization</h5>", unsafe_allow_html=True)
         tab1, tab2 = st.tabs(["Line Graph", "Table"])
-        with tab1:
-            st.write("hi")
-            plot_pcondition_chart(strain=ss.sb_strain, pcondition=[ss.sb_pcondition], fermenter= ss.sb_fermenter_type)
-        with tab2:
-            st.write("Hi")
-        #     plot_pcondition_table(strain= ss.sb_strain, pcondition=[ss.sb_pcondition], fermenter= ss.sb_fermenter_type)
+        tab1.write("hi")
+        # plot_pcondition_chart(strain=ss.sb_strain, pcondition=[ss.sb_pcondition], fermenter= ss.sb_fermenter_type)
+        tab2.write("Hi")
+        # plot_pcondition_table(strain= ss.sb_strain, pcondition=[ss.sb_pcondition], fermenter= ss.sb_fermenter_type)
 
     # - - - - - - - - - - - - -  iMODULON EXPLORE SECTION - - - - - - - - - - - - - - - - - 
     st.divider()
@@ -575,7 +567,6 @@ st.divider()
 st.markdown("<h3 style='text-align: center;'> Explore iModulons </h3>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center;'> Dive deep into the science of iModulons and high-cell density fermentations </p>", unsafe_allow_html=True)
 
-    ss
 if __name__ == '__main__':
     app()
 
