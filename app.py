@@ -209,8 +209,10 @@ def get_doc_name(collection):
     return result
 
 def get_hash(key, prefix=""):
-    hkey = str(int(hashlib.sha1(key.encode("utf-8")).hexdigest(), 16) % (10 ** 8))
-    hkey = f"{prefix}{hkey}"
+    hkey = ""
+    if key is not None:
+        hkey = str(int(hashlib.sha1(key.encode("utf-8")).hexdigest(), 16) % (10 ** 8))
+        hkey = f"{prefix}{hkey}"
     return hkey
 
 def get_strains(species):
