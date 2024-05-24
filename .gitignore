@@ -1,0 +1,5 @@
+data/
+.history/
+.vscode/
+.streamlit/secrets.toml
+assets/styles_2.css
