@@ -9,8 +9,6 @@ import plotly.graph_objects as go
 import plotly.express as px
 from datetime import datetime
 import hashlib
-import plotly.figure_factory as ff
-from collections import Counter
 import time
 
 from arango import ArangoClient
