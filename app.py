@@ -379,7 +379,7 @@ def app():
     load_statistics_data()
        
 
-    # - - - - - - - - - - - - - - - - FERMENTATION EXPLORE SECTION - - - - - - - - - - - - - - - - - 
+    # - - - - - - - - - - - - - - - - BIOPROCESS CONDITIONS EXPLORE SECTION - - - - - - - - - - - - - - - - - 
     st.divider()
 
     # Initialize variables
@@ -395,7 +395,7 @@ def app():
         st.session_state.display_data = False
 
 
-    st.markdown("<h3 style='text-align: center;'>Explore Fermentations</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center;'>Explore Bioprocess Conditions</h3>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: center;'>Dive into the depths of FermentDB's comprehensive data to cross-reference multiple fermentation experiments at once </p>", unsafe_allow_html=True)
 
     st.markdown("<p style='text-align: left; margin-top: 30px'>Select organism of interest </p>", unsafe_allow_html=True)
