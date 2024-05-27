@@ -167,3 +167,5 @@ data/
 .vscode/
 .streamlit/secrets.toml
 assets/styles_2.css
+output/
+
