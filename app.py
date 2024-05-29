@@ -479,56 +479,8 @@ def app():
     # - - - - - - - - - - - - -  iMODULON EXPLORE SECTION - - - - - - - - - - - - - - - - - 
     st.divider()
 
-
-    # # Store the original key in the dictionary using the hash as the key
-    # hash_to_key={}
-    # hash_to_key[hkey] = key
-    
-
-def get_condition_data(strain, condition):
-    condition = [f"Process_condition/{get_hash(c, prefix='C')}" for c in condition]
-    
-    query = '''FOR doc IN Run
-      FILTER doc.strain_batch == @val AND doc.container_type == "AMBR 250"
-      FOR v, e IN 1..1 OUTBOUND doc has_condition
-        FILTER e._to == @condition
-        RETURN { source: doc, target: v, edge: e }
-    '''
-                   
-    cursor = get_aql().execute(query,bind_vars={'val': strain,
-                              'condition':condition})
-
-    
-    result = [doc for doc in cursor]
-
-    print(result)
-
-    return result
-
-get_condition_data(strain="Strain1", condition=["D-glucose"])
-
-
-tab1, tab2, tab3 = st.tabs(["Line Graph", "Bar Graph", "Table"])
-with tab1:
-    plot_condition(strain="Strain1", pcondition=["D-glucose"], fermenter="AMBR 250")
-# with tab2:
-#     # Bar graph or table in another tab.
-#     st.plotly_chart(fig, theme=None, use_container_width=True)
-# with tab3:
-#     # Bar graph or table in another tab.
-#     st.plotly_chart(fig, theme=None, use_container_width=True)
-    with tab2:
-        plot_pcondition_table(strain= ss.sb_strain, pcondition=[ss.sb_pcondition], fermenter= ss.sb_fermenter_type)
-
-ss
-
-###############################################
-### ------ iModulon Explore Section ------- ###
-###############################################
-st.divider()
-
-st.markdown("<h3 style='text-align: center;'> Explore iModulons </h3>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center;'> Dive deep into the science of iModulons and high-cell density fermentations </p>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center;'> Explore iModulons </h3>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center;'> Dive deep into the science of iModulons and high-cell density fermentations </p>", unsafe_allow_html=True)
 
 if __name__ == '__main__':
     app()
