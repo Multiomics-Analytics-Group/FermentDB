@@ -1,42 +1,41 @@
 Run:
-    id: id # doble id?
-    Culture Type: culture_type # Strain? importante? S
-    Seed: seed # Strain?
-    Sample ID: sample_id # Strain?
+    id: id 
+    Culture Type: culture_type 
+    Seed: seed 
+    Sample ID: sample_id 
     Experiment: experiment
     'Replicate #': replicate_number
-    Strain Batch: strain_batch # move to Strain edge attribute
-    Container ID (calculated): container_id # Fermenter att?
-    'Reactor/Plate/Flask Number': reactor_plate_flask_number # Fermenter att? Same as container ID (calculated)
-    Control?: is_control # no lo encuentro
-    Comments: comments # no lo encuentro
-    Inducer: inducer # no lo encuentro
-    Volume Unit_INDUCTION: volume_unit_induction # no lo encuentro
-    Condition: condition # no lo encuentro
+    Strain Batch: strain_batch # move to Strain edge attribute MOVER
+    Container ID (calculated): container_id # uses_fermenter att? MOVER
+    Control?: is_control 
+    Comments: comments 
+    Inducer: inducer 
+    Volume Unit_INDUCTION: volume_unit_induction 
+    Condition: condition 
 Fermenter:
     Container Type: name
 Initial_condition:
-    SOP: SOP # Operating conditions
+    SOP: SOP # Operating Conditions
     Aeration Gas Type: aeration_gas_type 
-    Aeration Profile: aeration_profile
-    Maximum Aeration (slpm): maximum_aeration_slpm
-    Minimum Aeration (slpm): minimum_aeration_slpm
-    Maximum Stirring or Shaking Speed (rpm): maximum_stirring_speed_rpm
-    Minimum Stirring or Shaking Speed (rpm): minimum_stirring_speed_rpm
+    Aeration Profile: aeration_profile 
+    Maximum Aeration (slpm): maximum_aeration_slpm 
+    Minimum Aeration (slpm): minimum_aeration_slpm 
+    Maximum Stirring or Shaking Speed (rpm): maximum_stirring_speed_rpm 
+    Minimum Stirring or Shaking Speed (rpm): minimum_stirring_speed_rpm 
     DO Control Setpoint (%): DO_control_setpoint_percentage 
-    DO Control Cascade Level 1: DO_control_cascade_level1
-    DO Control Cascade Level 2: DO_control_cascade_level2
-    DO Control Cascade Level 3: DO_control_cascade_level3
-    Starting OD: starting_OD
-    'Feed #1 Profile': feed_1_profile
-    'Feed Medium #1': feed_medium_1
-    'Feed Medium #2': feed_medium_2
+    DO Control Cascade Level 1: DO_control_cascade_level1 
+    DO Control Cascade Level 2: DO_control_cascade_level2 
+    DO Control Cascade Level 3: DO_control_cascade_level3 
+    Starting OD: starting_OD 
+    'Feed #1 Profile': feed_1_profile 
+    'Feed Medium #1': feed_medium_1 
+    'Feed Medium #2': feed_medium_2 
     pH Setpoint: pH_setpoint # Cultivation conditions
-    pH Control Base Solution: ph_control_base_solution
+    pH Control Base Solution: ph_control_base_solution 
     pH Control Acid Solution: ph_control_acid_solution
-    Temperature Setpoint (C): temperature_setpoint_celsius
-    Main Culture ID: main_culture_id
+    Temperature Setpoint (C): temperature_setpoint_celsius # scalar, falta Temperature timeseries
+    Main Culture ID: main_culture_id 
     Initial Culture VolumeNone: initial_volume 
     Culture Volume Unit: culture_volume_unit
     Base Medium: base_medium 
-    
+
