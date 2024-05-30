@@ -322,6 +322,7 @@ def get_pconditions(strains, fermenters):
     #     result.add(item)
     return result
 
+
 def get_pcondition_data(strains, conditions, fermenters):
     conditions = [f"Process_condition/{get_hash(conditions, prefix='C')}"]
     strains = [f"Strain/{get_hash(strains, prefix='ST')}"]
@@ -345,7 +346,6 @@ def get_pcondition_data(strains, conditions, fermenters):
                                                 'fermenters': fermenters})
     result = [doc for doc in cursor]
     return result
-# get_pcondition_data("Strain1", "pH", "AMBR 250")
 
 def plot_pcondition_chart(strain, pcondition, fermenter ):
     result = get_pcondition_data(strain, pcondition, fermenter)
@@ -364,6 +364,128 @@ def plot_pcondition_chart(strain, pcondition, fermenter ):
     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 def plot_pcondition_table(strain, pcondition, fermenter ):
+    result = get_pcondition_data(strain, pcondition, fermenter)
+    data_dict = {}
+    
+    for r in result:
+        source = r['source']['_key']
+        strain = r['strain']['name']
+        fermenter = r['fermenter']['name']
+        target = r['target']['name']
+        data = r['edge']['data']
+        timestamps = r['edge']['timestamps']
+        
+        # Create a unique key for grouping
+        key = (source, strain, fermenter, target)
+        if key not in data_dict:
+            data_dict[key] = {'data': [], 'timestamps': []}
+        data_dict[key]['data'].extend(data)
+        data_dict[key]['timestamps'].extend(timestamps)
+    
+    rows = []
+    for (source, strain, fermenter, target), values in data_dict.items():
+        sorted_pairs = sorted(zip(values['timestamps'], values['data']))
+        sorted_timestamps, sorted_data = zip(*sorted_pairs)
+    
+        row = {
+            'run': source,
+            'strain': strain,
+            'fermenter': fermenter,
+            'condition': target,
+            'data': list(sorted_data),
+            'time': [datetime.fromtimestamp(t).strftime('%Y-%m-%d %H:%M:%S') for t in sorted_timestamps]
+        }
+        rows.append(row)
+    df = pd.DataFrame(rows)
+
+    # Convert lists to string with line breaks 
+    df['data'] = df['data'].apply(lambda x: '<br>'.join(map(str, x)))
+    df['time'] = df['time'].apply(lambda x: '<br>'.join(x))
+
+    table_data = df[['run', 'strain', 'fermenter', 'condition', 'data', 'time']] # Prepare data for table
+    # st.write(df)
+    fig = go.Figure(data=[go.Table(
+        header=dict(values=list(table_data.columns),
+                    fill_color='grey',
+                    align='center'),
+        cells=dict(values=[table_data['run'], table_data['strain'], table_data['fermenter'], table_data['condition'], table_data['data'], table_data['time'] ],
+                   align='center', height=900))
+    ])
+    st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+
+#### ------ iMODULON EXPLORE SECTION -------- ####
+ 
+def get_imodulon(strains, fermenters):
+    strains = [f"Strain/{get_hash(strains, prefix='ST')}"]
+    fermenters = [f"Fermenter/{get_hash(fermenters, prefix='F')}"]
+    # strains = [f"Strain/{get_hash(s, prefix='ST')}" for s in strains]
+    # fermenters = [f"Fermenter/{get_hash(f, prefix='F')}" for f in fermenters]
+
+    query = """
+        FOR doc IN Run
+            FOR strain_v, strain_e IN 1..1 OUTBOUND doc cultures_strain
+                FILTER strain_e._to IN @strains
+                FOR fermenter_v, fermenter_e IN 1..1 OUTBOUND doc uses_fermenter
+                    FILTER fermenter_e._to IN @fermenters
+                    FOR v, e IN 1..1 OUTBOUND doc has_condition
+                        RETURN v.name
+    """
+
+    cursor = get_aql().execute(query, bind_vars={'strains': strains,
+                                                 'fermenters': fermenters})
+    
+    result = [doc for doc in cursor]
+    # result = set()
+    # for item in cursor:
+    #     result.add(item)
+    return result
+
+def get_imodulon_data(strains, conditions, fermenters):
+    imodulon = [f"iModulon/{get_hash(conditions, prefix='iM')}"]
+    strains = [f"Strain/{get_hash(strains, prefix='ST')}"]
+    fermenters = [f"Fermenter/{get_hash(fermenters, prefix='F')}"]
+    # conditions = [f"Process_condition/{get_hash(c, prefix='C')}" for c in conditions]
+    # strains = [f"Strain/{get_hash(s, prefix='S')}" for s in strains]
+    # fermenters = [f"Fermenter/{get_hash(f, prefix='F')}" for f in fermenters]
+    
+    query = '''
+        FOR doc IN Run
+            FOR strain_vertex, strain_edge IN 1..1 OUTBOUND doc cultures_strain
+                FILTER strain_edge._to IN @strains
+                FOR fermenter_vertex, fermenter_edge IN 1..1 OUTBOUND doc uses_fermenter
+                    FILTER fermenter_edge._to IN @fermenters
+                    FOR v, e IN 1..1 OUTBOUND doc has_measured_imodulon
+                        FILTER e._to IN @imodulon
+                        RETURN { source: doc, fermenter: fermenter_vertex, strain: strain_vertex, target: v, edge: e}
+    '''
+    cursor = get_aql().execute(query, bind_vars={'strains': strains,
+                                                'imodulons': imodulon, 
+                                                'fermenters': fermenters})
+    result = [doc for doc in cursor]
+    return result
+# get_pcondition_data("Strain1", "pH", "AMBR 250")
+
+
+# TODO: 
+def plot_imodulon_chart(strain, imodulon, fermenter ):
+    result = get_imodulon_data(strain, imodulon, fermenter)
+    rows = []
+    for r in result:
+        source = r['source']['_key']
+        target = r['target']['name']
+        data = r['edge']['data']
+        timestamps = r['edge']['timestamps']
+        rows.append(pd.DataFrame({'run': source, 'data':data, 'time': timestamps, 'condition': target}))
+    
+    df = pd.concat(rows)
+    df['time'] = df['time'].apply(lambda t: datetime.fromtimestamp(t))
+    df = df.sort_values(by="time")
+    fig = px.line(df, x="time", y="data", color='run', line_dash='condition')
+    st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+
+
+# TODO: 
+def plot_imodulon_table(strain, pcondition, fermenter ):
     result = get_pcondition_data(strain, pcondition, fermenter)
     data_dict = {}
     
