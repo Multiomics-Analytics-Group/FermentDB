@@ -192,7 +192,7 @@ def load_statistics_data():
             st.markdown('</div>', unsafe_allow_html=True)
         graph_statistics()
 
-#### ------ FERMENTATION EXPLORE SECTION -------- ####
+#### ------ BIOPROCESS CONDITION EXPLORE SECTION -------- ####
 
 def get_doc_name(collection):
 
@@ -368,20 +368,7 @@ def plot_pcondition_table(strain, pcondition, fermenter ):
 def click_go_button():
     st.session_state.display_data = True
 
-# - - - - - - - - - - - - - - - - - - - APP LOGIC - - - - - - - - - - - - - - - - - - - 
-def app(): 
-# - - - - - - - - - - - - - - - - STATISTICAL SECTION - - - - - - - - - - - - - - - - - 
-    
-    st.header('FermentDB', divider='grey')
-    st.markdown("<h1 style='text-align: center; font-size: 30px;'>Welcome to <span style= 'font-size: 40px;'>FermentDB</span></h1>", unsafe_allow_html=True)
-    st.markdown("<h5 style='text-align: center;'>A Database for High-cell Density Fermentations</h5>", unsafe_allow_html=True)
-
-    load_statistics_data()
-       
-
-    # - - - - - - - - - - - - - - - - BIOPROCESS CONDITIONS EXPLORE SECTION - - - - - - - - - - - - - - - - - 
-    st.divider()
-
+def load_pcondition_exploration():
     # Initialize variables
     if 'strain_disabled' not in ss:
         ss.strain_disabled = True
@@ -394,12 +381,7 @@ def app():
     if 'display_data' not in ss:
         st.session_state.display_data = False
 
-
-    st.markdown("<h3 style='text-align: center;'>Explore Bioprocess Conditions</h3>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align: center;'>Dive into the depths of FermentDB's comprehensive data to cross-reference multiple fermentation experiments at once </p>", unsafe_allow_html=True)
-
     st.markdown("<p style='text-align: left; margin-top: 30px'>Select organism of interest </p>", unsafe_allow_html=True)
-    
     col1, col2 = st.columns(2)
     col1.selectbox(
             'Species: ',
@@ -426,7 +408,6 @@ def app():
 
 
     st.markdown("<p style='text-align: left; margin-top: 30px'>Select Fermenter </p>", unsafe_allow_html=True)
-
     col1, col2 = st.columns(2)
     col1.selectbox(
             'Fermenter type:',
@@ -454,7 +435,6 @@ def app():
     
     st.markdown("<p style='text-align: left; margin-top: 30px'> Select Condition of Interest </p>", unsafe_allow_html=True)
     col1, col2 = st.columns(2)
-
     col1.selectbox(
         'Process Condition:',
         get_pconditions(ss.sb_strain, ss.sb_fermenter_type),
@@ -475,6 +455,25 @@ def app():
             plot_pcondition_chart(strain=ss.sb_strain, pcondition=ss.sb_pcondition, fermenter= ss.sb_fermenter_type)
         with tab2:
             plot_pcondition_table(strain= ss.sb_strain, pcondition=ss.sb_pcondition, fermenter= ss.sb_fermenter_type)
+
+# - - - - - - - - - - - - - - - - - - - APP LOGIC - - - - - - - - - - - - - - - - - - - 
+def app(): 
+# - - - - - - - - - - - - - - - - STATISTICAL SECTION - - - - - - - - - - - - - - - - - 
+    
+    st.header('FermentDB', divider='grey')
+    st.markdown("<h1 style='text-align: center; font-size: 30px;'>Welcome to <span style= 'font-size: 40px;'>FermentDB</span></h1>", unsafe_allow_html=True)
+    st.markdown("<h5 style='text-align: center;'>A Database for High-cell Density Fermentations</h5>", unsafe_allow_html=True)
+
+    load_statistics_data()
+       
+
+    # - - - - - - - - - - - - - - - - BIOPROCESS CONDITIONS EXPLORE SECTION - - - - - - - - - - - - - - - - - 
+    st.divider()
+
+    st.markdown("<h3 style='text-align: center;'>Explore Bioprocess Conditions</h3>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center;'>Dive into the depths of FermentDB's comprehensive data to cross-reference multiple fermentation experiments at once </p>", unsafe_allow_html=True)
+
+    load_pcondition_exploration()
 
     # - - - - - - - - - - - - -  iMODULON EXPLORE SECTION - - - - - - - - - - - - - - - - - 
     st.divider()
