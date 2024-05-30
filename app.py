@@ -76,6 +76,54 @@ def get_num_edge_documents():
     return total_edges
 
 @st.cache_data(show_spinner=False)
+# def get_icicle_chart():
+#     # time.sleep(4)
+#     #filter im_v with major im_e values
+#     query = """
+#         LET iModulon_counts = (
+#             FOR doc IN Run
+#                 FOR im_v, im_e IN 1..1 OUTBOUND doc has_measured_imodulon
+#                     COLLECT imodulon = im_v.data WITH COUNT INTO num_imodulon
+#                     RETURN { imodulon, num_imodulon }
+#         )
+#         FOR doc IN Run
+#             FOR strain_v, strain_e IN 1..1 OUTBOUND doc cultures_strain
+#                 FOR species_v, species_e IN 1..1 OUTBOUND strain_v belongs_to
+#                     FOR im_v, im_e IN 1..1 OUTBOUND doc has_measured_imodulon
+#                         LET major_im = (
+#                             FOR item IN iModulon_counts
+#                                 FILTER item.num_imodulon >= 10  
+#                                 RETURN item.imodulon
+#                         )
+#                         FILTER im_v.data IN major_im
+#                         COLLECT species = species_v.name, strains = strain_v.name, pcond = pcond_v.data
+#                         AGGREGATE imoduon_value = COUNT(im_e)
+#                         RETURN { species: species, strains: strains, imodulon: imodulon, imodulon_edges: imodulon_value }
+#     """
+#     cursor = get_aql().execute(query)
+#     result = [doc for doc in cursor] 
+#     # print(f"Result icicle: {result}")  
+#     df = pd.DataFrame(result)
+
+
+#     fig = px.icicle(df, path=[px.Constant("AMBR 250"), 'species', 'strains' ], values='imodulon_edges',
+#                    color='imodulon_edges', hover_data=['imodulon_edges'],
+#                     color_continuous_scale='RdBu',
+#                     range_color=[5, 5.3],
+#                     color_continuous_midpoint=np.average(df['imodulon_edges'], weights=df['imodulon_edges']))
+#     fig.update_layout(margin = dict(t=50, l=75, r=40, b=50),
+#                       autosize=True,
+#                       title={
+#                         'text': "Summary of Strains with Major iModulon Activity Interactions",
+#                         'y': 0.08,
+#                         'x': 0.42,
+#                         'xanchor': 'center',
+#                         'yanchor': 'top'
+#                     })
+
+#     st.plotly_chart(fig, theme="streamlit")
+
+# Made with pcond+iModulon
 def get_icicle_chart():
     # time.sleep(4)
     #filter pcond_v with major pcond_e values
@@ -366,7 +414,10 @@ def plot_pcondition_table(strain, pcondition, fermenter ):
     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 def click_go_button():
-    st.session_state.display_data = True
+    ss.display_data = True
+
+def click_im_button():
+    ss.im_display_data = True
 
 def load_pcondition_exploration():
     # Initialize variables
@@ -456,6 +507,94 @@ def load_pcondition_exploration():
         with tab2:
             plot_pcondition_table(strain= ss.sb_strain, pcondition=ss.sb_pcondition, fermenter= ss.sb_fermenter_type)
 
+def load_imodulon_exploration():
+    # Initialize variables
+    if 'im_strain_disabled' not in ss:
+        ss.im_strain_disabled = True
+    if 'im_ferm_disabled' not in ss:
+        ss.im_ferm_disabled = True
+    if 'im_cultivation_disabled' not in ss:
+        ss.im_cultivation_disabled = True
+    if 'imodulon_disabled' not in ss:
+        ss.imodulon_disabled = True
+    if 'im_display_data' not in ss:
+        ss.im_display_data = False
+
+    st.markdown("<p style='text-align: left; margin-top: 30px'>Select organism of interest </p>", unsafe_allow_html=True)
+    col1, col2 = st.columns(2)
+    col1.selectbox(
+            'Species: ',
+            get_doc_name('Species'),
+            key = "sb_im_species",
+            index= None,
+            placeholder="Choose species",
+            help = "Select the type of microorganism you wish to study")
+
+    if ss.sb_im_species is not None:
+        ss.im_strain_disabled = False
+    
+    col2.selectbox( # st.multiselect()
+            'Strain:',
+            get_strains(ss.sb_im_species),
+            key = "sb_im_strain",
+            index=None,
+            placeholder="Choose strain",
+            disabled = ss.im_strain_disabled,
+            help = "Select a specific strain of your chosen organism. Each strain has unique characteristics and applications")
+
+    if ss.sb_im_strain is not None:
+        ss.im_ferm_disabled = False
+
+
+    st.markdown("<p style='text-align: left; margin-top: 30px'>Select Fermenter </p>", unsafe_allow_html=True)
+    col1, col2 = st.columns(2)
+    col1.selectbox(
+            'Fermenter type:',
+            get_fermenter_type(ss.sb_im_strain),
+            key = "sb_im_fermenter_type",
+            index=None,
+            placeholder='Choose fermenter',
+            disabled = ss.im_ferm_disabled,
+            help = "Select a specific fermenter type.")
+
+    if ss.sb_im_fermenter_type is not None:
+        ss.im_cultivation_disabled = False
+
+    col2.selectbox(
+            'Cultivation Type:',
+            ("Fed-Batch",),
+            key = 'sb_im_cultivationtype',
+            index=None,
+            placeholder="Choose cultivation type",
+            disabled = ss.im_cultivation_disabled,
+            help = "Select a specific cultivation type of your fermenter")
+
+    if ss.sb_im_cultivationtype is not None:
+        ss.imodulon_disabled = False
+    
+    st.markdown("<p style='text-align: left; margin-top: 30px'> Select iModulon of Interest </p>", unsafe_allow_html=True)
+    col1, col2 = st.columns(2)
+    col1.selectbox(
+        'iModulon Activity:',
+        get_pconditions(ss.sb_im_strain, ss.sb_im_fermenter_type),
+        key = 'sb_imodulon',
+        index=None,
+        placeholder='Choose iModulon',
+        disabled = ss.imodulon_disabled,
+        help = "Select the specific iModulon activity to explore")
+
+    col1, col2, col3 = st.columns(3)   
+    col2.button('Search iModulon!', on_click=click_im_button)
+
+    if ss.im_display_data: 
+        st.divider()
+        st.markdown("<h5>iModulonn Activity Visualization</h5>", unsafe_allow_html=True)
+        tab1, tab2 = st.tabs(["Line Graph", "Table"])
+        with tab1:
+            plot_pcondition_chart(strain=ss.sb_im_strain, pcondition=ss.sb_imodulon, fermenter= ss.sb_im_fermenter_type)
+        with tab2:
+            plot_pcondition_table(strain= ss.sb_im_strain, pcondition=ss.sb_imodulon, fermenter= ss.sb_im_fermenter_type)
+
 # - - - - - - - - - - - - - - - - - - - APP LOGIC - - - - - - - - - - - - - - - - - - - 
 def app(): 
 # - - - - - - - - - - - - - - - - STATISTICAL SECTION - - - - - - - - - - - - - - - - - 
@@ -480,6 +619,8 @@ def app():
 
     st.markdown("<h3 style='text-align: center;'> Explore iModulons </h3>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: center;'> Dive deep into the science of iModulons and high-cell density fermentations </p>", unsafe_allow_html=True)
+
+    load_imodulon_exploration()
 
 if __name__ == '__main__':
     app()
