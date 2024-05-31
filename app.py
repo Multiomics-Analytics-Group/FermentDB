@@ -6,7 +6,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
-import plotly.express as px
+import plotly.express as pxl
 from datetime import datetime
 import hashlib
 import time
@@ -15,6 +15,9 @@ from arango import ArangoClient
 from streamlit_arango.config import Config
 from streamlit import session_state as ss
 from streamlit_d3graph import d3graph
+from htbuilder import HtmlElement, div, ul, li, br, hr, a, p, img, styles, classes, fonts
+from htbuilder.units import percent, px
+from htbuilder.funcs import rgba, rgb
 
 
 
@@ -107,7 +110,7 @@ def get_icicle_chart():
     df = pd.DataFrame(result)
 
 
-    fig = px.icicle(df, path=[px.Constant("AMBR 250"), 'species', 'strains' ], values='im_edges',
+    fig = pxl.icicle(df, path=[pxl.Constant("AMBR 250"), 'species', 'strains' ], values='im_edges',
                    color='im_edges', hover_data=['im_edges'],
                     color_continuous_scale='RdBu',
                     range_color=[5, 5.3],
@@ -360,7 +363,7 @@ def plot_pcondition_chart(strain, pcondition, fermenter ):
     df = pd.concat(rows)
     df['time'] = df['time'].apply(lambda t: datetime.fromtimestamp(t))
     df = df.sort_values(by="time")
-    fig = px.line(df, x="time", y="data", color='run', line_dash='condition')
+    fig = pxl.line(df, x="time", y="data", color='run', line_dash='condition')
     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 def plot_pcondition_table(strain, pcondition, fermenter ):
@@ -567,7 +570,7 @@ def plot_imodulon_chart(strain, imodulon, fermenter ):
     df = pd.concat(rows)
     df['time'] = df['time'].apply(lambda t: datetime.fromtimestamp(t))
     df = df.sort_values(by="time")
-    fig = px.line(df, x="time", y="data", color='run', line_dash='iModulon')
+    fig = pxl.line(df, x="time", y="data", color='run', line_dash='iModulon')
     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 
@@ -717,6 +720,73 @@ def load_imodulon_exploration():
         with tab2:
             plot_imodulon_table(strain= ss.sb_im_strain, imodulon=ss.sb_imodulon, fermenter= ss.sb_im_fermenter_type)
 
+#### ------ FOOTER -------- ####
+
+def image(src_as_string, **style):
+    return img(src=src_as_string, style=styles(**style))
+
+def link(link, text, **style):
+    return a(_href=link, _target="_blank", style=styles(**style))(text)
+
+def layout(*args):
+
+    style = """
+    <style>
+    # MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+        .stApp { bottom: 105px; }
+        </style>
+        """
+
+    style_div = styles(
+        position="fixed",
+        left=0,
+        bottom=0,
+        margin=px(0, 0, 0, 0),
+        width=percent(100),
+        color="black",
+        text_align="center",
+        height="auto",
+        opacity=1
+    )
+
+    style_hr = styles(
+        display="block",
+        margin=px(8, 8, "auto", "auto"),
+        border_style="inset",
+        border_width=px(2)
+    )
+
+    body = p()
+    foot = div(
+        style=style_div
+    )(
+        hr(
+            style=style_hr
+        ),
+        body
+    )
+
+    st.markdown(style, unsafe_allow_html=True)
+
+    for arg in args:
+        if isinstance(arg, str):
+            body(arg)
+
+        elif isinstance(arg, HtmlElement):
+            body(arg)
+
+    st.markdown(str(foot), unsafe_allow_html=True)
+
+def footer():
+
+    myargs = [
+        "Made with ❤️ by ",
+        link("https://github.com/Multiomics-Analytics-Group", "@MoNA"),
+    ]
+    
+    layout(*myargs)
+
 # - - - - - - - - - - - - - - - - - - - APP LOGIC - - - - - - - - - - - - - - - - - - - 
 def app(): 
 # - - - - - - - - - - - - - - - - STATISTICAL SECTION - - - - - - - - - - - - - - - - - 
@@ -791,6 +861,9 @@ def app():
     # Create and display the graph
     d3 = graph_one(d3, adjmat, df, label, node_size)
     d3.show()
+    
+    # - - - - - - - - - - - - - FOOTER - - - - - - - - - - - - - - - - - 
+    footer()
     
 if __name__ == '__main__':
     app()
