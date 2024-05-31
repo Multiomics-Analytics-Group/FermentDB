@@ -14,6 +14,7 @@ import time
 from arango import ArangoClient
 from streamlit_arango.config import Config
 from streamlit import session_state as ss
+from streamlit_d3graph import d3graph
 
 
 
@@ -76,77 +77,29 @@ def get_num_edge_documents():
     return total_edges
 
 @st.cache_data(show_spinner=False)
-# def get_icicle_chart():
-#     # time.sleep(4)
-#     #filter im_v with major im_e values
-#     query = """
-#         LET iModulon_counts = (
-#             FOR doc IN Run
-#                 FOR im_v, im_e IN 1..1 OUTBOUND doc has_measured_imodulon
-#                     COLLECT imodulon = im_v.data WITH COUNT INTO num_imodulon
-#                     RETURN { imodulon, num_imodulon }
-#         )
-#         FOR doc IN Run
-#             FOR strain_v, strain_e IN 1..1 OUTBOUND doc cultures_strain
-#                 FOR species_v, species_e IN 1..1 OUTBOUND strain_v belongs_to
-#                     FOR im_v, im_e IN 1..1 OUTBOUND doc has_measured_imodulon
-#                         LET major_im = (
-#                             FOR item IN iModulon_counts
-#                                 FILTER item.num_imodulon >= 10  
-#                                 RETURN item.imodulon
-#                         )
-#                         FILTER im_v.data IN major_im
-#                         COLLECT species = species_v.name, strains = strain_v.name, pcond = pcond_v.data
-#                         AGGREGATE imoduon_value = COUNT(im_e)
-#                         RETURN { species: species, strains: strains, imodulon: imodulon, imodulon_edges: imodulon_value }
-#     """
-#     cursor = get_aql().execute(query)
-#     result = [doc for doc in cursor] 
-#     # print(f"Result icicle: {result}")  
-#     df = pd.DataFrame(result)
-
-
-#     fig = px.icicle(df, path=[px.Constant("AMBR 250"), 'species', 'strains' ], values='imodulon_edges',
-#                    color='imodulon_edges', hover_data=['imodulon_edges'],
-#                     color_continuous_scale='RdBu',
-#                     range_color=[5, 5.3],
-#                     color_continuous_midpoint=np.average(df['imodulon_edges'], weights=df['imodulon_edges']))
-#     fig.update_layout(margin = dict(t=50, l=75, r=40, b=50),
-#                       autosize=True,
-#                       title={
-#                         'text': "Summary of Strains with Major iModulon Activity Interactions",
-#                         'y': 0.08,
-#                         'x': 0.42,
-#                         'xanchor': 'center',
-#                         'yanchor': 'top'
-#                     })
-
-#     st.plotly_chart(fig, theme="streamlit")
-
-# Made with pcond+iModulon
 def get_icicle_chart():
     # time.sleep(4)
-    #filter pcond_v with major pcond_e values
+    #filter im_v with major im_e values
     query = """
-        LET pcond_counts = (
+        LET im_counts = (
             FOR doc IN Run
-                FOR pcond_v, pcond_e IN 1..1 OUTBOUND doc has_condition
-                    COLLECT pcond = pcond_v.name WITH COUNT INTO num_pcond
-                    RETURN { pcond, num_pcond }
+                FOR im_v, im_e IN 1..1 OUTBOUND doc has_measured_imodulon
+                    COLLECT im = im_v.name WITH COUNT INTO num_im
+                    RETURN { im, num_im }
         )
         FOR doc IN Run
             FOR strain_v, strain_e IN 1..1 OUTBOUND doc cultures_strain
                 FOR species_v, species_e IN 1..1 OUTBOUND strain_v belongs_to
-                    FOR pcond_v, pcond_e IN 1..1 OUTBOUND doc has_condition
-                        LET major_pcond = (
-                            FOR item IN pcond_counts
-                                FILTER item.num_pcond >= 10  
-                                RETURN item.pcond
+                    FOR im_v, im_e IN 1..1 OUTBOUND doc has_measured_imodulon
+                        LET major_im = (
+                            FOR item IN im_counts
+                                FILTER item.num_im >= 7  
+                                RETURN item.im
                         )
-                        FILTER pcond_v.name IN major_pcond
-                        COLLECT species = species_v.name, strains = strain_v.name, pcond = pcond_v.name
-                        AGGREGATE pcond_value = COUNT(pcond_e)
-                        RETURN { species: species, strains: strains, pcond: pcond, pcondition_edges: pcond_value }
+                        FILTER im_v.name IN major_im
+                        COLLECT species = species_v.name, strains = strain_v.name, im = im_v.name
+                        AGGREGATE im_value = COUNT(im_e)
+                        RETURN { species: species, strains: strains, im: im, im_edges: im_value }
     """
     cursor = get_aql().execute(query)
     result = [doc for doc in cursor] 
@@ -154,15 +107,15 @@ def get_icicle_chart():
     df = pd.DataFrame(result)
 
 
-    fig = px.icicle(df, path=[px.Constant("AMBR 250"), 'species', 'strains' ], values='pcondition_edges',
-                   color='pcondition_edges', hover_data=['pcondition_edges'],
+    fig = px.icicle(df, path=[px.Constant("AMBR 250"), 'species', 'strains' ], values='im_edges',
+                   color='im_edges', hover_data=['im_edges'],
                     color_continuous_scale='RdBu',
                     range_color=[5, 5.3],
-                    color_continuous_midpoint=np.average(df['pcondition_edges'], weights=df['pcondition_edges']))
+                    color_continuous_midpoint=np.average(df['im_edges'], weights=df['im_edges']))
     fig.update_layout(margin = dict(t=50, l=75, r=40, b=50),
                       autosize=True,
                       title={
-                        'text': "Summary of Strains with Major Process Condition Interactions",
+                        'text': "Summary of Strains with Major iModulon Activities",
                         'y': 0.08,
                         'x': 0.42,
                         'xanchor': 'center',
@@ -170,6 +123,53 @@ def get_icicle_chart():
                     })
 
     st.plotly_chart(fig, theme="streamlit")
+# Made with pcond+iModulon
+# def get_icicle_chart():
+#     # time.sleep(4)
+#     #filter pcond_v with major pcond_e values
+#     query = """
+#         LET pcond_counts = (
+#             FOR doc IN Run
+#                 FOR pcond_v, pcond_e IN 1..1 OUTBOUND doc has_condition
+#                     COLLECT pcond = pcond_v.name WITH COUNT INTO num_pcond
+#                     RETURN { pcond, num_pcond }
+#         )
+#         FOR doc IN Run
+#             FOR strain_v, strain_e IN 1..1 OUTBOUND doc cultures_strain
+#                 FOR species_v, species_e IN 1..1 OUTBOUND strain_v belongs_to
+#                     FOR pcond_v, pcond_e IN 1..1 OUTBOUND doc has_condition
+#                         LET major_pcond = (
+#                             FOR item IN pcond_counts
+#                                 FILTER item.num_pcond >= 10  
+#                                 RETURN item.pcond
+#                         )
+#                         FILTER pcond_v.name IN major_pcond
+#                         COLLECT species = species_v.name, strains = strain_v.name, pcond = pcond_v.name
+#                         AGGREGATE pcond_value = COUNT(pcond_e)
+#                         RETURN { species: species, strains: strains, pcond: pcond, pcondition_edges: pcond_value }
+#     """
+#     cursor = get_aql().execute(query)
+#     result = [doc for doc in cursor] 
+#     # print(f"Result icicle: {result}")  
+#     df = pd.DataFrame(result)
+
+
+#     fig = px.icicle(df, path=[px.Constant("AMBR 250"), 'species', 'strains' ], values='pcondition_edges',
+#                    color='pcondition_edges', hover_data=['pcondition_edges'],
+#                     color_continuous_scale='RdBu',
+#                     range_color=[5, 5.3],
+#                     color_continuous_midpoint=np.average(df['pcondition_edges'], weights=df['pcondition_edges']))
+#     fig.update_layout(margin = dict(t=50, l=75, r=40, b=50),
+#                       autosize=True,
+#                       title={
+#                         'text': "Summary of Strains with Major Process Condition Interactions",
+#                         'y': 0.08,
+#                         'x': 0.42,
+#                         'xanchor': 'center',
+#                         'yanchor': 'top'
+#                     })
+
+#     st.plotly_chart(fig, theme="streamlit")
 
 # @st.cache_data(show_spinner=False)
 # def get_icicle_chart():
@@ -744,6 +744,54 @@ def app():
 
     load_imodulon_exploration()
 
+
+    @st.cache_data
+    def init_graph():
+    # Initialize d3graph
+        d3 = d3graph()
+    
+    # Sample Data Preparation
+    # Create an adjacency matrix for 5 nodes
+        adjmat = np.array([
+            [0, 1, 1, 0, 0],  # Connections for node A
+            [1, 0, 1, 1, 0],  # Connections for node B
+            [1, 1, 0, 1, 1],  # Connections for node C
+            [0, 1, 1, 0, 1],  # Connections for node D
+            [0, 0, 1, 1, 0]   # Connections for node E
+        ])
+
+    # Create a DataFrame for node properties
+        data = {
+            'label': ['A', 'B', 'C', 'D', 'E'],      # Labels for the nodes
+            'degree': [2, 3, 4, 3, 2]                # Degrees for the nodes
+        }
+        df = pd.DataFrame(data)
+
+    # Node properties
+        label = df["label"].values
+        node_size = df["degree"].values
+
+        return d3, adjmat, df, label, node_size
+
+    @st.cache_data
+    def graph_one(_d3, adjmat, df, label, node_size):
+        _d3.graph(adjmat)
+        _d3.set_node_properties(
+            color=label,
+            size=node_size,
+            edge_size=node_size,
+            edge_color="#00FFFF",
+            cmap="Set1"
+        )
+        return _d3
+
+    # Initialize the graph
+    d3, adjmat, df, label, node_size = init_graph()
+
+    # Create and display the graph
+    d3 = graph_one(d3, adjmat, df, label, node_size)
+    d3.show()
+    
 if __name__ == '__main__':
     app()
 
