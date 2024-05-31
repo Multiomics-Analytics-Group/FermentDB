@@ -2,6 +2,7 @@
 
 # - - - - - - - - - - - IMPORT MODULES - - - - - - - - - - - - - - - - - 
 
+import os
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -18,10 +19,13 @@ from streamlit_d3graph import d3graph
 from htbuilder import HtmlElement, div, ul, li, br, hr, a, p, img, styles, classes, fonts
 from htbuilder.units import percent, px
 from htbuilder.funcs import rgba, rgb
+from streamlit_navigation_bar import st_navbar
+import pages as pg
 
 
 
-st.set_page_config(page_title="FermentDB",page_icon="./assets/images/page_icon.png")
+
+st.set_page_config(page_title="FermentDB",page_icon="./assets/images/page_icon.png", initial_sidebar_state="collapsed")
 # - - - - - - - - - - - - - - - CSS CODE FOR CUSTOMIZATION - - - - - - - - - - - - -
 
 with open('style.css', "r") as file:
@@ -52,7 +56,54 @@ def get_aql():
     return ss.aql
 
 
-# - - - - - - - - - - - - - - - - - - QUERY DATA FROM ARANGODB - - - - - -- - - - - - 
+# - - - - - - - - - - - - - - - - - - QUERY DATA FROM ARANGODB - - - - - - - - - - - - 
+
+# #### ------ NAVBAR SECTION -------- ####
+# pages = ["Home","About", "Explore Bioprocess", "Explore iModulon"]
+# parent_dir = os.path.dirname(os.path.abspath(__file__))
+# #logo_path = os.path.join(parent_dir, "./assets/images/page_icon.png")
+
+# styles_navbar = {
+#     "nav": {
+#         "background-color": "royalblue",
+#         "justify-content": "left",
+#     },
+#     "img": {
+#         "padding-right": "14px",
+#     },
+#     "span": {
+#         "color": "white",
+#         "padding": "14px",
+#     },
+#     "active": {
+#         "background-color": "white",
+#         "color": "var(--text-color)",
+#         "font-weight": "normal",
+#         "padding": "14px",
+#     }
+# }
+# options = {
+#     "show_menu": False,
+#     "show_sidebar": False,
+# }
+
+# page = st_navbar(
+#     pages,
+#     #logo_path=logo_path,
+#     styles=styles_navbar,
+#     options=options
+# )
+
+# functions = {
+#     "Home": pg.show_home,
+#     "About": pg.show_about,
+#     "Explore Bioprocess": pg.show_bioprocess,
+#     "Explore iModulon": pg.show_imodulon,
+# }
+
+# go_to = functions.get(page)
+# if go_to:
+#     go_to()
 
 #### ------ STATISTICS SECTION -------- ####
 
@@ -734,7 +785,7 @@ def layout(*args):
     <style>
     # MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
-        .stApp { bottom: 105px; }
+        .stApp { bottom: 75px; }
         </style>
         """
 
@@ -745,14 +796,20 @@ def layout(*args):
         margin=px(0, 0, 0, 0),
         width=percent(100),
         color="black",
-        text_align="center",
-        height="auto",
-        opacity=1
+        text_align="left",
+        # height=px(120),
+        height=px(75), 
+          # Set the desired height for the footer
+        padding_top=px(35),  # Adjust padding to vertically center the text
+        box_sizing="border-box", 
+        opacity=1,
     )
 
     style_hr = styles(
         display="block",
-        margin=px(8, 8, "auto", "auto"),
+        margin=px(0, 0, 0,0),
+        padding_left=px(20),
+        # margin=px(8, 8, "auto", "auto"),
         border_style="inset",
         border_width=px(2)
     )
@@ -781,8 +838,7 @@ def layout(*args):
 def footer():
 
     myargs = [
-        "Made with ❤️ by ",
-        link("https://github.com/Multiomics-Analytics-Group", "@MoNA"),
+        "FermentDB® ",
     ]
     
     layout(*myargs)
@@ -815,52 +871,52 @@ def app():
     load_imodulon_exploration()
 
 
-    @st.cache_data
-    def init_graph():
-    # Initialize d3graph
-        d3 = d3graph()
+    # @st.cache_data
+    # def init_graph():
+    # # Initialize d3graph
+    #     d3 = d3graph()
     
-    # Sample Data Preparation
-    # Create an adjacency matrix for 5 nodes
-        adjmat = np.array([
-            [0, 1, 1, 0, 0],  # Connections for node A
-            [1, 0, 1, 1, 0],  # Connections for node B
-            [1, 1, 0, 1, 1],  # Connections for node C
-            [0, 1, 1, 0, 1],  # Connections for node D
-            [0, 0, 1, 1, 0]   # Connections for node E
-        ])
+    # # Sample Data Preparation
+    # # Create an adjacency matrix for 5 nodes
+    #     adjmat = np.array([
+    #         [0, 1, 1, 0, 0],  # Connections for node A
+    #         [1, 0, 1, 1, 0],  # Connections for node B
+    #         [1, 1, 0, 1, 1],  # Connections for node C
+    #         [0, 1, 1, 0, 1],  # Connections for node D
+    #         [0, 0, 1, 1, 0]   # Connections for node E
+    #     ])
 
-    # Create a DataFrame for node properties
-        data = {
-            'label': ['A', 'B', 'C', 'D', 'E'],      # Labels for the nodes
-            'degree': [2, 3, 4, 3, 2]                # Degrees for the nodes
-        }
-        df = pd.DataFrame(data)
+    # # Create a DataFrame for node properties
+    #     data = {
+    #         'label': ['A', 'B', 'C', 'D', 'E'],      # Labels for the nodes
+    #         'degree': [2, 3, 4, 3, 2]                # Degrees for the nodes
+    #     }
+    #     df = pd.DataFrame(data)
 
-    # Node properties
-        label = df["label"].values
-        node_size = df["degree"].values
+    # # Node properties
+    #     label = df["label"].values
+    #     node_size = df["degree"].values
 
-        return d3, adjmat, df, label, node_size
+    #     return d3, adjmat, df, label, node_size
 
-    @st.cache_data
-    def graph_one(_d3, adjmat, df, label, node_size):
-        _d3.graph(adjmat)
-        _d3.set_node_properties(
-            color=label,
-            size=node_size,
-            edge_size=node_size,
-            edge_color="#00FFFF",
-            cmap="Set1"
-        )
-        return _d3
+    # @st.cache_data
+    # def graph_one(_d3, adjmat, df, label, node_size):
+    #     _d3.graph(adjmat)
+    #     _d3.set_node_properties(
+    #         color=label,
+    #         size=node_size,
+    #         edge_size=node_size,
+    #         edge_color="#00FFFF",
+    #         cmap="Set1"
+    #     )
+    #     return _d3
 
-    # Initialize the graph
-    d3, adjmat, df, label, node_size = init_graph()
+    # # Initialize the graph
+    # d3, adjmat, df, label, node_size = init_graph()
 
-    # Create and display the graph
-    d3 = graph_one(d3, adjmat, df, label, node_size)
-    d3.show()
+    # # Create and display the graph
+    # d3 = graph_one(d3, adjmat, df, label, node_size)
+    # d3.show()
     
     # - - - - - - - - - - - - - FOOTER - - - - - - - - - - - - - - - - - 
     footer()
