@@ -7,6 +7,7 @@ streamlit-d3graph==1.0.3
 scikit-learn==1.5.0
 htbuilder==0.6.2
 streamlit_navigation_bar==3.3.0
+pages==0.3
 
 # oyaml==1.0
 # PyYAML==5.4.1
