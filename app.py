@@ -25,7 +25,7 @@ import pages as pg
 
 
 
-st.set_page_config(page_title="FermentDB",page_icon="./assets/images/page_icon.png", initial_sidebar_state="collapsed")
+st.set_page_config(page_title="FermentDB",page_icon="./assets/images/fermenter_graph_logo.jpg", initial_sidebar_state="collapsed")
 # - - - - - - - - - - - - - - - CSS CODE FOR CUSTOMIZATION - - - - - - - - - - - - -
 
 with open('style.css', "r") as file:
