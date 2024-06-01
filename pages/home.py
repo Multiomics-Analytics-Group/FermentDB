@@ -1,7 +1,3 @@
-''' FermentDB Streamlit App '''
-
-# - - - - - - - - - - - IMPORT MODULES - - - - - - - - - - - - - - - - - 
-
 import os
 import streamlit as st
 import pandas as pd
@@ -21,42 +17,6 @@ from htbuilder.units import percent, px
 from htbuilder.funcs import rgba, rgb
 from streamlit_navigation_bar import st_navbar
 import pages as pg
-
-
-
-
-st.set_page_config(page_title="FermentDB",page_icon="./assets/images/page_icon.png", initial_sidebar_state="collapsed")
-# - - - - - - - - - - - - - - - CSS CODE FOR CUSTOMIZATION - - - - - - - - - - - - -
-
-with open('style.css', "r") as file:
-    style_css = file.read()
-
-st.markdown(f'<style>{style_css}</style>', unsafe_allow_html=True)
-
-# - - - - - - - - - - - - - - - CONNECT TO ARANGODB - - - - - - - - - - - - - 
-
-# Initialize the ArangoDB client. 
-client = ArangoClient(hosts=Config.ArangoDB.host)
-
-# Initialize connection to database: "fermentdb" as root user
-@st.cache_resource
-def get_database_session():
-    if 'db' not in ss:
-        ss.db = client.db(
-            name = Config.ArangoDB.database,
-            username = Config.ArangoDB.username,
-            password = Config.ArangoDB.password
-    )
-    return ss.db
-
-@st.cache_resource
-def get_aql():
-    if 'aql' not in ss:
-        ss.aql = get_database_session().aql
-    return ss.aql
-
-
-# - - - - - - - - - - - - - - - - - - QUERY DATA FROM ARANGODB - - - - - - - - - - - - 
 
 #### ------ STATISTICS SECTION -------- ####
 
@@ -795,9 +755,9 @@ def footer():
     ]
     
     layout(*myargs)
+def app(): 
 
 # - - - - - - - - - - - - - - - - - - - APP LOGIC - - - - - - - - - - - - - - - - - - - 
-def app(): 
 # - - - - - - - - - - - - - - - - STATISTICAL SECTION - - - - - - - - - - - - - - - - - 
     
     st.header('FermentDB', divider='grey')
@@ -873,84 +833,6 @@ def app():
     
     # - - - - - - - - - - - - - FOOTER - - - - - - - - - - - - - - - - - 
     footer()
-    
-# if __name__ == '__main__':
-#     app()
 
-
-def show_about():
-    st.write("About")
-
-
-# #### ------ DEFINE PAGES -------- ####
-
-
-# pages = ["Home","About", "Explore Bioprocess", "Explore iModulon"]
-parent_dir = os.path.dirname(os.path.abspath(__file__))
-#logo_path = os.path.join(parent_dir, "./assets/images/page_icon.png")
-
-styles_navbar = {
-    "nav": {
-        "background-color": "royalblue",
-        "justify-content": "left",
-    },
-    "img": {
-        "padding-right": "14px",
-    },
-    "span": {
-        "color": "white",
-        "padding": "14px",
-    },
-    "active": {
-        "background-color": "white",
-        "color": "var(--text-color)",
-        "font-weight": "normal",
-        "padding": "14px",
-    }
-}
-options = {
-    "show_menu": False,
-    "show_sidebar": False,
-}
-
-pages = ["Home","About"]
-
-page = st_navbar(pages)
-# page = st_navbar(
-#     pages,
-#     #logo_path=logo_path,
-#     styles=styles_navbar,
-#     options=options
-# )
-
-if page == "Home":
+if __name__ == '__main__':
     app()
-elif page == "About":
-    show_about()
-
-
-# functions = {
-#     "Home": pg.app,
-#     "About": pg.show_about,
-#     #"Explore Bioprocess": pg.show_bioprocess,
-#     #"Explore iModulon": pg.show_imodulon,
-# }
-
-# go_to = functions.get(page)
-# if go_to:
-#     go_to()
-
-
-page()
-
-
-
-
-
-
-
-
-
-
-
-
