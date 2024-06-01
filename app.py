@@ -800,7 +800,7 @@ def footer():
 def app(): 
 # - - - - - - - - - - - - - - - - STATISTICAL SECTION - - - - - - - - - - - - - - - - - 
     
-    st.header('FermentDB', divider='grey')
+    #st.header('FermentDB', divider='grey')
     st.markdown("<h1 style='text-align: center; font-size: 30px;'>Welcome to <span style= 'font-size: 40px;'>FermentDB</span></h1>", unsafe_allow_html=True)
     st.markdown("<h5 style='text-align: center;'>A Database for High-cell Density Fermentations</h5>", unsafe_allow_html=True)
 
@@ -913,7 +913,7 @@ options = {
     "show_sidebar": False,
 }
 
-pages = ["Home","About"]
+pages = ["FermentDB","About"]
 
 page = st_navbar(pages)
 # page = st_navbar(
@@ -923,7 +923,7 @@ page = st_navbar(pages)
 #     options=options
 # )
 
-if page == "Home":
+if page == "FermentDB":
     app()
 elif page == "About":
     show_about()
