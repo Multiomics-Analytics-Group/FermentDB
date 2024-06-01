@@ -941,7 +941,7 @@ elif page == "About":
 #     go_to()
 
 
-page()
+# page()
 
 
 
