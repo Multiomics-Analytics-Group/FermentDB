@@ -304,6 +304,7 @@ def get_fermenter_type(strains):
         result.add(item)
     return result
 
+
 def get_pconditions(strains, fermenters):
     strains = [f"Strain/{get_hash(strains, prefix='ST')}"]
     fermenters = [f"Fermenter/{get_hash(fermenters, prefix='F')}"]
@@ -705,11 +706,12 @@ def load_imodulon_exploration():
     col1, col2 = st.columns(2)
     col1.selectbox(
         'iModulon Activity:',
-        get_imodulon(ss.sb_im_strain, ss.sb_im_fermenter_type),
+        #get_imodulon(ss.sb_im_strain, ss.sb_im_fermenter_type),
+        [2,3,4],
         key = 'sb_imodulon',
         index=None,
         placeholder='Choose iModulon',
-        disabled = ss.imodulon_disabled,
+        disabled = False,
         help = "Select the specific iModulon activity to explore")
 
     col1, col2, col3 = st.columns(3)   
@@ -879,7 +881,7 @@ def app():
 
 
 def show_about():
-    st.write("About")
+    st.write("About reading from app.py")
 
 
 # #### ------ DEFINE PAGES -------- ####
