@@ -1,0 +1,48 @@
+Project:
+    _key: project
+    id: project
+    name: name
+    description: description
+    progress: progress
+    status: status
+    deletable: deletable
+    editable: editable
+    type: type
+    creation_time: creation_time
+    tags: tags
+    modification_time: modification_time
+    start: start
+    end: end
+Country:
+    _key: country
+    id: country
+    name: country
+User:
+    _key: manager/username
+    id: manager/username
+    name: manager/first_name
+    surname: manager/last_name
+Batch_culture:
+    _key: id
+    id: id
+    name: name
+Run:
+    batches:
+        id: id
+        name: name
+        description: description
+        creation_time: creation_time
+        modification_time: modification_time
+        batch_start: batch_start
+        batch_end: batch_end
+        first_timestamp: first_timestamp
+        last_timestamp: last_timestamp
+        variables: variables 
+        phases: phases
+Phase_event: event_names # List: 44 items
+Phase: batch_phase_names # List: 22 items
+
+
+
+
+    
