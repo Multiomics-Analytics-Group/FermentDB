@@ -10,10 +10,10 @@
     "Volume Unit_INDUCTION": ["volume_unit_induction", ""],
     "Condition": ["condition", ""],
     "Strain Batch": ["strain_batch", ""], 
-    "Container ID (calculated)": ["container_id", "Reactor/Plate/Flask Number"],
+    "Container ID (calculated)": ["container_id", "Identifier of the manufactured device or system that supports a biologically active environment.", "https://en.wikipedia.org/wiki/Bioreactor"], # or take this variable? Reactor/Plate/Flask Number
 
-    "SOP": ["SOP", ""], 
-    "Pressure": ["pressure", ""],
+    "SOP": ["SOP", "Standard Operating Procedure. A set of step-by-step instructions compiled by an organization to help workers caryy out routine operations.", "https://en.wikipedia.org/wiki/Standard_operating_procedure"], 
+    "Pressure": ["pressure", "The amount of force applied perpendicular to the surface of an object per unit area over which that foce is distributed. The symbol for it is 'p' or P.", "https://en.wikipedia.org/wiki/Pressure"],
     "DO Control Setpoint (%)": ["DO_control_setpoint_percentage", ""], 
     "Starting OD": ["starting_OD", ""],
     "DO Control Cascade Level 1": ["DO_control_cascade_level1"], 
@@ -42,10 +42,10 @@
     "Initial Culture VolumeNone": ["initial_volume", ""], 
     "Culture Volume Unit": ["culture_volume_unit", ""],
 
-    "OD": ["OD"],
-    "DO": ["DO"],
-    "pH": ["ph"],
-    "Temperature": ["temperature"],
+    "OD": ["OD", "OD600. Optical density to measure biomass. Absorbance is the logarithm of the ratio of incident to transmitted radiant power through a sample (excluding the effects on cell walls)", "https://www.scientificbio.com/blog/a-comparison-between-optical-density-and-backscatter-light/ and https://en.wikipedia.org/wiki/Absorbance"],
+    "DO": ["DO", "Level of free, non-compound oxygen ions present in an aqueous solution.", "https://www.scientificbio.com/dissolved-oxygen-monitoring-in-microbial-bioprocessing#:~:text=The%20term%20'dissolved%20oxygen'%20refers,substrate%20for%20their%20energy%20production."],
+    "pH": ["ph", "Potential of Hydrogen. Logarithmic scale used to specify the acidity or basicity of aqueous solutions.", "https://en.wikipedia.org/wiki/PH"],
+    "Temperature": ["temperature", "Pyhsical quantity that quantitatively expresses the attribute of hotness or coldness, reflecting the average kinetic energy of the vibrating and colliding atoms making up a substance.", "https://en.wikipedia.org/wiki/Temperature"],
 
     "Liquid volume": ["liquid_volume"],
     "Liquid volume downscaled": ["liquid_volume_downscaled"],
@@ -73,7 +73,7 @@
     "Biomas lost in sample": ["biomass_lostin_sample"],
 
     "D-glucose": ["d_glucose"],
-    "D-glucose lost in sample": ["d_glucose_lostin_sample"],
+    "D-glucose lost in sample": ["d_glucose_lostin_sample"], 
 
     "O2 Q": ["o2_q"],
     "O2 decimal": ["o2_decimal"],
@@ -153,13 +153,13 @@
     "D-glucose specific uptake rate_max in Feed": [],
     "D-glucose specific uptake rate_mean in Feed": [],
     "D-glucose specific uptake rate_min in Feed": [],
-    "D-glucose uptake rate": [],
+    "D-glucose uptake rate": ["d-glucose_uptake_rate", "Substrate uptake rate (qs). Uptake rate refers to the rate at which a microbial cell absorbs a substrate. Can be determined by correlating growth yield with growth rate.", "Comprehensive Biotechnology (Second Edition), 2011"],
     "D-glucose uptake rate molar": [],
     "D-glucose yield (X)": [],
     "D-glucose yield c-molar (X)": [],
     "D-glucose yield molar (X)": [],
 
-    "Acetic acid formed": ["acetic_acedi_formed", ""],
+    "Acetic acid formed": ["acetic_acid_formed", ""],
     "Acetic acid formed c-molar": ["acetic_acid_formed_c_molar", ""],
     "Acetic acid specific formation rate": [],
     "Acetic acid specific formation rate molar": [],

@@ -1,0 +1,23 @@
+{"production_rate":{
+
+},
+  "substrate_uptake_rate": {
+    "formula": "μ/Ysx + ms",
+    "parameters": {
+      "μ": ["var_μ", "growth rate(μ or mu): the rate of biomass(X) formation with CO2 as a byproduct."],
+      "Ysx": ["var_Ysx","biomass yield: grams of biomass produced divided per grams of substrate consumed"],
+      "ms": ["var_ms", "maintenance rate: rate at which substrate is converted into CO2 to gain energy"]
+    }
+
+  },
+  "biomass yield":{
+
+  },
+  "product yield": {
+
+  },
+  "product titer": {
+
+  }
+  
+}
