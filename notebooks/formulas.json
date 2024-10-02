@@ -1,6 +1,58 @@
-{"production_rate":{
-
+{"p_production_rate":{
+  "description": "Rp: production rate for the product (P)",
+  "formula": "rp * x * V",
+  "parameters": {
+    "rp": ["var_rp", "biomass-specific production rate, in g/(g biomass*h)"],
+    "x": ["var_x", "biomass concentration, g biomass/l"],
+    "V": ["var_V", "volume, in l"]
+  }
 },
+  "s_production_rate":{
+  "description": "Rs: production rate for the substrate (S)",
+  "formula": "rs * x * V",
+  "parameters": {
+    "rp": ["var_rs", "????"],
+    "x": ["var_x", "biomass concentration, g biomass/l"],
+    "V": ["var_V", "volume, in l"]
+  }
+},
+  "x_production_rate":{
+  "description": "Rx: production rate for the biomass (X)",
+  "formula": "mu * x * V",
+  "parameters": {
+    "mu": ["var_mu", "mu(μ): growth rate. (1/h). Rx is substituted by μ."],
+    "x": ["var_x", "biomass concentration, g biomass/l"],
+    "V": ["var_V", "volume, in L"]
+  }
+},  
+  "biomass_yield":{
+    "description": "Ysx, in g biomass produced / g substrate consumed",
+    "formula": "Rx / Rs",
+    "parameters":{
+      "Rx": ["var_Rx", "biomass production rate"],
+      "Rs": ["var_Rs", "substrate production rate"]
+    }
+  },
+  "product_yield": {
+    "description": "Ysp, in g product produced / g substrate consumed",
+    "forumla": "Rp / Rs",
+    "parameters":{
+      "Rp": ["var_Rp", "product production rate "],
+      "Rs": ["var_Rs", "substrate production rate"]
+    }
+  },
+  "product_titer": {
+    "description": "Product titer (Cp), in gproduct/L: the concentration of the product in the culture.",
+    "formula": "P / V",
+    "parameters":{
+      "P": ["product_formed", "the product of the Rp and time (t, in h)"],
+      "V": ["var_V", "volume, in L"]
+    }
+
+  },
+  "product_formed":{
+
+  },
   "substrate_uptake_rate": {
     "formula": "μ/Ysx + ms",
     "parameters": {
@@ -8,15 +60,6 @@
       "Ysx": ["var_Ysx","biomass yield: grams of biomass produced divided per grams of substrate consumed"],
       "ms": ["var_ms", "maintenance rate: rate at which substrate is converted into CO2 to gain energy"]
     }
-
-  },
-  "biomass yield":{
-
-  },
-  "product yield": {
-
-  },
-  "product titer": {
 
   }
   
