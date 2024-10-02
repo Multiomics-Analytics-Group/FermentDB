@@ -14,6 +14,10 @@ Run:
 Fermenter:
     Container Type: name
     Container ID (calculated): container_id # same as: Reactor/Plate/Flask Number: reactor_number ????
+    # Add operation_mode: batch, fed-batch, continuos
+    # Add brand
+    # Add type/configuration
+
 
 Operating_condition: # Only scalar and categorical not timeseries? Constant parameters
     SOP: SOP 
@@ -143,8 +147,8 @@ kPI:
     Biomass specific growth rate μ_max in Feed:
     Biomass specific growth rate μ_mean in Feed:
     Biomass specific growth rate μ_min in Feed:
-    Biomass yield (S):
-    Biomass yield c-molar (S):
+    Biomass yield (S): biomass_yield
+    Biomass yield c-molar (S): biomass_c-molar_yield
     Biomass yield molar (S): biomass_molar_yield
 
     # Respiratory activity measurements
