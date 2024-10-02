@@ -29,16 +29,16 @@
     "description": "Ysx, in g biomass produced / g substrate consumed",
     "formula": "Rx / Rs",
     "parameters":{
-      "Rx": ["var_Rx", "biomass production rate"],
-      "Rs": ["var_Rs", "substrate production rate"]
+      "Rx": ["var_Rx", "biomass_production_rate"],
+      "Rs": ["var_Rs", "substrate_production_rate"]
     }
   },
   "product_yield": {
     "description": "Ysp, in g product produced / g substrate consumed",
     "forumla": "Rp / Rs",
     "parameters":{
-      "Rp": ["var_Rp", "product production rate "],
-      "Rs": ["var_Rs", "substrate production rate"]
+      "Rp": ["var_Rp", "product_production_rate "],
+      "Rs": ["var_Rs", "substrate_production_rate"]
     }
   },
   "product_titer": {
@@ -51,9 +51,20 @@
 
   },
   "product_formed":{
-
+    "description": "The product of the production rate and time (t, in h)",
+    "formula": "Rp x t",
+    "parameters": {
+      "Rp": ["var_Rp", "product_production_rate"],
+      "t": ["time_var", "time in h"]
+    }
   },
+  
+
+
+
+
   "substrate_uptake_rate": {
+    "description": "",
     "formula": "μ/Ysx + ms",
     "parameters": {
       "μ": ["var_μ", "growth rate(μ or mu): the rate of biomass(X) formation with CO2 as a byproduct."],
@@ -61,6 +72,22 @@
       "ms": ["var_ms", "maintenance rate: rate at which substrate is converted into CO2 to gain energy"]
     }
 
+  },
+  "biomass-specific_production_rate": {
+    "description": "rp: biomass-specific production rate, in g/(g biomass*h)"
+
+  },
+  "biomass_concentration": {
+
+  },
+
+  "growth_rate": {
+    "description": "Biomass specific growth rate (μ): biomass_formation_rate (c-mol/h) / substrate_uptake_rate(mol/h)",
+    "formula": "",
+    "parameters": {
+
+    }
   }
+
   
 }
