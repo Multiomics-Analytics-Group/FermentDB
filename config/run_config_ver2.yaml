@@ -11,6 +11,7 @@ Run:
     Volume Unit_INDUCTION: volume_unit_induction 
     Condition: condition 
     Strain Batch: strain_batch # move to Strain edge attribute (MOVE)
+
 Fermenter:
     Container Type: name
     Container ID (calculated): container_id # same as: Reactor/Plate/Flask Number: reactor_number ????
@@ -18,13 +19,11 @@ Fermenter:
     # Add brand
     # Add type/configuration
 
-
-Operating_condition: # Only scalar and categorical not timeseries? Constant parameters
-    SOP: SOP 
+Operating_condition: 
+    SOP: SOP # Here or move to
     Pressure: pressure
     # DO
     DO Control Setpoint (%): DO_control_setpoint_percentage 
-    Starting OD: starting_OD # or in process condition?
     DO Control Cascade Level 1: DO_control_cascade_level1 
     DO Control Cascade Level 2: DO_control_cascade_level2 
     DO Control Cascade Level 3: DO_control_cascade_level3 
@@ -33,7 +32,6 @@ Operating_condition: # Only scalar and categorical not timeseries? Constant para
     Minimum Stirring or Shaking Speed (rpm): minimum_stirring_speed_rpm
     Air flow: air_flow # Level 2
     Aeration Gas Type: aeration_gas_type 
-    Aeration Profile: aeration_profile 
     Maximum Aeration (slpm): maximum_aeration_slpm 
     Minimum Aeration (slpm): minimum_aeration_slpm 
     Oxygen flow: oxygen_flow # Level 3
@@ -51,6 +49,7 @@ Cultivation_condition: # Experimental conditions (categorical or scalar) not tim
     #TºC (in Operating cond?)
     Temperature Setpoint (C): temperature_setpoint_celsius 
     # Sample/Seed (as run attributes or in Strain/Sample/Seed/Starter?)
+    Starting OD: starting_OD
     Final Seed OD: final_seed_od
     Initial Culture VolumeNone: initial_volume 
     Culture Volume Unit: culture_volume_unit
@@ -113,27 +112,24 @@ Medium:
     'Feed Medium #1': feed_medium_1 
     'Feed Medium #2': feed_medium_2 
 
-Carbon_source:
-    D-glucose: d_glucose
-Energy_source:
-    D-glucose: d_glucose
-
 Strain:
     Strain: name
 
-Primary_product:
+Compounds:
+    #Substrate
+    D-glucose: d_glucose
+    
+    #Primary products
     melatonin: melatonin
     tryptophan: tryptophan
 
-Byproduct:
+    #By-products
     acetic acid: acetic_acid
     caffeine: caffeine
     citric acid: citric_acid
     lactate: lactate
     pyruvic acid: pyruvic acid
     succinic acid: succinic acid
-
-Metal_ion:
 
 kPI:
     # Biomass

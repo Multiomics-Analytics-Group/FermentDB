@@ -9,8 +9,10 @@
 
 ## Table of Contents
 
-- [Abstract](#abstract) 
-- [Data Model](#data-model) 
+- [Table of Contents](#table-of-contents)
+- [Abstract](#abstract)
+- [Data Model](#data-model)
+- [Calculator](#calculator)
 
 <br>
 
@@ -30,3 +32,12 @@ Design of the FermentDB data model.
 <br>
 
 <img src="./assets/images/initial_draft_data_model_080424.png" alt="data model" />
+
+
+## Calculator
+Calculator formulas nb:
+ToDo:  
+
+[  ] Adapt formulas to timeseries datasets  
+[  ] Call p/s/x production rate formulas, all in one production rate: If product, if substrate, if biomass.
+[  ] Call p/x yield formulas, all in one yields: If product, if biomass.

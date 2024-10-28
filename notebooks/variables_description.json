@@ -1,172 +1,256 @@
 {
-    "Culture Type": ["culture_type",""],
-    "Seed": ["seed", ""],
-   " Sample ID": ["sample_id", "ID of the main culture"], 
-    "Experiment": ["experiment", ""],
-    "Replicate #": ["replicate_number", ""],
-    "Control?": ["is_control", ""], 
-    "Comments": ["comments", ""], 
-    "Inducer": ["inducer" , ""],
-    "Volume Unit_INDUCTION": ["volume_unit_induction", ""],
-    "Condition": ["condition", ""],
-    "Strain Batch": ["strain_batch", ""], 
-    "Container ID (calculated)": ["container_id", "Identifier of the manufactured device or system that supports a biologically active environment.", "https://en.wikipedia.org/wiki/Bioreactor"], # or take this variable? Reactor/Plate/Flask Number
+    "Run Variables": {
+        "Run": ["A run is the individual bioprocess experiment running in a reactor."],
+        "Experiment": ["experiment", "Experiment ID where the specific run is linked?"],
+        "Replicate #": ["replicate_number", "Reference the number of the experiment replicate???"],
+        "Control?": ["is_control", "Reference if a run is a control experiment"], 
+        
+        //Move to Cultivation conditions(sample related variables) or Strain node?
+        "Culture Type": ["culture_type","Origin of the culture???"],
+        "Sample ID": ["sample_id", "ID of the main culture, no related with the sample withdrawn"], 
+        "Seed": ["seed", "Starter culture or initial culture prepared from a stock culture and grown until a certain concentration."],
+        "Comments": ["comments", "'Additional Zinc in medium'?????"], 
+        
+        //Not found! Should we store it anyways?
+        "Inducer": ["inducer" , "Substance that triggers or enhances the expression of a gene or the activity of a metabolic pathway"],
+        "Volume Unit_INDUCTION": ["volume_unit_induction", "Quantity of the inducer added, in uL."],
+        "Condition": ["condition", "??"]
+    },
+    "Strain": {
+        "Strain Batch": ["strain_batch", "Physical representation of a strain concept in benchling software."] 
+    },
+    "Fermenter": {
+        "Container Type": ["container_type", "Fermenter brand." ],
+        "Reactor/Plate/Flask Number": ["container_id", "Identifier of the reactor or minibioreactor, manufactured device or system that supports the bioprocess."],
+    },
+    "Operating Condition Variables": {
+        "Operating Conditions": ["Initial and/or constant operating parameters (technical and mechanical parameters) related with the bioreactor operation: pressure, stirrer speed and gas flow rate (air or specific compound like oxygen)"],
+        
+        //P
+        "Pressure": ["pressure", "Ambr Raw Data. Bioreactor pressure reading."],
 
-    "SOP": ["SOP", "Standard Operating Procedure. A set of step-by-step instructions compiled by an organization to help workers caryy out routine operations.", "https://en.wikipedia.org/wiki/Standard_operating_procedure"], 
-    "Pressure": ["pressure", "The amount of force applied perpendicular to the surface of an object per unit area over which that foce is distributed. The symbol for it is 'p' or P.", "https://en.wikipedia.org/wiki/Pressure"],
-    "DO Control Setpoint (%)": ["DO_control_setpoint_percentage", ""], 
-    "Starting OD": ["starting_OD", ""],
-    "DO Control Cascade Level 1": ["DO_control_cascade_level1"], 
-    "DO Control Cascade Level 2": ["DO_control_cascade_level2"], 
-    "DO Control Cascade Level 3": ["DO_control_cascade_level3"], 
-    "Stirrer speed": ["stirrer_speed", ""],
-    "Maximum Stirring or Shaking Speed (rpm)": ["maximum_stirring_speed_rpm", ""], 
-    "Minimum Stirring or Shaking Speed (rpm)": ["minimum_stirring_speed_rpm"],
-    "Air flow": ["air_flow # Level 2"],
-    "Aeration Gas Type": ["aeration_gas_type"], 
-    "Aeration Profile": ["aeration_profile"], 
-    "Maximum Aeration (slpm)": ["maximum_aeration_slpm"], 
-    "Minimum Aeration (slpm)": ["minimum_aeration_slpm"], 
-    "Oxygen flow": ["oxygen_flow"],
-    "Inlet air O2": ["inlet_air_o2"],
-    "Inlet air CO2": ["inlet_air_co2"],
+        //DO
+        "DO Control Setpoint (%)": ["DO_control_setpoint_percentage", "Target value for dissolved oxygen, in percentage."], 
+        "DO Control Cascade Level 1": ["DO_control_cascade_level1", "First level of the cascade control system for dissolved oxygen. Level 1 involves adjusting the stirrer_speed parameter to ahcieve the desired DO level."], 
+        "DO Control Cascade Level 2": ["DO_control_cascade_level2", "Second level of the cascade control system for dissolved oxygen. Level 2 involves adjusting the air_flow parameter to ahcieve the desired DO level."], 
+        "DO Control Cascade Level 3": ["DO_control_cascade_level3", "Third level of the cascade control system for dissolved oxygen. Level 3 involves adjusting the o2_flow parameter to ahcieve the desired DO level."], 
 
-    "pH Setpoint": ["pH_setpoint",""],
-    "pH Control Base Solution": ["ph_control_base_solution", ""], 
-    "Base rate": ["base_rate", ""],
-    "Base volume": ["base_volume", ""],
-    "pH Control Acid Solution": ["ph_control_acid_solution", ""],
-    "Acid volume": ["acid_volume", ""], 
-    "Temperature Setpoint (C)": ["temperature_setpoint_celsius", ""], 
-    "Final Seed OD": ["final_seed_od", ""],
-    "Initial Culture VolumeNone": ["initial_volume", ""], 
-    "Culture Volume Unit": ["culture_volume_unit", ""],
+        "Stirrer speed": ["stirrer_speed", "Ambr Raw Data. Speed at which the impeller shaft rotates, measured in rpm (revolutions per minute)."],
+        "Maximum Stirring or Shaking Speed (rpm)": ["maximum_stirring_speed", "The maximum complete revolutions the stirrer makes in one minute."], 
+        "Minimum Stirring or Shaking Speed (rpm)": ["minimum_stirring_speed", "The minimum complete revolutions that stirrer makes in one minute"],
+        
+        "Air flow": ["air_flow", "Ambr Raw Data. Rate at which air is supplied to the fermnter, measured in lpm (liters per minute)"],
+        "Aeration Gas Type": ["aeration_gas_type", "Type of gas used for aeration in the fermenter."], 
+        "Maximum Aeration (slpm)": ["maximum_aeration_slpm", "Maximum rate of gat which gas can be supplied to the fermenter, measured in slpm (standard liters per minute)."], 
+        "Minimum Aeration (slpm)": ["minimum_aeration_slpm", "Minimum rate at which air gas be supplied to the fermenter, measured in slpm (standard liters per minute)."], 
+        
+        "Oxygen flow": ["o2_flow", "Ambr Raw Data. Rate at which oxygen is supplied to the fermenter, measured in lpm (liters per minute)."],
+        "Inlet air O2": ["o2_percentage_inflow", "Ambr Raw Data. Percentaje of oxygen in the gas mixture that is being supplied into the fermenter."],
+        "Inlet air CO2": ["co2_percentage_inflow", "Percentaje of CO2 in the gas mixture that is being supplied into the fermenter."],
+        
+        //SOPs. Move to attribute of Project/Experiment and in SOP_medium?
+        "SOP": ["SOP", "Standard Operating Procedure. A set of step-by-step instructions compiled by an organization to help workers caryy out routine operations."], 
+    },
+    "Cultivation Condition Variables":{
+        "Cultivation Condition": "Initial experimental parameters and environmental conditions set prior to or at the sart of the bioprocess. These include environmental setpoints such as pH, temperature(Tº), initial volume, and optical density (OD) of the seed cutlure. These conditions are not directly related to the bioreactor's real-time operation.",
+        //pH
+        "pH Setpoint": ["pH_setpoint","Target pH value to be maintened within the fermenter throught the process."],
+        "pH Control Base Solution": ["ph_control_base_solution", "The alkaline (base) solution used to control and maintain the pH."], 
+        "Base rate": ["base_rate", "Ambr Raw Data. the flow rate at which the base solution is pumped into the fermenter , measured in L/h."],
+        "Base volume": ["base_volume", "Ambr Raw Data. Volume of the basic solution pumped into the fermenter, measured  in L."],
+        "pH Control Acid Solution": ["ph_control_acid_solution", "The acidic solution used to lower the pH within the fermenter when it rises above the setpoint."],
+        "Acid volume": ["acid_volume", "Volume of the acidic solution pumped into the fermenter, measured  in L."], 
+        
+        //Tº
+        "Temperature Setpoint (C)": ["temperature_setpoint", "The target temperature to be maintained within the fermenter, expressed in degrees Celsius (ºC)."], 
+        
+        //OD
+        "Starting OD": ["starting_OD", "The optical density (OD) of the seed culture at the start of the bioprocess run, measuring the cell density or biomass concentration for the initial inoculum level."],
+        "Final Seed OD": ["final_seed_od", "The cell density of the seed culturre at the time it is inoculated to the main fermenter."],
+        
+        //Volume
+        "Initial Culture VolumeNone": ["initial_culture_volume", "The total volume of the culture at the beginning of the bioprocess, representing the sum of culture medium and inoculum, no units."], 
+        "Culture Volume Unit": ["culture_volume_unit", "The unit of measurement for the culture volume, in mL."]
+    },
+        
+    "Process Condition Variables":{
+        "Process Condition": "Technical parameters measured during the bioprocess (online measurements) or after the bioprocess (offline measurements). These varibles are used to control cultivation conditions and operating conditions.",
+        
+        "DO": ["do", "Ambr Raw Data. Level of free, non-compound oxygen ions present in an aqueous solution."],
+        "pH": ["ph", "Ambr Raw Data. Potential of Hydrogen. Logarithmic scale used to specify the acidity or basicity of aqueous solutions."],
+        "Temperature": ["temperature", "Ambr Raw Data. Pyhsical quantity that quantitatively expresses the attribute of hotness or coldness, reflecting the average kinetic energy of the vibrating and colliding atoms making up a substance."],
+        
+        "OD": ["od", "OD600. Optical density to measure biomass. Absorbance is the logarithm of the ratio of incident to transmitted radiant power through a sample (excluding the effects on cell walls)"],
+        
+        //Volume
+        "Liquid volume": ["liquid_volume", "Total volume of liquid in the fermenter, measured in L."],
+        "Liquid volume (without corrected samples)": ["liquid_volume_without_corrected_samples", "Total volume of liquid in the fermenter without subtracting the sample volume extracted, measured in L."],
+        
+        //Sampling
+        "Sample mass": ["sample_mass", "The mass of the sample taken from the bioprocess/run, measured in grams. Implemented for quantifying the amount of biomass, product, other compounds."],
+        "Sample volume": ["sample_volume", "The volume of the sample taken from the bioprocess/run, measured in mL. Implemented for calculating concentrations, dilutions, etc."],
+        "Accumulated sample volume": ["accumulated_sample_volume", "Total volume of all samples taken from the bioprocess/run up to a certain point in time, measured in mL."],
+        
+        //Feed
+        "Feed 1 rate gavimetric": ["feed_rate_gavimetric", "Rate at which the feed (based on its mass) is added to the bioproces, measured in kg/h."],
+        "Feed amount": ["feed_amount", "The quantity or total mass of feed added to the bioprocess, measured in kg."],
+        
+        "Feed 1 rate volumetric": ["feed_rate_volumetric", "Ambr Raw Data. Rate at which the feed (based on its volume) is added to the bioprocess, measured in L/h."],
+        "Feed 1 volume": ["feed_volume", "Ambr Raw Data. The volume of the feed solution pumped to the bioprocess at a certain time point, measured in L."],
+        
+        //Analytical data
+        "Residual compound amount": ["residual_compound_amount", "The remaining amount of 'compound' left in the medium, expressed in g."],
+        
+        
+        //Respiratory activity measurements
+        "RQ": ["RQ", "Ambr Raw Data. Respiratory Quotient: Ratio of CO2 produced to O2 consumed during cellular metabolism throught the bioprocess/run, dimensionless number. Used to assess the metabolic state of cells."],
+        "CO2 evolution rate": ["CER", "Ambr Raw Data. Online determination of the rate at which CO2 is produced by cells. Ambr records it as unnormalized in mol/h."],
+        "Formed CO2": ["formed_co2", "Ambr Raw Data. Amount of CO2 generated during the bioprocess. Ambr records it as unnormalized, integrated, in moles."], 
+        "O2 uptake rate": ["OUR", "Ambr Raw Data. Oxygen Uptake Rate: Online determination of the rate at which O2 is consumed by cells. Ambr records it as unnormalized in mol/h "],
+        "Consumed O2": ["consumed_o2", "Ambr Raw Data. Amount of O2 consumed during the bioprocess. Ambr records it as unnormalized, integrated, in moles."],
+        
+        //CO2 + O2
+        "Offgas CO2": ["offgas_co2", "Ambr Raw Data. The percentage of CO2 present in the exhaust stream leaving the fermenter, indicating the amount of CO2 produced."],
+        "Offgas O2": ["offgas_o2", "Ambr Raw Data. The percentage of O2 present in the exhaust stream leaving of the fermenter, indicating how much oxygen has been consumed. Useful for calculating OUR, for instance."],
+        
+        
+    },
+    "Medium": {
+        "Base Medium": ["base_medium", "Primary source of nutrients for the culture. Solution containing macronutrients, micronutrients and buffering agents."],
+        "Feed Medium #1": ["feed_medium", "Additional nutrient solution added to the bioprocess during the fed batch phase, when the base medium has been consumed."]
+    },
+    "kPI": {
+        "kPI": "key Performance Indicator. Parameters calculated (and intermediate calculated results necessary for calculating kPIs?).",
+        
+        //Respiratory activity rates - Measured???
+        "OTR": ["OTR", "Oxygen Transfer Rate (mol/lh): rate at which O2 is transferred from the gas phase or fermenter air into the liquid phase within a fermenter."],
+        "CTR": ["CTR","Carbon dioxide Transfer Rate (mol/lh): rate at which CO2 is transferred out of the fermenter. Important as CO2 is considered a by-product in aerobic processes, and so is a parameter used for predicting biomass concentration, evaluating energetic efficiencies of growth, monitoring growth yields and controlling fed batch processes like airflow rates or stir speeds."],
+        
+        //Volume - Intermediate Calculated Results????
+        "Volume AddedNone": ["volume_addednone", "????, it is a scalar"],
+        "Liquid volume downscaled": ["liquid_volume_downscaled", "????, measured in L."],
+        "Volume UnitNone": ["volume_unitnone", "?????, it is a categorical variable: mL"],
+        "Volume to AddNone": ["volume_to_addnone", "??????, it is a scalar"],
 
-    "OD": ["OD", "OD600. Optical density to measure biomass. Absorbance is the logarithm of the ratio of incident to transmitted radiant power through a sample (excluding the effects on cell walls)", "https://www.scientificbio.com/blog/a-comparison-between-optical-density-and-backscatter-light/ and https://en.wikipedia.org/wiki/Absorbance"],
-    "DO": ["DO", "Level of free, non-compound oxygen ions present in an aqueous solution.", "https://www.scientificbio.com/dissolved-oxygen-monitoring-in-microbial-bioprocessing#:~:text=The%20term%20'dissolved%20oxygen'%20refers,substrate%20for%20their%20energy%20production."],
-    "pH": ["ph", "Potential of Hydrogen. Logarithmic scale used to specify the acidity or basicity of aqueous solutions.", "https://en.wikipedia.org/wiki/PH"],
-    "Temperature": ["temperature", "Pyhsical quantity that quantitatively expresses the attribute of hotness or coldness, reflecting the average kinetic energy of the vibrating and colliding atoms making up a substance.", "https://en.wikipedia.org/wiki/Temperature"],
+        //Carbon Energy source
+        //Process condition D? or calculated????
+        "D": ["dilution_rate", "The rate at which fresh medium is fed into a main culture relative to the culture volume, representing the rate at which the culture is diluted, measured in 1/h."], 
+        
+        "C balance": ["c_balance", "Balance which compares the total amount of carbon entering the fermenter (through the substrate) to the total carbon leaving the fermenter (in products, biomass or by.products like CO2), expressed in percentage."],
+        "C balance (using c-mols)": ["c_balance_c_mols", "The carbon balance calculated using carbon moles (c-mols), providing more molecular level view of the carbon flow, no units."],
+        "Elemental C balance with reference to substrate": ["c_balance_to_substrate", "The carbon balance specifically referenced to the substrate usedin the bioprocess, to asses substrate utilization efficiency. No units."],
+        
+        "DoR balance": ["dor_balance", "Degree of Reduction (DoR) balance, important for understanding the redox balance in the bioprocess. The balance ensures that the electrons entering the bioprocess are equal to the electrons leaving it. It is expressed in percentage."],
+        "DoR (from yields)": ["yields_dor", "The degree of reduction calculated based on the yields of different products. This helps understand how efficiently the system is converting substrate into desired products, taking into account the redox state of each component.  No units."],
+        
+        
+        //CO2 - Intermediate Calculated Results
+        "CO2 decimal": ["co2_decimal", "The decimal fraction of CO2 in a gas stream, representing the proportion of CO2 in the exhaust gas relative to the total gas volume, no units"],
+        "CO2 molar": ["co2_molar", "The molar rate of CO2 production, measuring the quantity of CO2 generated by the bioprocess in terms of moles, expressed in mol/h."],
+        "CO2 partial integration": ["co2_partial_integration", "A time-based integration of CO2 production, often calculated for specific time intervals??????, no units."],        
+        "CO2 accumulated": ["co2_accumulated", "The total amount of CO2 produced and measured over the course of the bioprocess, tracked as an accumulated value, no units."],
+        "CO2 accumulated downscaled": ["co2_accumulated_downscaled","The total molar quantity of CO2 generated, expressed in mol."],
+        
+        //CO2 - kPIs
+        
+        "CO2 Q": ["co2_q", "The volumetric rate of CO2 produced by the bioprocess over time, expressed in L/h."],
+        
+        "CO2 specific evolution rate": ["co2_specific_evolution_rate", "The specific rate at which CO2 is produced per unit of biomass (X), expressed in moles of CO2 per carbon mole of biomass per hour (mol/c-mol(X)*h). Reflecting how efficiently CO2 is released in relation to biomass production."],
+        
+        "CO2 yield (S)": ["co2_yield_s", ", The yield of CO2 produced per mole of substrate consumed (S), expressed in moles of CO2 per mole of substrate (mol/mol(S)), quantifying how much CO2 is produced relative to the substrate used in the bioprocess."],
+        "CO2 yield c-molar (S)": ["co2_yield_c_molar_s", "The yield of CO2 produced per carbon mole of substrate consumed (S), expressed in moles of CO2 per carbon mole of substrate (mol/c-mol(S)). More detailed yield accounting for the carbon content of the substrate."],
+        "CO2 yield (X)": ["co2_yield_x", "The yield of CO2 produced per carbon mole of biomass (X), expressed in moles of CO2 per carbon mole of biomass (mol/c-mol(X)), describing how much CO2 is produced relative to the amount of biomass generated."],
+        
+        
+        //O2 - Intermediate Results
+        "O2 decimal": ["o2_decimal", "The decimal fraction of O2 in a gas stream, representing the proportion of O2 in the exhaust gas relative to the total gas volume, no units."],
+        "O2 partial integration": ["o2_partial_integration", "A time-based integration of O2 production, often calculated for specific time intervals??????, no units."],
+        
+        "O2 accumulated": ["o2_accumulated", "The total amount of O2 consumed and measured over the course of the bioprocess, tracked as an accumulated value, no units"],
+        "O2 accumulated downscaled": ["o2_accumulated_downscaled", "The total molar quantity of O2 generated, expressed in mol."],
+        
+        //O2 - kPIs
+        "O2 Q": ["o2_q", "The volumetric rate of O2 consumed by the bioprocess over time, expressed in L/h."],
+        "O2 molar": ["o2_molar", "The molar rate of O2 production, measuring the quantity of O2 generated by the bioprocess in terms of moles, expressed in mol/h."],
+        
+        "O2 specific uptake rate": ["o2_specific_uptake_rate", "The specific rate at which O2 is produced per unit of biomass (X), expressed in moles of O2 per carbon mole of biomass per hour (mol/c-mol(X)*h). Reflecting how efficiently O2 is consumed in relation to biomass production."],
+        
+        "O2 yield (S)": ["o2_yield_s", ", The yield of O2 consumed per mole of substrate consumed (S), expressed in moles of O2 per mole of substrate (mol/mol(S)), quantifying how much O2 is consumed relative to the substrate used in the bioprocess."],
+        "O2 yield c-molar (S)": ["o2_yield_c_molar_s", "The yield of O2 consumed per carbon mole of substrate consumed (S), expressed in moles of O2 per carbon mole of substrate (mol/c-mol(S)). More detailed yield accounting for the carbon content of the substrate."],
+        "O2 yield (X)": ["o2_yield_x", "The yield of O2 consumed per carbon mole of biomass (X), expressed in moles of O2 per carbon mole of biomass (mol/c-mol(X)), describing how much O2 is consumed relative to the amount of biomass generated."],
+        
+        
+     
+        //Compound (Primary Products and By-products, example with acetic acid) - Intermediate Results
+        
+        "acetic acid": ["compound", "Concentration of the compound in the bioprocess, measured in g/L."],
+        "Acetic acid formed": ["compound_formed", "Total amount of compound produced in the bioprocess, representing the cumulative production of the compound over time, measured in g."],
+        "Acetic acid formed molar": ["compound_formed_molar", "Total amount of compound produced in the bioprocess, expressed in moles(mol), providing molecular level quantification. "],
+        "Acetic acid formed c-molar": ["compound_formed_c_molar", "Total amount of compound produced in the bioprocess, expressed in cmol, which is related with the carbon content of the compound."],
+        "Acetic acid lost in sample": ["compound_lost_in_sample", "The amount of compound lost or removed from the fermenter during sampling, expressed in g."],
+                
+        //Compound (Primary Products and By-products, example with acetic acid) - kPIs
 
-    "Liquid volume": ["liquid_volume", ""],
-    "Liquid volume downscaled": ["liquid_volume_downscaled", ""],
-    "Volume AddedNone": ["volume_addednone", ""],
-    "Volume UnitNone": ["volume_unitnone", ""],
-    "Volume to AddNone": ["volume_to_addnone", ""],
-    
-    "Sample mass": ["sample_mass", ""],
-    "Sample volume": ["sample_volume", ""],
-    "Accumulated sample volume": ["accumulated_sample_volume", ""],
+        "Acetic acid formation rate": ["compound_formation_rate", "Rate at which the compound is produced over time, indicating the speed of compound production, expressed in g/h."],
+        "Acetic acid formation rate molar": ["compound_formation_rate_molar", "Rate at which the compound is produced over time, expressed in mol/h."],
+        "Acetic acid specific formation rate": ["compound_specific_formation_rate", "The rate of compound production per unit of biomass (dry weight), providing the efficiency of compound production relative to biomass. It is expressed in grams per gram of dry weight per hour (g/g(DW)*h)."],
+        "Acetic acid specific formation rate molar": ["compound_specific_formation_rate_molar", "The rate of acetic acid production per unit of biomass, expressed in moles per carbon mole of biomass per hour (mol/cmol(X)*h)."],
+        
+        "Acetic acid yield (S)": ["compound_yield_s", "The yield of compound produced per gram of substrate consumed, quantifying how much compound id produced relative to substrate consumption, expressed in g/g."],
+        "Acetic acid yield molar (S)": ["compound_yield_molar_s", "The yield of compound produced per mole of substrate consumed, expressed in mol/mol (S)"],
+        "Acetic acid yield c-molar (S)": ["acetic_acid_yield_c_molar_S", "The yield of compound produced per carbon mole of substrate consumed, taking into account the carbon content of both the substrate and the compound, expressed in c-mol/c-mol(S)"],
+        
+        "Acetic acid yield (X)": ["compound_yield_x", "The yield of 'compound' produced per gram of biomass (dry weight), measuring how efficiently compound is produced relative to biomass generation, expressed in grams per gram of dry weight (g/g(DW))." ],
+        "Acetic acid yield molar (X)": ["compound_molar_x", "The yield of 'compound' produced per carbon mole of biomass, expressed in moles per carbon mole of biomass per hour (mol/cmol(X)*h)."],
+        "Acetic acid yield c-molar (X)": ["compound_yield_c_molar", "The yield of 'compound' produced per carbon mole of biomass, expressed in c-mol/c-mol(X)."],
+        
+        
+        //Biomass - Intermediate Calculated Results
+        "Biomass amount": ["biomass_amount", "Total mass of biomass or total amount of cellular growth , measured in g."],
+        "Biomass amount molar":["biomass_amount_molar", "The total number (or amount) of biomass,  measured in moles"],
+        
+        "Biomass concentration": ["biomass_concentration", "The amount of biomass present in a given volume of culture liquid, expressed in g/L."],
+        
+        "Biomass lost in sample": ["biomass_lost_in_sample", "The amount of biomass removed from the bioreactor during sampling, expressed in grams (g). "],
 
-    "Feed 1 rate gavimetric": ["feed_1_rate_gavimetric"],
-    "Feed 1 rate volumetric": ["feed_1_rate_volumetric"],
-    "Feed 1 volume": ["feed_1_volume"],
-    "Feed amount": ["feed_amount"],
+        "Biomass formed": ["biomass_formed", "The total amount of biomass, cumulative biomass producton, formed during the bioprocess, expressed in g."],
+        "Biomass formed molar": ["biomass_formed_molar", "The total amount of biomass, cumulative biomass producton, formed during the bioprocess, expressed in moles (mol)."],
+        "Biomass formed c-molar": ["biomass_formed_c_molar", "The total amount of biomass, cumulative biomass producton, formed during the bioprocess, expressed in carbon moles (c-mol)."],
+        
+        //Biomass - kPIs
+        "Biomass formation rate": ["biomass_formation_rate", "Rx: The rate at which the biomass is produced over time. expressed in grams per hour (g/h)."],
+        "Biomass formation rate molar": ["biomass_formation_rate_molar", "Rx: The rate at which the biomass is produced over time. expressed in c-mols per hour (c-mols/h)."],
+        
+        "Biomass specific growth rate μ": ["biomass_specific_growth_rate", "μ: The specific growth rate at which the biomass(X) grows per unit of biomass. Units: 1/h."],
+        "Biomass specific growth rate μ_mean in Feed": ["biomass_specific_growth_rate_mean_in_feed", "The average specific growth rate of biomass during the feeding phase, expressed in per hour (1/h)."],
+        "Biomass specific growth rate μ_max in Feed": ["biomass_specific_growth_rate_max_in_feed", "The maximum specific growth rate of biomass during the feeding phase, expressed in per hour (1/h)."],
+        "Biomass specific growth rate μ_min in Feed":["biomass_specific_growth_rate_min_in_feed", "The minimum specific growth rate of biomass during the feeding phase, expressed in per hour (1/h)."],
+        
+        "Biomass yield (S)": ["biomass_yield_s", "Ysx: grams of biomass produced per grams of substrate consumed, describing the efficiency of substrate conversion into biomass, expressed in g/g."],
+        "Biomass yield molar (S)": ["biomass_yield_molar_s", ", The biomass produced per mole of substrate consumed, expressed in c-mol/mol(S)"],
+        "Biomass yield c-molar (S)": ["biomass_yield_c_molar_s", ", The biomass produced per carbon mole of substrate, considering the carbon efficiency of biomass formation relative to substrate, expressed in c-mol/c-mol(S)"],
+        
+        
+        //Substrate - Intermediate Calculated Results
+        "D-glucose": ["substrate", ", The concentration of substrate in the fermenter, meaning the available amount of substrate, expressed in g/L."],
+        "D-glucose consumed": ["substrate_consumed", ", The total amount of substrate consumed by the cells during the bioprocess, expressed in g."],
+        "D-glucose consumed molar": ["substrate_consumed_molar", "The total amount of substrate consumed by the cells during the bioprocess, expressed in moles."],
+        "D-glucose consumed c-molar": ["substrate_consumed_c-molar", "The total amount of substrate consumed by the cells during the bioprocess, expressed in cmols."],
+        "D-glucose lost in sample": ["substrate_lost_in_sample", "The amount of substrate removed from the run durning sampling, expressed in g."], 
 
-    "Acetic acid formed molar": [],
-    "Acetic acid formation rate molar": [],
-    "Acetic acid lost in sample": [],
-    "Residual Acetic acid amount": [],
-
-    "Biomass amount": ["biomass_amount"],
-    "Biomass concentration": ["biomass_concentration"],
-    "Biomas lost in sample": ["biomass_lostin_sample"],
-
-    "D-glucose": ["d_glucose"],
-    "D-glucose lost in sample": ["d_glucose_lostin_sample"], 
-
-    "O2 Q": ["o2_q"],
-    "O2 decimal": ["o2_decimal"],
-    "Offgas O2": ["offgas_o2"],
-
-    "CO2 Q": ["co2_q"],
-    "CO2 decimal": ["co2_decimal"],
-    "Formed CO2": ["formed_co2"],
-    "Offgas CO2": ["offgas_co2"],
-
-    "Base Medium": ["base_medium"],
-    "Feed Medium #1": ["feed_medium_1"], 
-    "Feed Medium #2": ["feed_medium_2"], 
-
-    "melatonin": ["melatonin"],
-    "tryptophan": ["tryptophan"],
-
-    "acetic acid": ["acetic_acid"],
-    "caffeine": ["caffeine"],
-    "citric acid": ["citric_acid"],
-    "lactate": ["lactate"],
-    "pyruvic acid": ["pyruvic acid"],
-    "succinic acid": ["succinic acid"],
-
-    "Biomass amount molar":[],
-    "Biomass formation rate": ["biomass_rate"],
-    "Biomass formation rate molar": ["biomass_molar_rate"],
-    "Biomass formed": [],
-    "Biomass formed c-molar": [],
-    "Biomass formed molar": [],
-    "Biomass specific growth rate μ": [],
-    "Biomass specific growth rate μ_max in Feed": [],
-    "Biomass specific growth rate μ_mean in Feed": [],
-    "Biomass specific growth rate μ_min in Feed":[],
-    "Biomass yield (S)": [],
-    "Biomass yield c-molar (S)": [],
-    "Biomass yield molar (S)": ["biomass_molar_yield"],
-
-    "OTR": ["OTR", ""],
-    "CTR": ["CTR",""],
-    "RQ": ["RQ"],
-    "Consumed O2": ["OUR", "Oxygen Uptake Rate"],
-    "Formed CO2": ["CER", "CO2 Evolution Rate or Formed CO2 ???????????"], 
-
-    "CO2 accumulated": [],
-    "CO2 accumulated downscaled": [],
-    "CO2 evolution rate": [],
-    "CO2 molar": [],
-    "CO2 partial integration": [],
-    "CO2 specific evolution rate": [],
-    "CO2 yield (S)": [],
-    "CO2 yield (X)": [],
-    "CO2 yield c-molar (S)": [],
-    
-    "O2 accumulated": [],
-    "O2 accumulated downscaled": [],
-    "O2 molar": [],
-    "O2 partial integration": [],
-    "O2 specific uptake rate": [],
-    "O2 uptake rate": ["our", ""],
-    "O2 yield (S)": ["o2_yield_S", ""],
-    "O2 yield (X)": [],
-    "O2 yield c-molar (S)": [],
-
-    "D": ["dilution_rate", ""], 
-    "C balance": ["c_balance", ""],
-    "C balance (using c-mols)": ["c_balance_c_mols", ""],
-    "Elemental C balance with reference to substrate": ["c_balance_to_substrate", ""],
-    "DoR": ["dor", "degreee of reduction (available electrons per C atom)"], 
-    "DoR (from yields)": ["yields_dor", ""],
-    "DoR balance": ["dor_balance", ""],
-
-    "D-glucose consumed": ["d-glucose_consumed", ""],
-    "D-glucose consumed c-molar": ["d-glucose_consumed_c-molar", ""],
-    "D-glucose consumed molar": [],
-    "D-glucose specific uptake rate": [], 
-    "D-glucose specific uptake rate_max in Feed": [],
-    "D-glucose specific uptake rate_mean in Feed": [],
-    "D-glucose specific uptake rate_min in Feed": [],
-    "D-glucose uptake rate": ["d-glucose_uptake_rate", "Substrate uptake rate (qs). Uptake rate refers to the rate at which a microbial cell absorbs a substrate. Can be determined by correlating growth yield with growth rate.", "Comprehensive Biotechnology (Second Edition), 2011"],
-    "D-glucose uptake rate molar": [],
-    "D-glucose yield (X)": [],
-    "D-glucose yield c-molar (X)": [],
-    "D-glucose yield molar (X)": [],
-
-    "Acetic acid formed": ["acetic_acid_formed", ""],
-    "Acetic acid formed c-molar": ["acetic_acid_formed_c_molar", ""],
-    "Acetic acid specific formation rate": [],
-    "Acetic acid specific formation rate molar": [],
-    "Acetic acid yield (S)": [],
-    "Actic acid yield (X)": [],
-    "Acetic acid yield c-molar (S)": [],
-    "Acetic acid yield c-molar (X)": [],
-    "Acetic acid yield molar (S)": [],
-    "Acetic acid yield molar (X)": []
-
+        //Substrate - kPIs
+        "D-glucose uptake rate": ["substrate_uptake_rate", "Substrate uptake rate (qs). The rate at which substrate is consumed by the cells, expressed in g/h."],
+        "D-glucose uptake rate molar": ["substrate_uptake_rate_molar", "The rate at which substrate is consumed by the cells, expressed in mol/h."],
+        
+        "D-glucose specific uptake rate": ["substrate_specific_uptake_rate", " The rate of substrate uptake per unit of biomass, expressed in grams of substrate per grams of dry biomass per hour, 'g/g(DW)*h'"], 
+        "D-glucose specific uptake rate molar": ["substrate_specific_uptake_rate_molar", "The rate of substrate uptake per unit of biomass,, expressed in 'mol/cmol(X)*h'"], 
+        "D-glucose specific uptake rate_mean in Feed": ["substrate_specific_uptake_rate_mean_in_feed", "The average specific uptake rate of substrate during the feeding phase, expressed in grams of substrate per gram of biomass per hour (g/g(DW)*h)"],
+        "D-glucose specific uptake rate_max in Feed": ["substrate_specific_uptake_rate_max_in_feed", "TThe maximum specific uptake rate of substrate during the feeding phase, expressed in grams of substrate per gram of biomass per hour (g/g(DW)*h)."],
+        "D-glucose specific uptake rate_min in Feed": ["substrate_specific_uptake_rate_min_in_feed", "The minimum specific uptake rate of substrate during the feeding phase, expressed in grams of substrateper gram of biomass per hour (g/g(DW)*h)."],
+        
+        "D-glucose yield (X)": ["substrate_yield_x", "The amount of biomass produced per gram of substrate consumed, expressed in grams of biomass per gramsg/g(DW)"],
+        "D-glucose yield molar (X)": ["substrate_yield_molar_x", ", expressed in mol/c-mol(X)"],
+        "D-glucose yield c-molar (X)": ["susbtrate_yield_c_molar_x", ", expressed in c-,mol/c-mol(X)"]
+    }
 }
+
