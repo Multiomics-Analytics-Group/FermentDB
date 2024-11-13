@@ -170,3 +170,4 @@ assets/styles_2.css
 output/
 notebooks/.streamlit/
 notebooks/streamlit_arango/
+notebooks/benchling/
