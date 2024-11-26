@@ -7,10 +7,7 @@
         "creation_time": [],
         "start": [],
         "modification_time":[],
-        "approach": [],
-        //SURESH: Do you use them? And Any one else?
-        "progress": [0],
-        "status": [0]
+        "approach": []
     },
 
     "Experiment Attributes": {
@@ -21,6 +18,8 @@
         "SOPs": ["SOP", "Standard Operating Procedure. A set of step-by-step instructions compiled by an organization to help workers caryy out routine operations."],  
         "Scale Approach":["scale_approach", "Determines the bioprocess scale: lab, scale-up(pilot), scale-up(demo), scale down"],//SURESH
         "Simulation Approach": ["simulation_approach", "CFD-based compartment model (Computational Fluid Dynamics)applied for mixing chemical reactors: non-scale down, temporal separation(oscillation-based), spatial separation (horizontal disk inserts) and spatial separation (STR-PFR or STR-STR) ("], //SURESH
+        "Status": ["status", "Experiment status. In ascending order: Expt. Planned, Expt. Ongoing, Expt. Done, LIMS/Benchling Started, LIMS/Benchling Ongoing, LIMS/Benchling Done, Online and offline data in O-drive, PAS-X Data in, PAS-X Calculations ongoing, PAS-X Calculations done "], //SURESH
+        "Progress": ["progress","Experiment progress, in %."] //SURESH
     },
     
     "Run Attributes": {
@@ -54,7 +53,8 @@
     "Medium": {
         "Base Medium": ["base_medium", "Primary source of nutrients for the culture. Solution containing macronutrients, micronutrients and buffering agents."],
         "Feed Medium #1": ["feed_medium", "Additional nutrient solution added to the bioprocess during the fed batch phase, when the base medium has been consumed."],
-        "Medium with Recipe": ["medium_with_recipe", "SOP (Standard Operating Procedure) listing ingredients/components and its amount."] //extraer componentes.
+        "Medium with Recipe": ["medium_with_recipe", "SOP (Standard Operating Procedure) listing ingredients/components and its amount."],
+        "Medium Type": ["medium_type", "TM: Three metals; BM: Batch/Base Medium; FM: FedBatch Medium; SM: Seed Medium."]
     },
     "Cultivation Condition": { 
         "Cultivation Condition": "Initial experimental parameters and environmental conditions set prior to or at the sart of the bioprocess. These include environmental setpoints such as pH, temperature(Tº), initial volume, and optical density (OD) of the seed cutlure. These conditions are categorical or scalar variables.",
@@ -107,8 +107,6 @@
         "Temperature": ["temperature", "Ambr Raw Data. Pyhsical quantity that quantitatively expresses the attribute of hotness or coldness, reflecting the average kinetic energy of the vibrating and colliding atoms making up a substance."],
         "Pressure": ["pressure", "Ambr Raw Data. Bioreactor pressure reading."],
         
-        "OD": ["od", "OD600. Optical density to measure biomass. Absorbance is the logarithm of the ratio of incident to transmitted radiant power through a sample (excluding the effects on cell walls)"],
-        
         //Volume
         "Liquid volume": ["liquid_volume", "Total volume of liquid in the fermenter, measured in L."],
         "Liquid volume (without corrected samples)": ["liquid_volume_without_corrected_samples", "Total volume of liquid in the fermenter without subtracting the sample volume extracted, measured in L."],
@@ -131,21 +129,26 @@
         "Inlet air O2": ["o2_percentage_inflow", "Ambr Raw Data. Percentaje of oxygen in the gas mixture that is being supplied into the fermenter."],
         "Inlet air CO2": ["co2_percentage_inflow", "Percentaje of CO2 in the gas mixture that is being supplied into the fermenter."],
         
-        //Analytical data
+        //Analytical data - measured offline
         "Residual compound amount": ["residual_compound_amount", "The remaining amount of 'compound' left in the medium, expressed in g."],
+        "OD": ["od", "OD600. Optical density to measure biomass. Absorbance is the logarithm of the ratio of incident to transmitted radiant power through a sample (excluding the effects on cell walls)"],
         
-        //Respiratory activity measurements (Bioreactor measurements?)
+        //Respiratory activity Rates - Bioreactor calculated variable
+        "OTR": ["OTR", "Oxygen Transfer Rate (mol/lh): rate at which O2 is transferred from the gas phase or fermenter air into the liquid phase within a fermenter."],
+        "CTR": ["CTR","Carbon dioxide Transfer Rate (mol/lh): rate at which CO2 is transferred out of the fermenter. Important as CO2 is considered a by-product in aerobic processes, and so is a parameter used for predicting biomass concentration, evaluating energetic efficiencies of growth, monitoring growth yields and controlling fed batch processes like airflow rates or stir speeds."],
+        
         "RQ": ["RQ", "Ambr Raw Data. Respiratory Quotient: Ratio of CO2 produced to O2 consumed during cellular metabolism throught the bioprocess/run, dimensionless number. Used to assess the metabolic state of cells."],
+        
         "CO2 evolution rate": ["CER", "Ambr Raw Data. Online determination of the rate at which CO2 is produced by cells. Ambr records it as unnormalized in mol/h."],
-        "Formed CO2": ["formed_co2", "Ambr Raw Data. Amount of CO2 generated during the bioprocess. Ambr records it as unnormalized, integrated, in moles."], 
         "O2 uptake rate": ["OUR", "Ambr Raw Data. Oxygen Uptake Rate: Online determination of the rate at which O2 is consumed by cells. Ambr records it as unnormalized in mol/h "],
+        
+        "Formed CO2": ["formed_co2", "Ambr Raw Data. Amount of CO2 generated during the bioprocess. Ambr records it as unnormalized, integrated, in moles."], 
         "Consumed O2": ["consumed_o2", "Ambr Raw Data. Amount of O2 consumed during the bioprocess. Ambr records it as unnormalized, integrated, in moles."],
         
         //CO2 + O2
         "Offgas CO2": ["offgas_co2", "Ambr Raw Data. The percentage of CO2 present in the exhaust stream leaving the fermenter, indicating the amount of CO2 produced."],
         "Offgas O2": ["offgas_o2", "Ambr Raw Data. The percentage of O2 present in the exhaust stream leaving of the fermenter, indicating how much oxygen has been consumed. Useful for calculating OUR, for instance."],
-        
-        
+                
     },
     "Compound Attributes":{
         "id":[],
@@ -160,7 +163,7 @@
         
     },
     "Compounds":{
-        //Offline data measured by other instruments (such as HPLC)
+        "compounds": ["Offline data measured by other instruments (such as HPLC): substrate, product, by-product and chemical elements."],
         "acetic acid": ["compound", "Concentration of the compound (product or by-product) in the bioprocess, measured in g/L."],
         "Biomass concentration": ["biomass_concentration", "The amount of biomass present in a given volume of culture liquid, expressed in g/L."],
         "D-glucose": ["substrate", ", The concentration of substrate in the fermenter, meaning the available amount of substrate, expressed in g/L."],
@@ -178,9 +181,6 @@
     "Calculated Variables": {
         "calculated_var": ["Calculated Variables Node", "This node type includes Intermediate Results and Final Results, both of them calculated implementing bioprocess data: initial parameters from operating or cultivation conditions (initial parameters) and process variables (online and offline measurements)."],
         
-        //Respiratory activity rates - Calculated by the bioreactor (or Process condition?)
-        "OTR": ["OTR", "Oxygen Transfer Rate (mol/lh): rate at which O2 is transferred from the gas phase or fermenter air into the liquid phase within a fermenter."],
-        "CTR": ["CTR","Carbon dioxide Transfer Rate (mol/lh): rate at which CO2 is transferred out of the fermenter. Important as CO2 is considered a by-product in aerobic processes, and so is a parameter used for predicting biomass concentration, evaluating energetic efficiencies of growth, monitoring growth yields and controlling fed batch processes like airflow rates or stir speeds."],
         
         //Volume - Intermediate Results
         "Volume AddedNone": ["volume_addednone", "????, it is a scalar"],
