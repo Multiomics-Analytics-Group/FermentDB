@@ -1,0 +1,185 @@
+{
+    "Project": {
+        "node_description": "An experiment or set of experiments belonging to different batches within a research group.",
+        "node_attributes": {
+            "id": "Project ID",
+            "name": "Project name",
+            "description": "Project description",
+            "creation_time": "Project creation time",
+            "start": "Project start time", 
+            "modification_time":"Project modification time" 
+        }
+    },
+    "Experiment": {
+        "node_description": "A set of runs within the same batch and/or project.",
+        "node_attributes": {
+            "id": "Experiment ID, the cultivation ID from brenchling software.",
+            "name": "Experiment name",
+            "approach": "experiment approach", 
+            "cultivation_type": "Types in ascending order: Screen(Prior Screening before fermentation process), S1(Small Scale Screening: Batch Operation Mode), S2(Small Scale Screening: Fed-Batch Mode), PD(Process Development), Fermentation(Final Stage: process development finished)",
+            
+            "scale":"Determines the bioprocess scale: lab, scale-up(pilot), scale-up(demo), scale down",
+            "simulation":"CFD-based compartment model (Computational Fluid Dynamics)applied for mixing chemical reactors: non-scale down, temporal separation(oscillation-based), spatial separation (horizontal disk inserts) and spatial separation (STR-PFR or STR-STR)"
+        }
+    },
+    "Run": {
+        "node_description": "A run is the individual bioprocess experiment running in a bioreactor.",
+        "node_attributes": {
+            "id": "Run ID",
+            "name": "Run name",
+            
+            "batch_start": "2018-01-01T00:00:00Z", 
+            "batch_end": " 2018-01-02T09:13:59.999990Z",
+            
+            "first_timestamp": "'2018-01-01T00:00:00Z'",
+            "last_timestamp": "null",
+
+            "creation_time": "'2021-02-22T17:37:31.285720Z'", 
+            "modification_time":"'2021-11-08T09:23:36.207282Z'", 
+
+
+            "culture_type": "ej.:Main", 
+            "replicate_number": " Replicate?#: Reference the number of the experiment replicate???, e.j. 1", 
+            "is_control": "Control?: Reference if a run is a control experiment. e.j. NO",
+            
+            "sample_id": "Sample ID: ID related with the sample withdrawn from the seed/starter????? e.j. 'DDB_PD_023_AMBR_DDB16-001_R1_Main_'"
+        }
+    },
+    "Fermenter": {
+        "node_description": "Concrete type of bioreactor environment where the fermentation occurs.",
+        "node_attributes": {
+            "id": "Fermenter ID",
+            "name": "Container type implemented, such as Ambr250.",
+            "brand": "The bioreactor type brand-specific, such as Sartorius: Ambr, Eppendorf: DASGIP, and Getinge: Applikon.",
+            "operation_mode":"The mode of operation in a bioreactor, which could be indetified as the mode of cultivation, includes batch, fed-batch and continuous.",
+            
+            "Container Configuration/Type": "container_configuration_type: STR, PFR, Combination",
+            "impeller_type": "",
+            "impeller_number": "Number of impellers in the bioreactor",
+            "supplies":"For example compartment model"
+        }
+    },
+    "Strain": {
+        "node_description": "A distinct microbial strain within the database.",
+        "node_attributes": {
+            "id": "Strain ID, related to benchling software",
+            "name": "Strain name",
+            "parent": "A genetically modified derivative of the host strain that serves as the starting point for further modifications.",
+            "host": "A well-characterized microbial strain, with and ID linked to NCBI taxonomy database, used as the baselibe for genetic manipulation or protein expression.",
+            "genotype": "The genetic profile of a strain",
+            "genotype_change": "The genetic modification in the strain genotype",
+            "notes": "Extra comments"
+        }
+    },
+    "Species": {
+        "node_description": "An individual microbial species within the database.",
+        "node_attributes": {
+            "id": "Species ID, related to benchling software",
+            "name": "Species name",
+            "tax_id": "Species taxonomy ID", 
+            "link": "Link to NCBI taxonomy database"
+        }
+    },
+    "Medium": {
+        "node_description": "A solution containing macronutrients, micronutrients and buffering agents. SOP (Standard Operating Procedure) listing ingredients/components and its amount.",
+        "node_attributes":{
+            "id":"Medium ID, from benchling software: mxt_4jsAHvEV",
+            "name": "Medium name, from benchling software: DDB_BM_001", 
+            "description":"", 
+            "type": "TM: Three metals; BM: Batch/Base Medium: Primary source of nutrients for the culture. Solution containing macronutrients, micronutrients and buffering agents.; FM: FedBatch Medium: Additional nutrient solution added to the bioprocess during the fed batch phase, when the base medium has been consumed.; SM: Seed Medium."
+        }
+    },
+    "Ingredient": {
+        "node_description": "A compound included in the medium recipe.",
+        "node_attributes": {
+            "chebi_id":"Compound CHEBI id, from Benchling",
+            "name":"Ingredient name"
+        }
+    },
+    "Cultivation_cond": { 
+        "node_description":"Initial experimental parameters and environmental conditions set prior to or at the sart of the bioprocess. These cultivation conditions, categorical or scalar variables, include environmental setpoints such as pH, temperature(Tº), initial volume, and optical density (OD) of the seed cutlure.",
+        "node_attributes": {
+            "id":"Variable ID",
+            "name":"Variable name",
+            "description":"Variable description",
+            "type":"Node subtype category for cultivation condition variables. Types: temperature, pH, do, biomass, culture and feed."
+        }
+    },
+    "Process_var":{
+        "node_description": "Technical parameters measured, depending on the bioreactor, during the bioprocess (online measurements) or after the bioprocess (offline measurements). Process varibles are timeseries variables and are used to control initial parameters from cultivation conditions node type.",
+        "node_attributes": {
+            "id":"Variable ID",
+            "name":"Variable name",
+            "description":"Variable description",
+            "type":"Node subtype category for process variables. Types: temperature, pH, do, biomass, feed, sample, pressure, volume, compound, respiratory_metrics,  ",
+            "analysis_method":"Method used to obtain the data: INLINE, ONLINE, ATLINE, OFFLINE, NON_APPLICABLE. INLINE: analyzer is integrated into the bioreactor and the measurement is taken directly into the the process line. The sample flows continuously through the analyzer.Enables real-time process monitoring and contorl; ONLINE: extract representative sample from the process line and introduce it into the measurement zone. Sample can either be discarded or returned to the process line; ATLINE: extract a sample from the process line and transporte it to a nerby analyzer. There is delay between sampling and measurment; OFFLINE: collect a sample from the process line and transport it to the analyzis laboratory. The sample is not returned to the process line; NON_APPLICABLE(No analysis method is needed."
+        }
+    },
+    "Compound":{
+        "node_description": "A compound is an offline data measured by other instruments (such as HPLC). Compund node type groups: substrate, product, by-product and chemical elements.",
+        "node_attributes": {
+            "id":"Compound variable ID",
+            "name":"Compound variable name",
+            "description":"Compound variable description",
+            "type":"Node subtype category for compound. Types: output_var, input_var",
+            "analysis_method":"Method used to obtain the data. OFFLINE: collect a sample from the process line and transport it to the analyzis laboratory. The sample is not returned to the process line.",
+            "is_c_source":"Boolean value to determine if the compound is a carbon source",
+            "is_e_source":"Boolean value to determine if the compound is an energy source" 
+        }
+
+    },
+    "Calculated_var":{
+        "node_description": "Calculated variables inclues intermediate results and final results, both of them calculated implementing bioprocess data: initial parameters from cultivation conditions (initial parameters) and process variables (online and offline measurements).",
+        "node_attributes": {
+            "id":"Calculated variable ID",
+            "name":"Calculated variable name",
+            "description":"Calculated variable description",
+            "type":"Node subtype category for a calculated variable. Subtypes: respiratory_metrics, volume, carbon_energy_source, input_var(substrate+Oxigen), output_var(products and by-products), biomass.",
+            "computed_method":"Method implemented to calculate the variable: internal_software, external_software or fermentdb_calculator. internal_software(computed by the bioreactor software: AMBR, Lucullus, TOM, Robolector); external_software(computed by an anaytical software, such as PAS-X/inCyght); fermentfb_calculator(computed by the built-in calculator tool in FermentDB).",
+            "computed_result": "Type of calculated result: intermediate or final. Intermediate results are variables that will be implemented to calculate final results",
+            "performance_variable":"Variables evaluating process efficiency. Type of performance variable: yield, rate, respiratory_metrics(RQ) and non_applicable(not classified as performance variable)",
+            "formula":"Formula for calculation." 
+        }
+    },
+    "iModulon": {
+        "node_description": "Symbolizes a distinct iModulon activity from the iModulon database. An iModulon is an independently modulated group of genes, often representing the effect of a transcriptional regulator.",
+        "node_attributes": {
+            "name": "iModulon name",
+            "regulator_readable": "Transcriptional regulator that is associated with the iModulon",
+            "function":"iModulon function.",
+            "n_genes": "Number of genes in the iModulon",
+            "exp_var": "Explained variance value for the iModulon",
+            "precision": "Precision value of the iModulon",
+            "recall":"Recall value of the iModulon",
+            "category_num":"The number of the belonging category in the iModulon",
+            "linkout":"Link to the iModulon database"
+        }
+    },
+    "Country": {
+        "node_description": "Country where the project takes place.",
+        "node_attributes": {
+            "id": "Country ID",
+            "name": "Country name"
+        }
+    },
+    "Institution": {
+        "node_description": "Institution where the project takes place.",
+        "node_attributes": {
+            "id":"Institution ID",
+            "name":"Institution name",
+            "department":"Institution department",
+            "address":"Institution address",
+            "email":"Institution email",
+            "phone_number":"Institution phone number"
+        }
+    },    
+    "User": { 
+        "node_description": "Project manager",
+        "node_attributes": {
+            "id":"Manager ID",
+            "name":"Manager name",
+            "surname":"Manager surname"
+        }
+    }
+}
+
