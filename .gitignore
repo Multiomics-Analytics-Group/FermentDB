@@ -173,4 +173,5 @@ notebooks/streamlit_arango/
 notebooks/benchling
 notebooks/bioprocess_ontology/doubts.txt
 notebooks/bioprocess_ontology/nodes_edges_datasource.txt
+config/parser_doubts.txt
 
