@@ -1,0 +1,131 @@
+{
+    "from": { 
+        "edge_definition": "Edge linking specific node Institution with a specific node Country",
+    },
+    "works_at": {
+        "edge_definition": "Edge linking specific node User with specific node Institution"
+    },
+    "created_by": {
+        "edge_definition": "Edge linking specific node Project with specific node User",
+        "edge_attributes": {
+            "created_date": "Date of creation of the Project, ex.:'2021-09-23T18:32:09.859637Z'"
+        }
+    },
+    "created_at": {
+        "edge_definition": "Edge linking specific node Project with specific node Institution"
+    },
+    "has_experiment": {
+        "edge_definition": "Edge linking specific node Project with specific node Experiment"
+    },
+    "has_run": {
+        "edge_definition": "Edge linking specific node Experiment with specific node Run"
+    },
+    "has_event": {
+        "edge_definition": "",
+    },
+    "is_product": {
+        "edge_definition": "Edge linking specific product information from Experiment to a Compound node"
+    },
+    "is_substrate": {
+        "edge_definition": "Edge linking specific substrate information from Experiment to a Compound node"
+    },
+    "uses_fermenter":  {
+        "edge_definition": "Edge linking a specific Run node with a Fermenter node.",
+        "edge_attributes": {
+            "reactor_id": "Identifier of the bioreactor, the inidividual manufactured device or system that supports the bioprocess."
+        }
+    },
+    "cultures_strain":{
+        "edge_definition": "Edge linking a specific Run node with a specific Strain node."
+    },
+    "is_parent_of": {
+        "edge_definition": "Edge linking a specific Strain node to another Strain node who is a parent of the first one."
+    },
+    "belongs_to": {
+        "edge_definition": "Edge linking a specific Strain node with a specific node Species"
+    },
+    "has_medium": {
+        "edge_definition": "Edge linking a specific Run node with a Medium node.",
+        "edge_attributes": {
+            "amount": "Medium final amount",
+            "unit":"Medium units implemented",
+            "ph":"Medium pH",
+            "medium_acid_adjustment":"Medium ID implemented for pH acid adjustment",
+            "medium_base_adjustment":"Medium ID implemented for pH basic adjustment",
+            "sterilization_method":"Sterilization method",
+            "notes":"Extra comments",
+        }
+    },
+    "derived_from": {
+        "edge_definition": "Edge linking a specific medium derived from or implemented in a media recipe for another medium.",
+    },
+    "has_ingredient": {
+        "edge_definition": "Edge linging a specific Medium node with a specific Ingredient node.",
+        "edge_attributes": {
+            "amount":"Ingredient amount",
+            "amount_text":"Compound amount wit text annotation, such as QS (Quantity Sufficient)",
+            "unit":"Ingredient unit",
+            "notes":"Ingredient notes"
+        }
+    },
+    "uses_ingredient": {
+        "edge_definition": "Edge linking a specific ingredient node with a specific calculated variable node."
+    },
+    "has_measured_cultivation_cond": {
+        "edge_definition": "Edge linking a specific Run node with a Cultivation Condition node.",
+        "edge_attributes": {
+            "data":"Data for each cultivation condition. Can be scalar(data type as a list of length 1) or categorical data.",
+            "data_format": "Data type. Scalar, categorical or time series.",
+            "unit":"Unit of the data"
+        }
+    },
+    "has_measured_process_var": {
+        "edge_definition": "Edge linking a specific Run node with a measured Process Variable node.",
+        "edge_attributes": {
+            "data": "Time series data for each process variable.",
+            "data_format": "Data type. Scalar, categorical or time series.",
+            "unit":"Unit of the data",
+            "timestamp":"Timestamp of the data"
+        
+        }
+    },
+    "has_measured_compound": {
+        "edge_definition": "Edge linking a specific Run node with a measured Compound node.",
+        "edge_attributes": {
+            "data": "Time series data for each process variable.",
+            "data_format": "Data type. Scalar, categorical or time series.",
+            "unit":"Unit of the data",
+            "timestamp":"Timestamp of the data"
+        
+        }
+    },
+    "uses_compound": {
+        "edge_definition": "Edge linking a specific Compound variable with a specific calculated variable node."
+    },
+    "has_calculated_var": {
+        "edge_definition": "Edge linking a specific Run node with a Calculated Variable node.",
+        "edge_attributes": {
+            "data": "Time series data for each process variable.",
+            "data_format": "Data type. Scalar, categorical or time series.",
+            "unit":"Unit of the data",
+            "timestamp":"Timestamp of the data"
+        
+        }
+    },
+    "has_calculated_imodulon": {
+        "edge_definition": "Edge linking a specific Run node with a calculated iModulon node.",
+        "edge_attributes": {
+            "data": "Time series data for each process variable.",
+            "data_format": "Data type. Scalar, categorical or time series.",
+            "timestamp":"Timestamp of the data"
+        
+        }
+    },
+    "has_calculated_phase": {
+        "edge_definition": "",
+        "edge_attributes": {
+        
+        }
+    }
+}
+

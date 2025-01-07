@@ -1,0 +1,1825 @@
+{
+    "temperature_setpoint": {
+        "source_name": "Temperature SetPoint (C)",
+        "description": "The target temperature value to be maintained within the fermenter, expressed in degrees Celsius (ºC).",
+        "node_type": {
+            "type_name": "cultivation_cond",
+            "subtype": {
+                "subtype_name": "temperature",
+                "analysis_method": "non_applicable",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable"
+            }
+        }
+    },
+    "pH_setpoint": {
+        "source_name": "pH Setpoint",
+        "description": "Target pH value to be maintened within the fermenter throught the process.",
+        "node_type": {
+            "type_name": "cultivation_cond",
+            "subtype": {
+                "subtype_name": "pH",
+                "analysis_method": "non_applicable",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable"
+            }
+        }
+    },
+    "pH_control_base_solution": {
+        "source_name": "pH Control Base Solution",
+        "description": "The alkaline (base) solution used to control and maintain the pH within the fermenter, when it reaches below the setpoint.",
+        "node_type": {
+            "type_name": "cultivation_cond",
+            "subtype": {
+                "subtype_name": "pH",
+                "analysis_method": "non_applicable",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable"
+            }
+        }
+    },
+    "pH_control_acid_solution": {
+        "source_name": "pH Control Base Solution",
+        "description": "The acidic solution used to control and maintain the pH within the fermenter, when it rises above the setpoint.",
+        "node_type": {
+            "type_name": "cultivation_cond",
+            "subtype": {
+                "subtype_name": "pH",
+                "analysis_method": "non_applicable",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable"
+            }
+        }
+    },
+    "culture_type": {
+        "source_name": "Culture type",
+        "description": "Origin of the culture??? Pre, Pre-Optional, Pre-Final, Main. What are the main differences?",
+        "node_type": {
+            "type_name": "cultivation_cond",
+            "subtype": {
+                "subtype_name": "culture",
+                "analysis_method": "non_applicable",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable"
+            }
+        }
+    },
+    "seed": {
+        "source_name": "Seed",
+        "description": "Starter culture or initial culture prepared from a stock culture and grown until a certain concentration.",
+        "node_type": {
+            "type_name": "cultivation_cond",
+            "subtype": {
+                "subtype_name": "culture",
+                "analysis_method": "non_applicable",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable"
+            }
+        }
+    },
+    "induce": {
+        "source_name": "Induce",
+        "description": "Substance that triggers or enhances the expression of a gene or the activity of a metabolic pathway.",
+        "node_type": {
+            "type_name": "cultivation_cond",
+            "subtype": {
+                "subtype_name": "culture",
+                "analysis_method": "non_applicable",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable"
+            }
+        }
+    },
+    "volume_unit_induction": {
+        "source_name": "Volume Unit_INDUCTION",
+        "description": "Quantity of the inducer added, in uL.",
+        "node_type": {
+            "type_name": "cultivation_cond",
+            "subtype": {
+                "subtype_name": "culture",
+                "analysis_method": "non_applicable",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable"
+            }
+        }
+    },
+    "DO_control_setpoint_percentage": {
+        "source_name": "DO Control Setpoint (%)",
+        "description": "Target value for dissolved oxygen, in percentage.",
+        "node_type": {
+            "type_name": "cultivation_cond",
+            "subtype": {
+                "subtype_name": "do",
+                "analysis_method": "non_applicable",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable"
+            }
+        }
+    },
+    "DO_control_cascade_level1": {
+        "source_name": "DO Control Cascade Level 1",
+        "description": "First level of the cascade control system for dissolved oxygen. Level 1 involves adjusting the stirrer_speed parameter to ahcieve the desired DO level.",
+        "node_type": {
+            "type_name": "cultivation_cond",
+            "subtype": {
+                "subtype_name": "do",
+                "analysis_method": "non_applicable",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable"
+            }
+        }
+    },
+    "maximum_stirring_speed": {
+        "source_name": "Maximum Stirring or Shaking Speed (rpm)",
+        "description": "The maximum complete revolutions the stirrer makes in one minute.",
+        "node_type": {
+            "type_name": "cultivation_cond",
+            "subtype": {
+                "subtype_name": "do",
+                "analysis_method": "non_applicable",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable"
+            }
+        }
+    },
+    "minimum_stirring_speed": {
+        "source_name": "Minimum Stirring or Shaking Speed (rpm)",
+        "description": "The minimum complete revolutions that stirrer makes in one minute.",
+        "node_type": {
+            "type_name": "cultivation_cond",
+            "subtype": {
+                "subtype_name": "do",
+                "analysis_method": "non_applicable",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable"
+            }
+        }
+    },
+    "DO_control_cascade_level2": {
+        "source_name": "DO Control Cascade Level 2",
+        "description": "Second level of the cascade control system for dissolved oxygen. Level 2 involves adjusting the air_flow parameter to ahcieve the desired DO level.",
+        "node_type": {
+            "type_name": "cultivation_cond",
+            "subtype": {
+                "subtype_name": "do",
+                "analysis_method": "non_applicable",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable"
+            }
+        }
+    },
+    "aeration_gas_type": {
+        "source_name": "Aeration Gas Type",
+        "description": "Type of gas used for aeration in the fermenter.",
+        "node_type": {
+            "type_name": "cultivation_cond",
+            "subtype": {
+                "subtype_name": "do",
+                "analysis_method": "non_applicable",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable"
+            }
+        }
+    },
+    "maximum_aeration_slpm": {
+        "source_name": "Maximum Aeration (slpm)",
+        "description": "Maximum rate of at which gas can be supplied to the fermenter, measured in slpm (standard liters per minute).",
+        "node_type": {
+            "type_name": "cultivation_cond",
+            "subtype": {
+                "subtype_name": "do",
+                "analysis_method": "non_applicable",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable"
+            }
+        }
+    },
+    "minimum_aeration_slpm": {
+        "source_name": "Minimum Aeration (slpm)",
+        "description": "Minimum rate at which air gas can be supplied to the fermenter, measured in slpm (standard liters per minute).",
+        "node_type": {
+            "type_name": "cultivation_cond",
+            "subtype": {
+                "subtype_name": "do",
+                "analysis_method": "non_applicable",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable"
+            }
+        }
+    },
+    "DO_control_cascade_level3": {
+        "source_name": "DO Control Cascade Level 3",
+        "description": "Third level of the cascade control system for dissolved oxygen. Level 3 involves adjusting the o2_flow parameter to ahcieve the desired DO level.",
+        "node_type": {
+            "type_name": "cultivation_cond",
+            "subtype": {
+                "subtype_name": "do",
+                "analysis_method": "non_applicable",
+                "computed_method": "non_applicable",
+                "computed_timming": "non_applicable",
+                "performance_variable": "non_applicable"
+            }
+        }
+    },
+    "starting_od": {
+        "source_name": "Starting OD",
+        "description": "The optical density (OD) of the seed culture at the start of the bioprocess run, measuring the cell density or biomass concentration for the initial inoculum level.",
+        "node_type": {
+            "type_name": "cultivation_cond",
+            "subtype": {
+                "subtype_name": "biomass",
+                "analysis_method": "non_applicable",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable"
+            }
+        }
+    },
+    "final_seed_od": {
+        "source_name": "Final Seed OD",
+        "description": "The cell density of the seed culturre at the time it is inoculated to the main fermenter.",
+        "node_type": {
+            "type_name": "cultivation_cond",
+            "subtype": {
+                "subtype_name": "biomass",
+                "analysis_method": "non_applicable",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "initial_culture_volume": {
+        "source_name": "Initial Culture VolumeNone",
+        "description": "The total volume of the culture at the beginning of the bioprocess, representing the sum of culture medium and inoculum, no units.",
+        "node_type": {
+            "type_name": "cultivation_cond",
+            "subtype": {
+                "subtype_name": "culture",
+                "analysis_method": "non_applicable",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "culture_volume_unit": {
+        "source_name": "Culture Volume Unit",
+        "description": "The unit of measurement for the culture volume, in mL.",
+        "node_type": {
+            "type_name": "cultivation_cond",
+            "subtype": {
+                "subtype_name": "culture",
+                "analysis_method": "non_applicable",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "feed_profile": {
+        "source_name": "Feed profile",
+        "description": "Feeding strategies. IFR(Intermittent Feeding Regime: feeding pump in les than a 24 h time period), CFR(Continuous/Cyclic Feeding Regime: administered over 20-60 min every 4-6 hours wiht or without feeding pump), Bolus Feeding Regime(syringe or gravity drip over a 4-10 min period)",
+        "node_type": {
+            "type_name": "cultivation_cond",
+            "subtype": {
+                "subtype_name": "feed",
+                "analysis_method": "non_applicable",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "do": {
+        "source_name": "DO",
+        "description": "Level of free, non-compound oxygen ions present in an aqueous solution.",
+        "node_type": {
+            "type_name": "process_var",
+            "subtype": {
+                "subtype_name": "do",
+                "analysis_method":"inline",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable"  
+             }
+        }
+    },
+    "ph": {
+        "source_name": "pH",
+        "description": "Bioreactor Potential of Hydrogen (pH) reading. Logarithmic scale used to specify the acidity or basicity of aqueous solutions.",
+        "node_type": {
+            "type_name": "process_var",
+            "subtype": {
+                "subtype_name": "pH", 
+                "analysis_method": "inline",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+             }
+        }
+    },
+    "temperature": {
+        "source_name": "Temperature",
+        "description": "Bioreactor temperature reading. Pyhsical quantity that quantitatively expresses the attribute of hotness or coldness, reflecting the average kinetic energy of the vibrating and colliding atoms making up a substance.",
+        "node_type": {
+            "type_name": "process_var",
+            "subtype": {
+                "subtype_name": "temperature", 
+                "analysis_method": "inline",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+             }
+        }
+    },
+    "pressure": {
+        "source_name": "Pressure",
+        "description": "Bioreactor pressure reading.",
+        "node_type": {
+            "type_name": "process_var",
+            "subtype": {
+                "subtype_name": "pressure", 
+                "analysis_method": "inline",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+             }
+        }
+    },
+    "liquid_volume": {
+        "source_name": "Liquid volume",
+        "description": "Total volume of liquid in the fermenter, measured in L.",
+        "node_type": {
+            "type_name": "process_var",
+            "subtype": {
+                "subtype_name": "volume", 
+                "analysis_method":"",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+             }
+        }
+    },
+    "liquid_volume_without_corrected_samples": {
+        "source_name": "Liquid volume (without corrected samples)",
+        "description": "Total volume of liquid in the fermenter without subtracting the sample volume extracted, measured in L.",
+        "node_type": {
+            "type_name": "process_var",
+            "subtype": {
+                "subtype_name": "volume", 
+                "analysis_method": "",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+             }
+        }
+    },
+    "sample_mass": {
+        "source_name": "Sample mass",
+        "description": "The mass of the sample taken from the bioprocess/run, measured in grams. Implemented for quantifying the amount of biomass, product, other compounds.",
+        "node_type": {
+            "type_name": "process_var",
+            "subtype": {
+                "subtype_name": "sample", 
+                "analysis_method": "",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+             }
+        }
+    },
+    "sample_volume": {
+        "source_name": "Sample volume",
+        "description": "The volume of the sample taken from the bioprocess/run, measured in mL. Implemented for calculating concentrations, dilutions, etc.",
+        "node_type": {
+            "type_name": "process_var",
+            "subtype": {
+                "subtype_name": "sample", 
+                "analysis_method": "",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+             }
+        }
+    },
+    "accumulated_sample_volume": {
+        "source_name": "Accumulated sample volume",
+        "description": "Total volume of all samples taken from the bioprocess/run up to a certain point in time, measured in mL.",
+        "node_type": {
+            "type_name": "process_var",
+            "subtype": {
+                "subtype_name": "sample", 
+                "analysis_method": "",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "acid_volume": {
+        "source_name": "Acid volume",
+        "description": "Volume of the acidic solution pumped into the fermenter, measured  in L.",
+        "node_type": {
+            "type_name": "process_var",
+            "subtype": {
+                "subtype_name": "ph", 
+                "analysis_method": "inline",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+            }
+
+        }
+    },
+    "base_volume": {
+        "source_name": "Base volume",
+        "description": "Volume of the base solution pumped into the fermenter, measured  in L.",
+        "node_type": {
+            "type_name": "process_var",
+            "subtype": {
+                "subtype_name": "ph", 
+                "analysis_method": "inline",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "base_rate": {
+        "source_name": "Base rate",
+        "description": "The flow rate at which the base solution is pumped into the fermenter, measured in L/h.",
+        "node_type": {
+            "type_name": "process_var",
+            "subtype": {
+                "subtype_name": "feed", 
+                "analysis_method": "inline",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "feed_rate_gavimetric": {
+        "source_name": "Feed 1 rate gavimetric",
+        "description": "Rate at which the feed (based on its mass) is added to the bioproces, measured in kg/h.",
+        "node_type": {
+            "type_name": "process_var",
+            "subtype": {
+                "subtype_name": "feed", 
+                "analysis_method": "",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "feed_amount": {
+        "source_name": "Feed amount",
+        "description": "The quantity or total mass of feed added to the bioprocess, measured in kg.",
+        "node_type": {
+            "type_name": "process_var",
+            "subtype": {
+                "subtype_name": "feed", 
+                "analysis_method": "",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "feed_volume": {
+        "source_name": "Feed 1 volume",
+        "description": "The volume of the feed solution pumped to the bioprocess at a certain time point, measured in L.",
+        "node_type": {
+            "type_name": "process_var",
+            "subtype": {
+                "subtype_name": "feed", 
+                "analysis_method": "inline",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "feed_rate_volumetric": {
+        "source_name": "Feed 1 rate volumetric",
+        "description": "Rate at which the feed (based on its volume) is added to the bioprocess, measured in L/h.",
+        "node_type": {
+            "type_name": "process_var",
+            "subtype": {
+                "subtype_name": "feed", 
+                "analysis_method": "inline",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "stirrer_speed": {
+        "source_name": "Stirrer speed",
+        "description": "Speed at which the impeller shaft rotates, measured in rpm (revolutions per minute).",
+        "node_type": {
+            "type_name": "process_var",
+            "subtype": {
+                "subtype_name": "do", 
+                "analysis_method": "inline",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "air_flow": {
+        "source_name": "Air flow",
+        "description": "Rate at which air is supplied to the fermnter, measured in lpm (liters per minute)",
+        "node_type": {
+            "type_name": "process_var",
+            "subtype": {
+                "subtype_name": "do", 
+                "analysis_method": "inline",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "o2_flow": {
+        "source_name": "Oxygen flow",
+        "description": "Rate at which oxygen is supplied to the fermenter, measured in lpm (liters per minute).",
+        "node_type": {
+            "type_name": "process_var",
+            "subtype": {
+                "subtype_name": "do", 
+                "analysis_method": "inline",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "o2_percentage_inflow": {
+        "source_name": "Inlet air O2",
+        "description": "Percentaje of oxygen in the gas mixture that is being supplied into the fermenter.",
+        "node_type": {
+            "type_name": "process_var",
+            "subtype": {
+                "subtype_name": "do", 
+                "analysis_method": "inline",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "co2_percentage_inflow": {
+        "source_name": "Inlet air CO2",
+        "description": "Percentaje of CO2 in the gas mixture that is being supplied into the fermenter.",
+        "node_type": {
+            "type_name": "process_var",
+            "subtype": {
+               "analysis_method": "do",
+               "subtype_name": "inline",
+               "computed_method": "non_applicable",
+               "computed_result": "non_applicable",
+               "performance_variable": "non_applicable"  
+            }
+        }
+    },
+    "residual_compound_amount": {
+        "source_name": "Residual compound amount",
+        "description": "The remaining amount of 'compound' left in the medium, expressed in g.",
+        "node_type": {
+            "type_name": "process_var",
+            "subtype": {
+                "subtype_name": "compound", 
+                "analysis_method": "offline",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable"  
+            }
+        }
+    },
+    "OD": {
+        "source_name": "OD",
+        "description": "OD600. Optical density to measure biomass. Absorbance is the logarithm of the ratio of incident to transmitted radiant power through a sample (excluding the effects on cell walls)",
+        "node_type": {
+            "type_name": "process_var",
+             "subtype": {
+                "subtype_name": "biomass", 
+                "analysis_method": "offline",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable"  
+            }
+        }
+    },
+    "OUR": {
+        "source_name": "O2 uptake rate",
+        "description": "Oxygen Uptake Rate: Online determination of the rate at which O2 is consumed by cells. Ambr records it as unnormalized in mmol/h, with factor 0.001",
+        "node_type": {
+            "type_name": "process_var",
+            "subtype": {
+                "subtype_name": "respiratory_metrics",
+                "analysis_method": "inline",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "CER": {
+        "source_name": "CO2 evolution rate",
+        "description": "Online determination of the rate at which CO2 is produced by cells. Ambr records it as unnormalized in mmol/h, with factor 0.001.",
+        "node_type": {
+            "type_name": "process_var",
+            "subtype": {
+                "subtype_name": "respiratory_metrics",
+                "analysis_method": "inline",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "OTR": {
+        "source_name": "OTR",
+        "description": "Oxygen Transfer Rate (mol/h): rate at which O2 is transferred from the gas phase or fermenter air into the liquid phase within a fermenter.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "respiratory_metrics", 
+                "analysis_method": "non_applicable",
+                "computed_method": "internal_software",
+                "computed_result": "final",
+                "performance_variable": "rate"  
+            }
+        }
+    },
+    "CTR": {
+        "source_name": "CTR",
+        "description": "Carbon dioxide Transfer Rate (mol/h): rate at which CO2 is transferred out of the fermenter. Important as CO2 is considered a by-product in aerobic processes, and so is a parameter used for predicting biomass concentration, evaluating energetic efficiencies of growth, monitoring growth yields and controlling fed batch processes like airflow rates or stir speeds.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "respiratory_metrics", 
+                "analysis_method": "non_applicable",
+                "computed_method": "internal_software",
+                "computed_result": "final",
+                "performance_variable": "rate"  
+            }
+        }
+    },
+    "RQ": {
+        "source_name": "RQ",
+        "description": "Respiratory Quotient: Ratio of CO2 produced to O2 consumed during cellular metabolism throught the bioprocess/run, dimensionless number. Used to assess the metabolic state of cells.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "respiratory_metrics", 
+                "analysis_method": "non_applicable",
+                "computed_method": "internal_software",
+                "computed_result": "final",
+                "performance_variable": "respiratory_metrics" 
+               
+            }
+        }
+    },
+    "formed_co2": {
+        "source_name": "Formed CO2",
+        "description": "Amount of CO2 generated during the bioprocess. Ambr records it as unnormalized, integrated, in moles.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "respiratory_metrics", 
+                "analysis_method": "non_applicable",
+                "computed_method": "internal_software",
+                "computed_result": "final",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "consumed_o2": {
+        "source_name": "Consumed CO2",
+        "description": "Amount of O2 consumed during the bioprocess. Ambr records it as unnormalized, integrated, in moles.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "respiratory_metrics", 
+                "analysis_method": "non_applicable",
+                "computed_method": "internal_software",
+                "computed_result": "final",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "offgas_co2": {
+        "source_name": "Offgas CO2",
+        "description": "The percentage of CO2 present in the exhaust stream leaving the fermenter, indicating the amount of CO2 produced.",
+        "node_type": {
+            "type_name": "process_var",
+            "subtype": {
+                "subtype_name": "respiratory_metrics", 
+                "analysis_method": "inline",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "offgas_o2": {
+        "source_name": "Offgas O2",
+        "description": "The percentage of O2 present in the exhaust stream leaving of the fermenter, indicating how much oxygen has been consumed.",
+        "node_type": {
+            "type_name": "process_var",
+            "subtype": {
+                "subtype_name": "respiratory_metrics", 
+                "analysis_method": "inline",
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "compound": {
+        "source_name": "product_by-product",
+        "description": "Concentration of the compound (product or by-product) in the bioprocess, measured in g/L.",
+        "node_type": {
+            "type_name": "compound",
+            "subtype": {
+                "subtype_name": "output_var", 
+                "analysis_method": "offline", 
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "substrate": {
+        "source_name": "D-glucose",
+        "description": "The concentration of substrate in the fermenter, meaning the available amount of substrate, expressed in g/L.",
+        "node_type": {
+            "type_name": "compound",
+            "subtype": {
+                "subtype_name": "input_var", 
+                "analysis_method": "offline", 
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "biomass_concentration": {
+        "source_name": "Biomass concentration",
+        "description": "Concentration of the biomass, measured in g/L.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "biomass", 
+                "analysis_method": "offline", 
+                "computed_method": "non_applicable",
+                "computed_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "volume_addednone": {
+        "source_name": "Volume AddedNone",
+        "description": "",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "volume", 
+                "analysis_method": "non_applicable", 
+                "computed_method": "external_software",
+                "computed_result": "intermediate",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "liquid_volume_downscaled": {
+        "source_name": "Liquid volume downscaled",
+        "description": "measured in L.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "volume", 
+                "analysis_method": "non_applicable", 
+                "computed_method": "external_software",
+                "computed_result": "intermediate",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "volume_unitnone": {
+        "source_name": "Volume UnitNone",
+        "description": "Categorical variable, such as mL",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "volume", 
+                "analysis_method": "non_applicable", 
+                "computed_method": "external_software",
+                "computed_result": "intermediate",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "volume_to_addnone": {
+        "source_name": "Volume to AddNone",
+        "description": "Scalar variable.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "volume", 
+                "analysis_method": "non_applicable", 
+                "computed_method": "external_software",
+                "computed_result": "intermediate",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "dilution_rate": {
+        "source_name": "D",
+        "description": "The rate at which fresh medium is fed into a main culture relative to the culture volume, representing the rate at which the culture is diluted, measured in 1/h.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "carbon_energy_source", 
+                "analysis_method": "non_applicable", 
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "c_balance": {
+        "source_name": "C balance",
+        "description": "Balance which compares the total amount of carbon entering the fermenter (through the substrate) to the total carbon leaving the fermenter (in products, biomass or by.products like CO2), expressed in percentage.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "carbon_energy_source", 
+                "analysis_method": "non_applicable", 
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "c_balance_c_mols": {
+        "source_name": "C balance (using c-mols)",
+        "description": "The carbon balance calculated using carbon moles (c-mols), providing more molecular level view of the carbon flow, no units.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "carbon_energy_source", 
+                "analysis_method": "non_applicable", 
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "c_balance_to_substrate": {
+        "source_name": "Elemental C balance with reference to substrate",
+        "description": "The carbon balance specifically referenced to the substrate usedin the bioprocess, to asses substrate utilization efficiency. No units.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "carbon_energy_source", 
+                "analysis_method": "non_applicable", 
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "dor_balance": {
+        "source_name": "DoR balance",
+        "description": "Degree of Reduction (DoR) balance, important for understanding the redox balance in the bioprocess. The balance ensures that the electrons entering the bioprocess are equal to the electrons leaving it. It is expressed in percentage.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "carbon_energy_source", 
+                "analysis_method": "non_applicable", 
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "yield" 
+            }
+        }
+    },
+    "dor_yields": {
+        "source_name": "DoR balance",
+        "description": "The degree of reduction calculated based on the yields of different products. This helps understand how efficiently the system is converting substrate into desired products, taking into account the redox state of each component.  No units.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "carbon_energy_source", 
+                "analysis_method": "non_applicable", 
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "yield" 
+            }
+        }
+    },
+    "substrate_consumed": {
+        "source_name": "D-glucose consumed",
+        "description": "The total amount of substrate consumed by the cells during the bioprocess, expressed in g.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "input_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "intermediate",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "substrate_consumed_molar": {
+        "source_name": "D-glucose consumed molar",
+        "description": "The total amount of substrate consumed by the cells during the bioprocess, expressed in moles.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "input_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "intermediate",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "substrate_consumed_c-molar": {
+        "source_name": "D-glucose consumed c-molar",
+        "description": "The total amount of substrate consumed by the cells during the bioprocess, expressed in cmols.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "input_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "intermediate",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "substrate_lost_in_sample": {
+        "source_name": "D-glucose lost in sample",
+        "description": "The amount of substrate removed from the run durning sampling, expressed in g.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "input_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "intermediate",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "substrate_uptake_rate": {
+        "source_name": "D-glucose uptake rate",
+        "description": "Substrate uptake rate (qs). The rate at which substrate is consumed by the cells, expressed in g/h.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "input_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "rate" 
+            }
+        }
+    },
+    "substrate_uptake_rate_molar": {
+        "source_name": "D-glucose uptake rate molar",
+        "description": "The rate at which substrate is consumed by the cells, expressed in mol/h.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "input_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "rate" 
+            }
+        }
+    },
+    "substrate_specific_uptake_rate": {
+        "source_name": "D-glucose specific uptake rate",
+        "description": "The rate of substrate uptake per unit of biomass, expressed in grams of substrate per grams of dry biomass per hour, 'g/g(DW)*h'",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "input_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "rate" 
+            }
+        }
+    },
+    "substrate_specific_uptake_rate_molar": {
+        "source_name": "D-glucose specific uptake rate molar",
+        "description": "The rate of substrate uptake per unit of biomass,, expressed in 'mol/cmol(X)*h'",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "input_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "rate" 
+            }
+        }
+    },
+    "substrate_specific_uptake_rate_mean_in_feed": {
+        "source_name": "D-glucose specific uptake rate_mean in Feed",
+        "description": "The average specific uptake rate of substrate during the feeding phase, expressed in grams of substrate per gram of biomass per hour (g/g(DW)*h)",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "input_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "rate" 
+            }
+        }
+    },
+    "substrate_specific_uptake_rate_max_in_feed": {
+        "source_name": "D-glucose specific uptake rate_max in Feed",
+        "description": "The maximum specific uptake rate of substrate during the feeding phase, expressed in grams of substrate per gram of biomass per hour (g/g(DW)*h)",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "input_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "rate" 
+            }
+        }
+    },
+    "substrate_specific_uptake_rate_min_in_feed": {
+        "source_name": "D-glucose specific uptake rate_min in Feed",
+        "description": "The minimum specific uptake rate of substrate during the feeding phase, expressed in grams of substrateper gram of biomass per hour (g/g(DW)*h).",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "input_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "rate" 
+            }
+        }
+    },
+    "substrate_yield_x": {
+        "source_name": "D-glucose yield (X)",
+        "description": "The amount of biomass produced per gram of substrate consumed, expressed in grams of biomass per gramsg/g(DW)",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "input_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "yield" 
+            }
+        }
+    },
+    "substrate_yield_molar_x": {
+        "source_name": "D-glucose yield molar (X)",
+        "description": "The amount of biomass produced per gram of substrate consumed, expressed in mol/c-mol(X)",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "input_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "yield" 
+            }
+        }
+    },
+    "substrate_yield_c_molar_x": {
+        "source_name": "D-glucose yield c-molar (X)",
+        "description": "The amount of biomass produced per gram of substrate consumed,expressed in c-,mol/c-mol(X)",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "input_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "yield" 
+            }
+        }
+    },
+    "o2_decimal": {
+        "source_name": "O2 decimal",
+        "description": "The decimal fraction of O2 in a gas stream, representing the proportion of O2 in the exhaust gas relative to the total gas volume, no units.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "input_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "intermediate",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "o2_partial_integration": {
+        "source_name": "O2 partial integration",
+        "description": "A time-based integration of O2 production, often calculated for specific time intervals??????, no units.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "input_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "intermediate",
+                "performance_variable": "non_applicable" 
+            }
+            
+        }
+    },
+    "o2_accumulated": {
+        "source_name": "O2 accumulated",
+        "description": "The total amount of O2 consumed and measured over the course of the bioprocess, tracked as an accumulated value, no units",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "input_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "intermediate",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "o2_accumulated_downscaled": {
+        "source_name": "O2 accumulated downscaled",
+        "description": "The total molar quantity of O2 generated, expressed in mol",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "input_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "intermediate",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "o2_q": {
+        "source_name": "O2 Q",
+        "description": "The volumetric rate of O2 consumed by the bioprocess over time, expressed in L/h.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "input_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "rate" 
+            }
+        }
+    },
+    "o2_molar": {
+        "source_name": "O2 molar",
+        "description": "The molar rate of O2 production, measuring the quantity of O2 generated by the bioprocess in terms of moles, expressed in mol/h.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "input_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "rate" 
+            }
+        }
+    },
+    "o2_specific_uptake_rate": {
+        "source_name": "O2 specific uptake rate",
+        "description": "The specific rate at which O2 is produced per unit of biomass (X), expressed in moles of O2 per carbon mole of biomass per hour (mol/c-mol(X)*h). Reflecting how efficiently O2 is consumed in relation to biomass production.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "input_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "rate" 
+            }
+        }
+    },
+    "o2_yield_s": {
+        "source_name": "O2 yield (S)",
+        "description": "The yield of O2 consumed per mole of substrate consumed (S), expressed in moles of O2 per mole of substrate (mol/mol(S)), quantifying how much O2 is consumed relative to the substrate used in the bioprocess.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "input_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "yield" 
+            }
+        }
+    },
+    "o2_yield_c_molar_s": {
+        "source_name": "O2 yield c-molar (S)",
+        "description": "The yield of O2 consumed per carbon mole of substrate consumed (S), expressed in moles of O2 per carbon mole of substrate (mol/c-mol(S)). More detailed yield accounting for the carbon content of the substrate.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "input_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "yield" 
+            }
+        }
+    },
+    "o2_yield_x": {
+        "source_name": "O2 yield (X)",
+        "description": "The yield of O2 consumed per carbon mole of biomass (X), expressed in moles of O2 per carbon mole of biomass (mol/c-mol(X)), describing how much O2 is consumed relative to the amount of biomass generated.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "input_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "yield" 
+            }
+        }
+    },
+    "compound_formed": {
+        "source_name": "Acetic acid formed",
+        "description": "Total amount of compound produced in the bioprocess, representing the cumulative production of the compound over time, measured in g.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "output_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "intermediate",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "compound_formed_molar": {
+        "source_name": "Acetic acid formed molar",
+        "description": "Total amount of compound produced in the bioprocess, expressed in moles(mol), providing molecular level quantification.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "output_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "intermediate",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "compound_formed_c_molar": {
+        "source_name": "Acetic acid formed c-molar",
+        "description": "Total amount of compound produced in the bioprocess, expressed in cmol, which is related with the carbon content of the compound.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "output_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "intermediate",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "compound_lost_in_sample": {
+        "source_name": "Acetic acid lost in sample",
+        "description": "The amount of compound lost or removed from the fermenter during sampling, expressed in g.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "output_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "intermediate",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "compound_formation_rate": {
+        "source_name": "Acetic acid formation rate",
+        "description": "Rate at which the compound is produced over time, indicating the speed of compound production, expressed in g/h.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "output_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "rate" 
+            }
+        }
+    },
+    "compound_formation_rate_molar": {
+        "source_name": "Acetic acid formation rate molar",
+        "description": "Rate at which the compound is produced over time, expressed in mol/h.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "output_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "rate" 
+            }
+        }
+    },
+    "compound_specific_formation_rate": {
+        "source_name": "Acetic acid specific formation rate",
+        "description": "The rate of compound production per unit of biomass (dry weight), providing the efficiency of compound production relative to biomass. It is expressed in grams per gram of dry weight per hour (g/g(DW)*h).",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "output_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "rate" 
+            }
+        }
+    },
+    "compound_specific_formation_rate_molar": {
+        "source_name": "Acetic acid formation rate",
+        "description": "The rate of acetic acid production per unit of biomass, expressed in moles per carbon mole of biomass per hour (mol/cmol(X)*h).",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "output_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "rate" 
+            }
+        }
+    },
+    "compound_yield_s": {
+        "source_name": "Acetic acid yield (S)",
+        "description": "The yield of compound produced per gram of substrate consumed, quantifying how much compound id produced relative to substrate consumption, expressed in g/g.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "output_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "yield" 
+            }
+        }
+    },
+    "compound_yield_molar_s": {
+        "source_name": "Acetic acid yield molar (S)",
+        "description": "The yield of compound produced per mole of substrate consumed, expressed in mol/mol (S)",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "output_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "yield" 
+            }
+        }
+    },
+    "acetic_acid_yield_c_molar_S": {
+        "source_name": "Acetic acid yield c-molar (S)",
+        "description": "The yield of compound produced per carbon mole of substrate consumed, taking into account the carbon content of both the substrate and the compound, expressed in c-mol/c-mol(S)",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "output_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "yield" 
+            }
+        }
+    },
+    "compound_yield_x": {
+        "source_name": "Acetic acid yield (X)",
+        "description": "The yield of 'compound' produced per gram of biomass (dry weight), measuring how efficiently compound is produced relative to biomass generation, expressed in grams per gram of dry weight (g/g(DW)).",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "output_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "yield" 
+            }
+        }
+    },
+    "compound_molar_x": {
+        "source_name": "Acetic acid yield molar (X)",
+        "description": "The yield of 'compound' produced per carbon mole of biomass, expressed in moles per carbon mole of biomass per hour (mol/cmol(X)*h).",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "output_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "yield" 
+            }
+        }
+    },
+    "compound_yield_c_molar": {
+        "source_name": "Acetic acid yield c-molar (X)",
+        "description": "The yield of 'compound' produced per carbon mole of biomass, expressed in c-mol/c-mol(X).",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "output_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "yield" 
+            }
+        }
+    },
+    "co2_decimal": {
+        "source_name": "CO2 decimal",
+        "description": "The decimal fraction of CO2 in a gas stream, representing the proportion of CO2 in the exhaust gas relative to the total gas volume, no units",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "output_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "intermediate",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "co2_molar": {
+        "source_name": "CO2 molar",
+        "description": "The molar rate of CO2 production, measuring the quantity of CO2 generated by the bioprocess in terms of moles, expressed in mol/h.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "output_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "intermediate",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "co2_partial_integration": {
+        "source_name": "CO2 partial integration",
+        "description": "A time-based integration of CO2 production, often calculated for specific time intervals??????, no units.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "output_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "intermediate",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "co2_accumulated": {
+        "source_name": "CO2 accumulated",
+        "description": "The total amount of CO2 produced and measured over the course of the bioprocess, tracked as an accumulated value, no units.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "output_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "intermediate",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "co2_accumulated_downscaled": {
+        "source_name": "CO2 accumulated downscaled",
+        "description": "The total molar quantity of CO2 generated, expressed in mol.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "output_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "intermediate",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "co2_q": {
+        "source_name": "CO2 Q",
+        "description": "The volumetric rate of CO2 produced by the bioprocess over time, expressed in L/h.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "output_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "rate" 
+            }
+        }
+    },
+    "co2_specific_evolution_rate": {
+        "source_name": "CO2 specific evolution rate",
+        "description": "The specific rate at which CO2 is produced per unit of biomass (X), expressed in moles of CO2 per carbon mole of biomass per hour (mol/c-mol(X)*h). Reflecting how efficiently CO2 is released in relation to biomass production.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "output_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "rate" 
+            }
+        }
+    },
+    "co2_yield_s": {
+        "source_name": "CO2 yield (S)",
+        "description": "The yield of CO2 produced per mole of substrate consumed (S), expressed in moles of CO2 per mole of substrate (mol/mol(S)), quantifying how much CO2 is produced relative to the substrate used in the bioprocess.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "output_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "yield" 
+            }
+        }
+    },
+    "co2_yield_c_molar_s": {
+        "source_name": "CO2 yield c-molar (S)",
+        "description": "The yield of CO2 produced per carbon mole of substrate consumed (S), expressed in moles of CO2 per carbon mole of substrate (mol/c-mol(S)). More detailed yield accounting for the carbon content of the substrate.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "output_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "yield" 
+            }
+        }
+    },
+    "co2_yield_x": {
+        "source_name": "CO2 yield (X)",
+        "description": "The yield of CO2 produced per carbon mole of biomass (X), expressed in moles of CO2 per carbon mole of biomass (mol/c-mol(X)), describing how much CO2 is produced relative to the amount of biomass generated.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "output_var", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "yield" 
+            }
+        }
+    },
+    "biomass_amount": {
+        "source_name": "Biomass amount",
+        "description": "Total mass of biomass or total amount of cellular growth , measured in g.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "biomass", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "intermediate",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "biomass_amount_molar": {
+        "source_name": "Biomass amount molar",
+        "description": "The total number (or amount) of biomass,  measured in moles.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "biomass", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "intermediate",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "biomass_lost_in_sample": {
+        "source_name": "Biomass lost in sample",
+        "description": "The amount of biomass removed from the bioreactor during sampling, expressed in grams (g).",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "biomass", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "intermediate",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "biomass_formed": {
+        "source_name": "Biomass formed",
+        "description": "The total amount of biomass, cumulative biomass producton, formed during the bioprocess, expressed in g.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "biomass", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "intermediate",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "biomass_formed_molar": {
+        "source_name": "Biomass formed molar",
+        "description": "The total amount of biomass, cumulative biomass producton, formed during the bioprocess, expressed in moles (mol).",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "biomass", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "intermediate",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "biomass_formed_c_molar": {
+        "source_name": "Biomass formed c-molar",
+        "description": "The total amount of biomass, cumulative biomass producton, formed during the bioprocess, expressed in carbon moles (c-mol).",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "biomass", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "intermediate",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
+    "biomass_formation_rate": {
+        "source_name": "Biomass formation rate",
+        "description": "Rx: The rate at which the biomass is produced over time. expressed in grams per hour (g/h).",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "biomass", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "rate" 
+            }
+        }
+    },
+    "biomass_formation_rate_molar": {
+        "source_name": "Biomass formation rate molar",
+        "description": "Rx: The rate at which the biomass is produced over time. expressed in c-mols per hour (c-mols/h).",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "biomass", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "rate" 
+            }
+        }
+    },
+    "biomass_specific_growth_rate_u": {
+        "source_name": "Biomass specific growth rate μ",
+        "description": "μ: The specific growth rate at which the biomass(X) grows per unit of biomass. Units: 1/h.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "biomass", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "rate" 
+            }
+        }
+    },
+    "biomass_specific_growth_rate_u_mean_in_feed": {
+        "source_name": "Biomass specific growth rate μ_mean in Feed",
+        "description": "The average specific growth rate of biomass during the feeding phase, expressed in per hour (1/h).",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "biomass", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "rate" 
+            }
+        }
+    },
+    "biomass_specific_growth_rate_u_max_in_feed": {
+        "source_name": "Biomass specific growth rate μ_max in Feed",
+        "description": "The maximum specific growth rate of biomass during the feeding phase, expressed in per hour (1/h).",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "biomass", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "rate" 
+            }
+        }
+    },
+    "biomass_specific_growth_rate_u_min_in_feed": {
+        "source_name": "Biomass specific growth rate μ_min in Feed",
+        "description": "The minimum specific growth rate of biomass during the feeding phase, expressed in per hour (1/h).",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "biomass", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "rate" 
+            }
+        }
+    },
+    "biomass_yield_s": {
+        "source_name": "Biomass yield (S)",
+        "description": "Ysx: grams of biomass produced per grams of substrate consumed, describing the efficiency of substrate conversion into biomass, expressed in g/g.",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "biomass", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "yield" 
+            }
+        }
+    },
+    "biomass_yield_molar_s": {
+        "source_name": "Biomass yield molar (S)",
+        "description": "The biomass produced per mole of substrate consumed, expressed in c-mol/mol(S)",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "biomass", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "yield" 
+            }
+        }
+    },
+    "biomass_yield_c_molar_s": {
+        "source_name": "Biomass yield c-molar (S)",
+        "description": "The biomass produced per carbon mole of substrate, considering the carbon efficiency of biomass formation relative to substrate, expressed in c-mol/c-mol(S)",
+        "node_type": {
+            "type_name": "calculated_var",
+            "subtype": {
+                "subtype_name": "biomass", 
+                "analysis_method": "non_applicable",
+                "computed_method": "external_software",
+                "computed_result": "final",
+                "performance_variable": "yield" 
+            }
+        }
+    }
+}
