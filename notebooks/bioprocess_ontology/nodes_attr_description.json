@@ -6,20 +6,17 @@
             "name": "Project name",
             "description": "Project description",
             "creation_time": "Project creation time",
-            "start": "Project start time", 
-            "modification_time":"Project modification time" 
+            "upload_time":"Project uploaded to FermentDB" 
         }
     },
     "Experiment": {
         "node_description": "A set of runs within the same batch and/or project.",
         "node_attributes": {
-            "id": "Experiment ID, the cultivation ID from brenchling software.",
+            "id": "Experiment ID.",
             "name": "Experiment name",
             "approach": "experiment approach", 
             "cultivation_type": "Types in ascending order: Screen(Prior Screening before fermentation process), S1(Small Scale Screening: Batch Operation Mode), S2(Small Scale Screening: Fed-Batch Mode), PD(Process Development), Fermentation(Final Stage: process development finished)",
-            
-            "scale":"Determines the bioprocess scale: lab, scale-up(pilot), scale-up(demo), scale down",
-            "simulation":"CFD-based compartment model (Computational Fluid Dynamics)applied for mixing chemical reactors: non-scale down, temporal separation(oscillation-based), spatial separation (horizontal disk inserts) and spatial separation (STR-PFR or STR-STR)"
+            "cultivation_id":"Cultivation ID: 3 digits coming from experiment name, in the format DDB_PD_XXX (Project_cultivation-type_cultivation-id)."
         }
     },
     "Run": {
@@ -27,22 +24,11 @@
         "node_attributes": {
             "id": "Run ID",
             "name": "Run name",
-            
-            "batch_start": "2018-01-01T00:00:00Z", 
-            "batch_end": " 2018-01-02T09:13:59.999990Z",
-            
-            "first_timestamp": "'2018-01-01T00:00:00Z'",
-            "last_timestamp": "null",
-
-            "creation_time": "'2021-02-22T17:37:31.285720Z'", 
-            "modification_time":"'2021-11-08T09:23:36.207282Z'", 
-
-
-            "culture_type": "ej.:Main", 
-            "replicate_number": " Replicate?#: Reference the number of the experiment replicate???, e.j. 1", 
-            "is_control": "Control?: Reference if a run is a control experiment. e.j. NO",
-            
-            "sample_id": "Sample ID: ID related with the sample withdrawn from the seed/starter????? e.j. 'DDB_PD_023_AMBR_DDB16-001_R1_Main_'"
+            "run_start": "Run start time: HH:MM:SS",
+            "run_end": "Run end time: HH:MM:SS",
+            "run_date": "Run date: YYYY-MM-DD",
+            "is_control": "Boolean variable referencing if a run is a control, 'YES' or 'NO'",
+            "replicate_number": "Replicate run number. Number 1 means only 1 replicate.  Number 2 means a replicate from the previous run (previous culitivation_id run) E.j.: A run (name:DDB_PD_023_AMBR) with replicate_number = 2, is a replicate from the previous run (name:DDB_PD_022_AMBR) with replicate_number = 1." 
         }
     },
     "Fermenter": {
@@ -52,11 +38,8 @@
             "name": "Container type implemented, such as Ambr250.",
             "brand": "The bioreactor type brand-specific, such as Sartorius: Ambr, Eppendorf: DASGIP, and Getinge: Applikon.",
             "operation_mode":"The mode of operation in a bioreactor, which could be indetified as the mode of cultivation, includes batch, fed-batch and continuous.",
-            
-            "Container Configuration/Type": "container_configuration_type: STR, PFR, Combination",
-            "impeller_type": "",
-            "impeller_number": "Number of impellers in the bioreactor",
-            "supplies":"For example compartment model"
+            "volume": "The volume of the bioreactor.",
+            "unit": "The unit of the working volume, such as L, mL, m3.",
         }
     },
     "Strain": {
@@ -71,29 +54,24 @@
             "notes": "Extra comments"
         }
     },
-    "Species": {
-        "node_description": "An individual microbial species within the database.",
+    "Taxa": {
+        "node_description": "A specific taxa within the database, such as species, genus, family, order, class, phylum, kingdom, domain.",
         "node_attributes": {
-            "id": "Species ID, related to benchling software",
-            "name": "Species name",
-            "tax_id": "Species taxonomy ID", 
+            "id": "Taxonomic ID: unique identifier assigned by the NCBI to the source organism where the strain belong to.",
+            "source_id": "Id from the source database",
+            "name": "Organism name",
+            "synonyms": "Taxonomic synonyms",
             "link": "Link to NCBI taxonomy database"
         }
     },
     "Medium": {
-        "node_description": "A solution containing macronutrients, micronutrients and buffering agents. SOP (Standard Operating Procedure) listing ingredients/components and its amount.",
+        "node_description": "A solution containing macronutrients, micronutrients and buffering agents.",
         "node_attributes":{
-            "id":"Medium ID, from benchling software: mxt_4jsAHvEV",
-            "name": "Medium name, from benchling software: DDB_BM_001", 
-            "description":"", 
-            "type": "TM: Three metals; BM: Batch/Base Medium: Primary source of nutrients for the culture. Solution containing macronutrients, micronutrients and buffering agents.; FM: FedBatch Medium: Additional nutrient solution added to the bioprocess during the fed batch phase, when the base medium has been consumed.; SM: Seed Medium."
-        }
-    },
-    "Ingredient": {
-        "node_description": "A compound included in the medium recipe.",
-        "node_attributes": {
-            "chebi_id":"Compound CHEBI id, from Benchling",
-            "name":"Ingredient name"
+            "id":"Medium ID, unique identifier from source software",
+            "name": "Medium name containing project name, medium_type and medium number e.j.: DDB_BM_001", 
+            "description":"Medium description", 
+            "type": "Medium type, such as BM: Batch/Base Medium: Primary source of nutrients for the culture. Solution containing macronutrients, micronutrients and buffering agents.; FM: FedBatch Medium: Additional nutrient solution added to the bioprocess during the fed batch phase, when the base medium has been consumed.; SM: Seed Medium.",
+            "ph": "Medium pH reference value"
         }
     },
     "Cultivation_cond": { 
@@ -101,6 +79,7 @@
         "node_attributes": {
             "id":"Variable ID",
             "name":"Variable name",
+            "synonyms":"Variable synonyms",
             "description":"Variable description",
             "type":"Node subtype category for cultivation condition variables. Types: temperature, pH, do, biomass, culture and feed."
         }
@@ -110,9 +89,10 @@
         "node_attributes": {
             "id":"Variable ID",
             "name":"Variable name",
+            "synonyms":"Variable synonyms",
             "description":"Variable description",
             "type":"Node subtype category for process variables. Types: temperature, pH, do, biomass, feed, sample, pressure, volume, compound, respiratory_metrics,  ",
-            "analysis_method":"Method used to obtain the data: INLINE, ONLINE, ATLINE, OFFLINE, NON_APPLICABLE. INLINE: analyzer is integrated into the bioreactor and the measurement is taken directly into the the process line. The sample flows continuously through the analyzer.Enables real-time process monitoring and contorl; ONLINE: extract representative sample from the process line and introduce it into the measurement zone. Sample can either be discarded or returned to the process line; ATLINE: extract a sample from the process line and transporte it to a nerby analyzer. There is delay between sampling and measurment; OFFLINE: collect a sample from the process line and transport it to the analyzis laboratory. The sample is not returned to the process line; NON_APPLICABLE(No analysis method is needed."
+            "analysis_method":"Method used to obtain the data: INLINE, ONLINE, ATLINE, OFFLINE, NON_APPLICABLE. INLINE: analyzer is integrated into the bioreactor and the measurement is taken directly into the the process line. The sample flows continuously through the analyzer.Enables real-time process monitoring and contorl; ONLINE: extract representative sample from the process line and introduce it into the measurement zone. Sample can either be discarded or returned to the process line; ATLINE: extract a sample from the process line and transporte it to a nerby analyzer. There is delay between sampling and measurment; OFFLINE: collect a sample from the process line and transport it to the analyzis laboratory. The sample is not returned to the process line; NON_APPLICABLE: No analysis method is needed."
         }
     },
     "Compound":{
@@ -120,11 +100,12 @@
         "node_attributes": {
             "id":"Compound variable ID",
             "name":"Compound variable name",
+            "synonyms":"Compound variable synonyms",
             "description":"Compound variable description",
+            "pubchem_id":"Compound PubChem ID",
             "type":"Node subtype category for compound. Types: output_var, input_var",
             "analysis_method":"Method used to obtain the data. OFFLINE: collect a sample from the process line and transport it to the analyzis laboratory. The sample is not returned to the process line.",
-            "is_c_source":"Boolean value to determine if the compound is a carbon source",
-            "is_e_source":"Boolean value to determine if the compound is an energy source" 
+
         }
 
     },
@@ -133,10 +114,11 @@
         "node_attributes": {
             "id":"Calculated variable ID",
             "name":"Calculated variable name",
+            "synonyms":"Calculated variable synonyms",
             "description":"Calculated variable description",
             "type":"Node subtype category for a calculated variable. Subtypes: respiratory_metrics, volume, carbon_energy_source, input_var(substrate+Oxigen), output_var(products and by-products), biomass.",
-            "computed_method":"Method implemented to calculate the variable: internal_software, external_software or fermentdb_calculator. internal_software(computed by the bioreactor software: AMBR, Lucullus, TOM, Robolector); external_software(computed by an anaytical software, such as PAS-X/inCyght); fermentfb_calculator(computed by the built-in calculator tool in FermentDB).",
-            "computed_result": "Type of calculated result: intermediate or final. Intermediate results are variables that will be implemented to calculate final results",
+            "source":"Method implemented to calculate the variable.  Computed by the bioreactor software: Ambr, Lucullus, TOM, Robolector, or by PAS-X(synonym of inCyght) or fermentdb_calculator(the built-in calculator tool in FermentDB).",
+            "is_result": "Boolean attribute for calculated result. True when final result and False when the variable is an intermediate result. Intermediate results are variables that will be implemented to calculate final results",
             "performance_variable":"Variables evaluating process efficiency. Type of performance variable: yield, rate, respiratory_metrics(RQ) and non_applicable(not classified as performance variable)",
             "formula":"Formula for calculation." 
         }

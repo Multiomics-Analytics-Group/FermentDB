@@ -1,15 +1,12 @@
 {
     "from": { 
-        "edge_definition": "Edge linking specific node Institution with a specific node Country",
+        "edge_definition": "Edge linking specific node Institution with a specific node Country"
     },
     "works_at": {
         "edge_definition": "Edge linking specific node User with specific node Institution"
     },
     "created_by": {
-        "edge_definition": "Edge linking specific node Project with specific node User",
-        "edge_attributes": {
-            "created_date": "Date of creation of the Project, ex.:'2021-09-23T18:32:09.859637Z'"
-        }
+        "edge_definition": "Edge linking specific node Project with specific node User"
     },
     "created_at": {
         "edge_definition": "Edge linking specific node Project with specific node Institution"
@@ -21,12 +18,12 @@
         "edge_definition": "Edge linking specific node Experiment with specific node Run"
     },
     "has_event": {
-        "edge_definition": "",
+        "edge_definition": ""
     },
-    "is_product": {
+    "has_product": {
         "edge_definition": "Edge linking specific product information from Experiment to a Compound node"
     },
-    "is_substrate": {
+    "has_substrate": {
         "edge_definition": "Edge linking specific substrate information from Experiment to a Compound node"
     },
     "uses_fermenter":  {
@@ -36,7 +33,10 @@
         }
     },
     "cultures_strain":{
-        "edge_definition": "Edge linking a specific Run node with a specific Strain node."
+        "edge_definition": "Edge linking a specific Run node with a specific Strain node.",
+        "edge_attributes":{
+            "strain_batch":"Strain batch number"
+        }
     },
     "is_parent_of": {
         "edge_definition": "Edge linking a specific Strain node to another Strain node who is a parent of the first one."
@@ -47,36 +47,27 @@
     "has_medium": {
         "edge_definition": "Edge linking a specific Run node with a Medium node.",
         "edge_attributes": {
-            "amount": "Medium final amount",
-            "unit":"Medium units implemented",
-            "ph":"Medium pH",
-            "medium_acid_adjustment":"Medium ID implemented for pH acid adjustment",
-            "medium_base_adjustment":"Medium ID implemented for pH basic adjustment",
-            "sterilization_method":"Sterilization method",
-            "notes":"Extra comments",
+            "reference_volume": "Medium final volume",
+            "unit":"Medium volume units",
+            "ph":"Medium pH measurement"
         }
     },
     "derived_from": {
-        "edge_definition": "Edge linking a specific medium derived from or implemented in a media recipe for another medium.",
+        "edge_definition": "Edge linking a specific medium derived from or implemented in a media recipe for another medium."
     },
     "has_ingredient": {
         "edge_definition": "Edge linging a specific Medium node with a specific Ingredient node.",
         "edge_attributes": {
-            "amount":"Ingredient amount",
-            "amount_text":"Compound amount wit text annotation, such as QS (Quantity Sufficient)",
-            "unit":"Ingredient unit",
-            "notes":"Ingredient notes"
+            "concentration":"Ingredient concentration",
+            "unit":"Ingredient concentration unit"
         }
-    },
-    "uses_ingredient": {
-        "edge_definition": "Edge linking a specific ingredient node with a specific calculated variable node."
     },
     "has_measured_cultivation_cond": {
         "edge_definition": "Edge linking a specific Run node with a Cultivation Condition node.",
         "edge_attributes": {
             "data":"Data for each cultivation condition. Can be scalar(data type as a list of length 1) or categorical data.",
-            "data_format": "Data type. Scalar, categorical or time series.",
-            "unit":"Unit of the data"
+            "is_categorical": "Boolean for data type. True when is categorical, False when is a scalar.",
+            "unit":"Unit of the data when is scalar, otherwise empty"
         }
     },
     "has_measured_process_var": {
@@ -99,7 +90,7 @@
         
         }
     },
-    "uses_compound": {
+    "associated_with": {
         "edge_definition": "Edge linking a specific Compound variable with a specific calculated variable node."
     },
     "has_calculated_var": {
