@@ -31,7 +31,7 @@
         }
     },
     "pH_control_acid_solution": {
-        "synonyms": "pH Control Base Solution",
+        "synonyms": "pH Control Acid Solution",
         "description": "The acidic solution used to control and maintain the pH within the fermenter, when it rises above the setpoint.",
         "node_type": {
             "is_a": "cultivation_cond",
@@ -40,9 +40,9 @@
             }
         }
     },
-    "culture_type": {
-        "synonyms": "Culture type",
-        "description": "Origin of the culture??? Pre, Pre-Optional, Pre-final, Main. What are the main differences?",
+    "culture_id": {
+        "synonyms": "Main Main Culture ID",
+        "description": "Starter culture or initial culture prepared from a stock culture and grown until a certain concentration.",
         "node_type": {
             "is_a": "cultivation_cond",
             "subtype": {
@@ -53,26 +53,6 @@
     "seed": {
         "synonyms": "Seed",
         "description": "Starter culture or initial culture prepared from a stock culture and grown until a certain concentration.",
-        "node_type": {
-            "is_a": "cultivation_cond",
-            "subtype": {
-                "type": "culture"
-            }
-        }
-    },
-    "induce": {
-        "synonyms": "Induce",
-        "description": "Substance that triggers or enhances the expression of a gene or the activity of a metabolic pathway.",
-        "node_type": {
-            "is_a": "cultivation_cond",
-            "subtype": {
-                "type": "culture"
-            }
-        }
-    },
-    "volume_unit_induction": {
-        "synonyms": "Volume Unit_INDUCTION",
-        "description": "Quantity of the inducer added, in uL.",
         "node_type": {
             "is_a": "cultivation_cond",
             "subtype": {
@@ -271,7 +251,7 @@
             "is_a": "process_var",
             "subtype": {
                 "type": "volume", 
-                "analysis_method":""
+                "analysis_method":"inline"
              }
         }
     },
@@ -282,7 +262,7 @@
             "is_a": "process_var",
             "subtype": {
                 "type": "volume", 
-                "analysis_method": ""
+                "analysis_method": "inline"
              }
         }
     },
@@ -293,7 +273,7 @@
             "is_a": "process_var",
             "subtype": {
                 "type": "sample", 
-                "analysis_method": ""
+                "analysis_method": "offline"
              }
         }
     },
@@ -301,21 +281,25 @@
         "synonyms": "Sample volume",
         "description": "The volume of the sample taken from the bioprocess/run, measured in mL. Implemented for calculating concentrations, dilutions, etc.",
         "node_type": {
-            "is_a": "process_var",
+            "is_a": "calculated_var",
             "subtype": {
                 "type": "sample", 
-                "analysis_method": ""
-             }
+                "source": "Ambr",
+                "is_result": "False",
+                "performance_variable": "non_applicable" 
+            }
         }
     },
     "accumulated_sample_volume": {
         "synonyms": "Accumulated sample volume",
         "description": "Total volume of all samples taken from the bioprocess/run up to a certain point in time, measured in mL.",
         "node_type": {
-            "is_a": "process_var",
+            "is_a": "calculated_var",
             "subtype": {
                 "type": "sample", 
-                "analysis_method": ""
+                "source": "Ambr",
+                "is_result": "False",
+                "performance_variable": "non_applicable" 
             }
         }
     },
@@ -356,27 +340,15 @@
             }
         }
     },
-    "feed_rate_gavimetric": {
-        "synonyms": "Feed 1 rate gavimetric",
-        "description": "Rate at which the feed (based on its mass) is added to the bioproces, measured in kg/h.",
-        "node_type": {
-            "is_a": "process_var",
-            "subtype": {
-                "type": "feed", 
-                "analysis_method": ""
-            }
-        }
-    },
     "feed_amount": {
         "synonyms": "Feed amount",
         "description": "The quantity or total mass of feed added to the bioprocess, measured in kg.",
         "node_type": {
-            "is_a": "process_var",
+            "is_a": "calculated_var",
             "subtype": {
                 "type": "feed", 
-                "analysis_method": "",
-                "source": "non_applicable",
-                "is_result": "non_applicable",
+                "source": "PAS-X",
+                "is_result": "True",
                 "performance_variable": "non_applicable" 
             }
         }
@@ -460,12 +432,14 @@
     },
     "residual_compound_amount": {
         "synonyms": "Residual compound amount",
-        "description": "The remaining amount of 'compound' left in the medium, expressed in g.",
+        "description": "The remaining amount of 'compound' left in the fermenter, expressed in g. It is calculated substracting the compound concentration measured offline, multiplied by the liquid_volume_downscaled to get the amount.",
         "node_type": {
-            "is_a": "process_var",
+            "is_a": "calculated_var",
             "subtype": {
                 "type": "compound", 
-                "analysis_method": "offline" 
+                "source": "PAS-X",
+                "is_result": "True",
+                "performance_variable": "non_applicable" 
             }
         }
     },
@@ -605,13 +579,10 @@
         "synonyms": "Biomass concentration",
         "description": "Concentration of the biomass, measured in g/L.",
         "node_type": {
-            "is_a": "calculated_var",
+            "is_a": "process_var",
             "subtype": {
                 "type": "biomass", 
-                "analysis_method": "offline", 
-                "source": "non_applicable",
-                "is_result": "non_applicable",
-                "performance_variable": "non_applicable" 
+                "analysis_method": "offline"
             }
         }
     },
@@ -630,12 +601,12 @@
     },
     "liquid_volume_downscaled": {
         "synonyms": "Liquid volume downscaled",
-        "description": "measured in L.",
+        "description": "",
         "node_type": {
             "is_a": "calculated_var",
             "subtype": {
                 "type": "volume", 
-                "source": "PAS-X",
+                "source": "Ambr",
                 "is_result": "False",
                 "performance_variable": "non_applicable" 
             }
