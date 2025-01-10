@@ -61,7 +61,7 @@
             "source_id": "Id from the source database",
             "name": "Organism name",
             "synonyms": "Taxonomic synonyms",
-            "link": "Link to NCBI taxonomy database"
+            "linkout": "Link to NCBI taxonomy database"
         }
     },
     "Medium": {
@@ -99,10 +99,10 @@
         "node_description": "A compound is an offline data measured by other instruments (such as HPLC). Compund node type groups: substrate, product, by-product and chemical elements.",
         "node_attributes": {
             "id":"Compound variable ID",
+            "pubchem_id":"Compound PubChem ID",
             "name":"Compound variable name",
             "synonyms":"Compound variable synonyms",
             "description":"Compound variable description",
-            "pubchem_id":"Compound PubChem ID",
             "type":"Node subtype category for compound. Types: output_var, input_var",
             "analysis_method":"Method used to obtain the data. OFFLINE: collect a sample from the process line and transport it to the analyzis laboratory. The sample is not returned to the process line.",
 
