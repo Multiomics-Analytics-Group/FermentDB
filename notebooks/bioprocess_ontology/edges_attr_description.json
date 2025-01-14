@@ -17,9 +17,6 @@
     "has_run": {
         "edge_definition": "Edge linking specific node Experiment with specific node Run"
     },
-    "has_event": {
-        "edge_definition": ""
-    },
     "has_product": {
         "edge_definition": "Edge linking specific product information from Experiment to a Compound node"
     },
@@ -77,7 +74,7 @@
             "data_format": "Data type. Scalar, categorical or time series.",
             "unit":"Unit of the data",
             "timestamp":"Timestamp of the data"
-        
+            
         }
     },
     "has_measured_compound": {
@@ -87,7 +84,7 @@
             "data_format": "Data type. Scalar, categorical or time series.",
             "unit":"Unit of the data",
             "timestamp":"Timestamp of the data"
-        
+            
         }
     },
     "associated_with": {
@@ -100,7 +97,7 @@
             "data_format": "Data type. Scalar, categorical or time series.",
             "unit":"Unit of the data",
             "timestamp":"Timestamp of the data"
-        
+            
         }
     },
     "has_calculated_imodulon": {
@@ -109,13 +106,32 @@
             "data": "Time series data for each process variable.",
             "data_format": "Data type. Scalar, categorical or time series.",
             "timestamp":"Timestamp of the data"
-        
+            
         }
     },
+    "has_phase": {
+        "edge_definition": "Edge linking an experiment with a specific phase"
+    },
+    "has_event": {
+        "edge_definition": "Edge linking an experiment with a specific event"
+    },
     "has_calculated_phase": {
-        "edge_definition": "",
+        "edge_definition":"Edge linking a run with a phase implementing calculated values.",
         "edge_attributes": {
-        
+            "calculated_start":"Calculated value for phase start.",
+            "calculated_end": "Calculated value for phase end."
+        }
+    },
+    "triggered_by": {
+        "edge_definition":"Edge linking an event and the variable that has triggered the event to occur.",
+        "edge_attributes": {
+            "event_timestamp":"Timestamp of the variable triggering the event."
+        }
+    },
+    "is_event_of": {
+        "edge_definition":"Edge linking an event with its phase.",
+        "edge_attributes":{
+            "is_start":"Boolean attribute. True when the event is a start event and False when it is an end event."
         }
     }
 }

@@ -3,7 +3,7 @@ date: 13:01:2025 15:15
 default-namespace: fermentdb_ontology
 
 [Term]
-id: FDBO:1
+id: FDBO:0000001
 name: bioprocess variable
 alt_id:
 def: "" [url:http]
@@ -13,7 +13,7 @@ xref:
 is_a: 
 
 [Term]
-id: FDBO:2
+id: FDBO:0000002
 name: cultivation condition
 alt_id:
 def: "An initial experimental parameter and/or environmental setting established prior to or at the start of a bioprocess. This condition, which may be categorical or scalar variable, can include key environmental setpoints such as pH, temperature (Tº), initial volume, and optical density (OD) of the seed culture" [url:http]
@@ -23,7 +23,7 @@ xref:
 is_a: FDBO:1 ! bioprocess variable
 
 [Term]
-id: FDBO:3
+id: FDBO:0000003
 name: process variable
 alt_id:
 def: "A technical parameter measured during a bioprocess, either through real-time (online, inline) or delayed (offline, atline) measurements, depending on the bioreactor setup. These variables are typically time-series data and are crucial for controlling and adjusting the initial parameters from cultivation conditions." [url:http]
@@ -33,7 +33,7 @@ xref:
 is_a: DFBO:1 ! bioprocess variable
 
 [Term]
-id: FDBO:4
+id: FDBO:0000004
 name: compound
 alt_id:
 def: "An offline bioprocess data refers to measurements obtained using instruments external to the bioreactor, such as High-Performance Liquid Chromatography (HPLC). These data typically include compound groups categorized as substrates, products, by-products, and chemical elements." [url:http]
@@ -43,7 +43,7 @@ xref:
 is_a: FDBO:1 ! bioprocess variable
 
 [Term]
-id: FDBO:5
+id: FDBO:0000005
 name: calculated variable
 alt_id:
 def: "A computed variable that represents both intermediate and final results derived from bioprocess data. It is determined using initial parameters from cultivation conditions and process variables, including both online and offline measurements." [url:http]
@@ -53,7 +53,7 @@ xref:
 is_a: FDBO:1 ! bioprocess variable
 
 [Term]
-id: FDBO:6
+id: FDBO:0000006
 name: temperature_setpoint
 alt_id:
 def: "The target temperature value to be maintained within the fermenter, expressed in degrees celsius (ºC)."
