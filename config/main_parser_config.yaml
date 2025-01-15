@@ -1,0 +1,60 @@
+Project:
+    _key: project
+    id: project
+Country:
+    _key: country
+    id: country
+    name: country
+User:
+    _key: manager/username
+    id: manager/username
+    name: manager/first_name
+    surname: manager/last_name
+Experiment:
+    batches:
+        variables:
+            name: 'Experiment'
+Run:
+    batches:
+        _key: id
+        id: id
+        name: name
+        run_start: batch_start
+        run_end: batch_end
+        run_date: creation_time
+        variables: 
+            is_control: 'Control?'
+            replicate_number: 'Replicate #'
+        phases: phases
+        events: events
+Fermenter:
+    batches:
+        variables:
+            name: 'Container Type'
+Medium:
+    batches:
+        variables:
+            name: 'Base Medium'
+Phase: 
+    id: batch_phase_names 
+    name: batch_phase_names 
+    batches:
+        phases:
+            id: id or name
+    batches:
+        phases:
+            name: name
+Event: 
+    id: event_names
+    name: event_names
+Calculated_var:
+    batches:
+        variables: variables
+
+
+  
+
+
+
+
+    
