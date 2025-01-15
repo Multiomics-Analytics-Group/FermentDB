@@ -430,19 +430,6 @@
             }
         }
     },
-    "residual_compound_amount": {
-        "synonyms": "Residual compound amount",
-        "definition": "The remaining amount of 'compound' left in the fermenter, expressed in g. It is calculated substracting the compound concentration measured offline, multiplied by the liquid_volume_downscaled to get the amount.",
-        "node_type": {
-            "is_a": "calculated_var",
-            "subtype": {
-                "type": "compound", 
-                "source": "PAS-X",
-                "is_result": "True",
-                "performance_variable": "non_applicable" 
-            }
-        }
-    },
     "OD": {
         "synonyms": "OD",
         "definition": "OD600. Optical density to measure biomass. Absorbance is the logarithm of the ratio of incident to transmitted radiant power through a sample (excluding the effects on cell walls)",
@@ -860,7 +847,7 @@
             }
         }
     },
-    "substrate_yield_x": {
+    "substrate_yield_X": {
         "synonyms": "D-glucose yield (X)",
         "definition": "The amount of biomass produced per gram of substrate consumed, expressed in grams of biomass per gramsg/g(DW)",
         "node_type": {
@@ -874,7 +861,7 @@
             }
         }
     },
-    "substrate_yield_molar_x": {
+    "substrate_yield_X_molar": {
         "synonyms": "D-glucose yield molar (X)",
         "definition": "The amount of biomass produced per gram of substrate consumed, expressed in mol/c-mol(X)",
         "node_type": {
@@ -887,7 +874,7 @@
             }
         }
     },
-    "substrate_yield_c_molar_x": {
+    "substrate_yield_X_c_molar": {
         "synonyms": "D-glucose yield c-molar (X)",
         "definition": "The amount of biomass produced per gram of substrate consumed,expressed in c-,mol/c-mol(X)",
         "node_type": {
@@ -992,7 +979,7 @@
             }
         }
     },
-    "o2_yield_s": {
+    "o2_yield_S": {
         "synonyms": "O2 yield (S)",
         "definition": "The yield of O2 consumed per mole of substrate consumed (S), expressed in moles of O2 per mole of substrate (mol/mol(S)), quantifying how much O2 is consumed relative to the substrate used in the bioprocess.",
         "node_type": {
@@ -1005,7 +992,7 @@
             }
         }
     },
-    "o2_yield_c_molar_s": {
+    "o2_yield_S_c_molar": {
         "synonyms": "O2 yield c-molar (S)",
         "definition": "The yield of O2 consumed per carbon mole of substrate consumed (S), expressed in moles of O2 per carbon mole of substrate (mol/c-mol(S)). More detailed yield accounting for the carbon content of the substrate.",
         "node_type": {
@@ -1018,7 +1005,7 @@
             }
         }
     },
-    "o2_yield_x": {
+    "o2_yield_X": {
         "synonyms": "O2 yield (X)",
         "definition": "The yield of O2 consumed per carbon mole of biomass (X), expressed in moles of O2 per carbon mole of biomass (mol/c-mol(X)), describing how much O2 is consumed relative to the amount of biomass generated.",
         "node_type": {
@@ -1083,6 +1070,19 @@
             }
         }
     },
+    "residual_compound_amount": {
+        "synonyms": "Residual compound amount",
+        "definition": "The remaining amount of 'compound' left in the fermenter, expressed in g. It is calculated substracting the compound concentration measured offline, multiplied by the liquid_volume_downscaled to get the amount.",
+        "node_type": {
+            "is_a": "calculated_var",
+            "subtype": {
+                "type": "compound", 
+                "source": "PAS-X",
+                "is_result": "True",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
     "compound_formation_rate": {
         "synonyms": "Acetic acid formation rate",
         "definition": "Rate at which the compound is produced over time, indicating the speed of compound production, expressed in g/h.",
@@ -1136,7 +1136,7 @@
             }
         }
     },
-    "compound_yield_s": {
+    "compound_yield_S": {
         "synonyms": "Acetic acid yield (S)",
         "definition": "The yield of compound produced per gram of substrate consumed, quantifying how much compound id produced relative to substrate consumption, expressed in g/g.",
         "node_type": {
@@ -1149,7 +1149,7 @@
             }
         }
     },
-    "compound_yield_molar_s": {
+    "compound_yield_S_molar": {
         "synonyms": "Acetic acid yield molar (S)",
         "definition": "The yield of compound produced per mole of substrate consumed, expressed in mol/mol (S)",
         "node_type": {
@@ -1162,7 +1162,7 @@
             }
         }
     },
-    "compound_yield_c_molar_S": {
+    "compound_yield_S_c_molar": {
         "synonyms": "Acetic acid yield c-molar (S)",
         "definition": "The yield of compound produced per carbon mole of substrate consumed, taking into account the carbon content of both the substrate and the compound, expressed in c-mol/c-mol(S)",
         "node_type": {
@@ -1175,7 +1175,7 @@
             }
         }
     },
-    "compound_yield_x": {
+    "compound_yield_X": {
         "synonyms": "Acetic acid yield (X)",
         "definition": "The yield of 'compound' produced per gram of biomass (dry weight), measuring how efficiently compound is produced relative to biomass generation, expressed in grams per gram of dry weight (g/g(DW)).",
         "node_type": {
@@ -1188,7 +1188,7 @@
             }
         }
     },
-    "compound_molar_x": {
+    "compound_yield_X_molar": {
         "synonyms": "Acetic acid yield molar (X)",
         "definition": "The yield of 'compound' produced per carbon mole of biomass, expressed in moles per carbon mole of biomass per hour (mol/cmol(X)*h).",
         "node_type": {
@@ -1201,7 +1201,7 @@
             }
         }
     },
-    "compound_yield_c_molar": {
+    "compound_yield_X_c_molar": {
         "synonyms": "Acetic acid yield c-molar (X)",
         "definition": "The yield of 'compound' produced per carbon mole of biomass, expressed in c-mol/c-mol(X).",
         "node_type": {
@@ -1305,7 +1305,7 @@
             }
         }
     },
-    "co2_yield_s": {
+    "co2_yield_S": {
         "synonyms": "CO2 yield (S)",
         "definition": "The yield of CO2 produced per mole of substrate consumed (S), expressed in moles of CO2 per mole of substrate (mol/mol(S)), quantifying how much CO2 is produced relative to the substrate used in the bioprocess.",
         "node_type": {
@@ -1318,7 +1318,7 @@
             }
         }
     },
-    "co2_yield_c_molar_s": {
+    "co2_yield_S_c_molar": {
         "synonyms": "CO2 yield c-molar (S)",
         "definition": "The yield of CO2 produced per carbon mole of substrate consumed (S), expressed in moles of CO2 per carbon mole of substrate (mol/c-mol(S)). More detailed yield accounting for the carbon content of the substrate.",
         "node_type": {
@@ -1331,7 +1331,7 @@
             }
         }
     },
-    "co2_yield_x": {
+    "co2_yield_X": {
         "synonyms": "CO2 yield (X)",
         "definition": "The yield of CO2 produced per carbon mole of biomass (X), expressed in moles of CO2 per carbon mole of biomass (mol/c-mol(X)), describing how much CO2 is produced relative to the amount of biomass generated.",
         "node_type": {
@@ -1500,7 +1500,7 @@
             }
         }
     },
-    "biomass_yield_s": {
+    "biomass_yield_S": {
         "synonyms": "Biomass yield (S)",
         "definition": "Ysx: grams of biomass produced per grams of substrate consumed, describing the efficiency of substrate conversion into biomass, expressed in g/g.",
         "node_type": {
@@ -1513,7 +1513,7 @@
             }
         }
     },
-    "biomass_yield_molar_s": {
+    "biomass_yield_S_molar": {
         "synonyms": "Biomass yield molar (S)",
         "definition": "The biomass produced per mole of substrate consumed, expressed in c-mol/mol(S)",
         "node_type": {
@@ -1526,7 +1526,7 @@
             }
         }
     },
-    "biomass_yield_c_molar_s": {
+    "biomass_yield_S_c_molar": {
         "synonyms": "Biomass yield c-molar (S)",
         "definition": "The biomass produced per carbon mole of substrate, considering the carbon efficiency of biomass formation relative to substrate, expressed in c-mol/c-mol(S)",
         "node_type": {
