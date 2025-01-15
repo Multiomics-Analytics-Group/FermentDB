@@ -41,7 +41,7 @@
         }
     },
     "culture_id": {
-        "synonyms": "Main Main Culture ID",
+        "synonyms": "Main Culture ID",
         "definition": "Starter culture or initial culture prepared from a stock culture and grown until a certain concentration.",
         "node_type": {
             "is_a": "cultivation_cond",
