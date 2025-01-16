@@ -174,7 +174,8 @@
         "node_description":"Fermentation event that triggers the fermentation phase to start or end.",
         "node_attributes": {
             "id": "Event ID",
-            "name": "A event name."
+            "name": "Event name.",
+            "timestamp":"Event timestamp."
         }
     }
 }

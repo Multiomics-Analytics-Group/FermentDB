@@ -109,23 +109,11 @@
             
         }
     },
-    "has_phase": {
-        "edge_definition": "Edge linking an experiment with a specific phase"
-    },
-    "has_event": {
-        "edge_definition": "Edge linking an experiment with a specific event"
-    },
     "has_calculated_phase": {
         "edge_definition":"Edge linking a run with a phase implementing calculated values.",
         "edge_attributes": {
             "calculated_start":"Calculated value for phase start.",
             "calculated_end": "Calculated value for phase end."
-        }
-    },
-    "triggered_by": {
-        "edge_definition":"Edge linking an event and the variable that has triggered the event to occur.",
-        "edge_attributes": {
-            "event_timestamp":"Timestamp of the variable triggering the event."
         }
     },
     "is_event_of": {
