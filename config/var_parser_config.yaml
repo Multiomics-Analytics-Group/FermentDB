@@ -95,19 +95,11 @@ Calculated_var:
     o2_yield_S: O2 yield (S)
     o2_yield_S_c_molar: O2 yield c-molar (S)
     o2_yield_X: O2 yield (X)
-#compound: Citric Acid, Lactate, Pyruvic acid, Succinic acid, Tryptophan, Melatonin
     compound_formed: Acetic acid formed
     compound_formed_molar: Acetic acid formed molar
     compound_formed_c_molar: Acetic acid formed c-molar
     compound_lost_in_sample: Acetic acid lost in sample
-    residual_compound_amount: 
-        Residual Acetic acid amount
-        Residual Citric acid amount
-        Residual D-glucose amount
-        Residual Ethanol amount
-        Residual Lactate amount
-        Residual Pyruvic acid amount
-        Residual Succinic acid amount
+    residual_compound_amount: Residual Acetic acid amount
     compound_formation_rate: Acetic acid formation rate 
     compound_formation_rate_molar: Acetic acid formation rate molar
     compound_specific_formation_rate: Acetic acid specific formation rate
