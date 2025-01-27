@@ -10,11 +10,8 @@ User:
     _key: manager/username
     id: manager/username
     name: manager/first_name
-    surname: manager/ast_name
-Event:
-    _key: event_names
-    id: event_names
-    name: event_names
+    surname: manager/last_name
+
 Experiment:
     batches:
         variables:
@@ -30,11 +27,11 @@ Run:
         variables: 
             is_control: 'Control?'
             replicate_number: 'Replicate #'
-        phases: phases
-        events: events
 Fermenter:
     batches:
         variables:
+            _key: 'Container Type'
+            id: 'Container Type'
             name: 'Container Type'
 Medium:
     batches:
@@ -43,7 +40,14 @@ Medium:
 Phase: 
     batches:
         phases:
-            id: id
+            _key: name
+            id: name
+            name: name
+Event: 
+    batches:
+        events:
+            _key: name  
+            id: name
             name: name
 Cultivation_cond:
     batches:
