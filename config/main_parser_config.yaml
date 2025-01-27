@@ -7,14 +7,14 @@ Country:
     id: country
     name: country
 User:
-    _key: manager/username
-    id: manager/username
-    name: manager/first_name
-    surname: manager/last_name
-
+    _key: manager
+    id: manager
+    name: manager
+    surname: manager
 Experiment:
     batches:
         variables:
+            _key: 'Experiment' 
             name: 'Experiment'
 Run:
     batches:
@@ -36,6 +36,7 @@ Fermenter:
 Medium:
     batches:
         variables:
+            _key: 'Base Medium'
             name: 'Base Medium'
 Phase: 
     batches:
@@ -49,155 +50,3 @@ Event:
             _key: name  
             id: name
             name: name
-Cultivation_cond:
-    batches:
-        variables:
-            temperature_setpoint_celsius: Temperature Setpoint (C)
-            pH_setpoint: pH Setpoint
-            ph_control_base_solution: pH Control Base Solution  
-            ph_control_acid_solution: pH Control Acid Solution
-            culture_id: Main Culture ID
-            seed: Seed
-            DO_control_setpoint_percentage: DO Control Setpoint (%) 
-            DO_control_cascade_level1: DO Control Cascade Level 1  
-            maximum_stirring_speed_rpm: Maximum Stirring or Shaking Speed (rpm) 
-            minimum_stirring_speed_rpm: Minimum Stirring or Shaking Speed (rpm)
-            DO_control_cascade_level2: DO Control Cascade Level 2  
-            aeration_gas_type: Aeration Gas Type 
-            maximum_aeration_slpm: Maximum Aeration (slpm) 
-            minimum_aeration_slpm: Minimum Aeration (slpm) 
-            DO_control_cascade_level3: DO Control Cascade Level 3 
-            starting_OD: Starting OD
-            final_seed_od: Final Seed OD
-            initial_culture_volume: Initial Culture VolumeNone 
-            culture_volume_unit: Culture Volume Unit
-Process_var:
-    batches:
-        variables:
-            do: DO
-            ph: pH
-            temperature: Temperature
-            pressure: Pressure
-            liquid_volume: Liquid volume
-            liquid_volume_without_corrected_samples: Liquid volume (without corrected samples)
-            sample_mass: Sample mass
-            sample_volume: Sample volume 
-            accumulated_sample_volume: Accumulated sample volume
-            acid_volume: Acid volume
-            base_volume: Base volume
-            base_rate: Base rate
-            feed_amount: Feed amount
-            feed_volume: Feed 1 volume
-            feed_rate_volumetric: Feed 1 rate volumetric
-            stirrer_speed: Stirrer speed
-            air_flow: Air flow
-            o2_flow: Oxygen flow
-            o2_percentage_inflow: Inlet air O2
-            co2_percentage_inflow: Inlet air CO2
-            OD: OD
-            OUR: O2 uptake rate
-            CER: CO2 evolution rate
-Compound:
-    batches:
-        variables:
-            d_glucose: D-glucose
-            melatonin: melatonin
-            tryptophan: tryptophan
-            acetic_acid: acetic acid
-            caffeine: caffeine
-            citric_acid: citric acid
-            lactate: lactate
-            pyruvic_acid: pyruvic acid
-            succinic_acid: succinic acid
-Calculated_var:
-    batches:
-        variables:
-            OTR: OTR
-            CTR: CTR
-            RQ: RQ
-            formed_co2: Formed CO2
-            consumed_o2: Consumed O2
-            offgas_co2: Offgas CO2
-            offgas_o2: Offgas O2
-            biomass_concentration: Biomass concentration
-            volume_addednone: Volume AddedNone
-            liquid_volume_downscaled: Liquid volume downscaled
-            volume_unitnone: Volume UnitNone
-            volume_to_addnone: Volume to AddNone
-            dilution_rate: D  
-            c_balance: C balance
-            c_balance_c_mols: C balance (using c-mols)
-            c_balance_to_substrate: Elemental C balance with reference to substrate
-            dor_balance: DoR balance
-            dor_yields: DoR (from yields) 
-            substrate_consumed: D-glucose consumed
-            substrate_consumed_molar: D-glucose consumed molar
-            substrate_consumed_c-molar: D-glucose consumed c-molar
-            substrate_lost_in_sample: D-glucose lost in sample
-            substrate_uptake_rate: D-glucose uptake rate
-            substrate_uptake_rate_molar: D-glucose uptake rate molar
-            substrate_specific_uptake_rate: D-glucose specific uptake rate
-            substrate_specific_uptake_rate_molar: D-glucose specific uptake rate molar
-            substrate_specific_uptake_rate_mean_in_feed: D-glucose specific uptake rate_mean in Feed
-            substrate_specific_uptake_rate_max_in_feed: D-glucose specific uptake rate_max in Feed
-            substrate_specific_uptake_rate_min_in_feed: D-glucose specific uptake rate_min in Feed
-            substrate_yield_X: D-glucose yield (X)
-            substrate_yield_X_molar: D-glucose yield molar (X)
-            substrate_yield_X_c_molar: D-glucose yield c-molar (X)
-            o2_decimal: O2 decimal
-            o2_partial_integration: O2 partial integration
-            o2_accumulated: O2 accumulated
-            o2_accumulated_downscaled: O2 accumulated downscaled
-            o2_q: O2 Q
-            o2_molar: O2 molar
-            o2_specific_uptake_rate: O2 specific uptake rate
-            o2_yield_S: O2 yield (S)
-            o2_yield_S_c_molar: O2 yield c-molar (S)
-            o2_yield_X: O2 yield (X)
-            compound_formed: Acetic acid formed
-            compound_formed_molar: Acetic acid formed molar
-            compound_formed_c_molar: Acetic acid formed c-molar
-            compound_lost_in_sample: Acetic acid lost in sample
-            residual_compound_amount: Residual Acetic acid amount
-            compound_formation_rate: Acetic acid formation rate 
-            compound_formation_rate_molar: Acetic acid formation rate molar
-            compound_specific_formation_rate: Acetic acid specific formation rate
-            compound_specific_formation_rate_molar: Acetic acid specific formation rate molar
-            compound_yield_S: Acetic acid yield (S)
-            compound_yield_S_molar: Acetic acid yield molar (S)
-            compound_yield_S_c_molar: Acetic acid yield c-molar (S)
-            compound_yield_X: Actic acid yield (X)
-            compound_yield_X_molar: Acetic acid yield molar (X)
-            compound_yield_X_c_molar: Acetic acid yield c-molar (X)
-            co2_decimal: CO2 decimal
-            co2_molar: CO2 molar 
-            co2_partial_integration: CO2 partial integration
-            co2_accumulated: CO2 accumulated
-            co2_accumulated_downscaled: CO2 accumulated downscaled
-            co2_q: CO2 Q
-            co2_specific_evolution_rate: CO2 specific evolution rate
-            co2_yield_S: CO2 yield (S)
-            co2_yield_S_c_molar: CO2 yield c-molar (S)
-            co2_yield_X: CO2 yield (X)
-            biomass_amount: Biomass amount
-            biomass_amount_molar: Biomass amount molar
-            biomass_lost_in_sample: Biomas lost in sample
-            biomass_formed: Biomass formed
-            biomass_formed_molar: Biomass formed molar
-            biomass_formed_c_molar: Biomass formed c-molar
-            biomass_formation_rate: Biomass formation rate
-            biomass_formation_rate_molar: Biomass formation rate molar
-            biomass_specific_growth_rate_u: Biomass specific growth rate μ
-            biomass_specific_growth_rate_u_mean_in_feed: Biomass specific growth rate μ_mean in Feed
-            biomass_specific_growth_rate_u_max_in_feed: Biomass specific growth rate μ_max in Feed
-            biomass_specific_growth_rate_u_min_in_feed: Biomass specific growth rate μ_min in Feed
-            biomass_yield_S: Biomass yield (S)
-            biomass_yield_S_molar: Biomass yield molar (S)
-            biomass_yield_S_c_molar: Biomass yield c-molar (S)
-
-  
-
-
-
-
-    
