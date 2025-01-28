@@ -39,7 +39,7 @@
         "edge_definition": "Edge linking a specific Strain node to another Strain node who is a parent of the first one."
     },
     "belongs_to": {
-        "edge_definition": "Edge linking a specific Strain node with a specific node Species"
+        "edge_definition": "Edge linking a specific Strain node with a specific node Taxa."
     },
     "has_medium": {
         "edge_definition": "Edge linking a specific Run node with a Medium node.",
@@ -53,7 +53,7 @@
         "edge_definition": "Edge linking a specific medium derived from or implemented in a media recipe for another medium."
     },
     "has_ingredient": {
-        "edge_definition": "Edge linging a specific Medium node with a specific Ingredient node.",
+        "edge_definition": "Edge linging a specific Medium node with a specific Compound node.",
         "edge_attributes": {
             "concentration":"Ingredient concentration",
             "unit":"Ingredient concentration unit"
