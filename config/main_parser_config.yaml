@@ -41,18 +41,16 @@ Medium:
 Phase: 
     batches:
         phases:
-            _key: name
+            _key: name 
             id: name
             run_id: batch_id
             name: name
             phase_start: start
             phase_end: end
-            calculated_start: relative_start
-            calculated_end: relative_end
 Event: 
     batches:
         events:
-            _key: name  
+            _key: name
             id: name
             run_id: batch_id
             name: name
