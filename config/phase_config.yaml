@@ -1,0 +1,27 @@
+name: 
+  feed: feed
+  fed-batch growth arrest phase: feed
+  batch: batch
+  do-stat: feed
+  'fed-batch phase': feed
+  induction: feed
+  feed#6: feed
+  feed#7: feed
+phase_start:
+  feed_start: feed_start
+  fed-batch growth arrest phase_start: feed_start
+  batch_start: batch_start
+  do-stat_start: feed_start
+  fed-batch phase_start: feed_start
+  induction_start: feed_start
+  feed#6_start: feed_start
+  feed#7_start: feed_start
+phase_end:
+  feed_end: feed_end
+  fed-batch growth arrest phase_end: feed_end
+  batch_end: batch_end
+  do-stat_end: feed_end
+  fed-batch phase_end: feed_end
+  induction_end: feed_end
+  feed#6_end: feed_end
+  feed#7_end: feed_end
