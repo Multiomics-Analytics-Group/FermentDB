@@ -41,9 +41,8 @@ Medium:
 Phase: 
     batches:
         phases:
-            _key: name 
+            _key: name
             id: name
-            run_id: batch_id
             name: name
             phase_start: start
             phase_end: end
@@ -52,6 +51,4 @@ Event:
         events:
             _key: name
             id: name
-            run_id: batch_id
             name: name
-            timestamp: timestamp
