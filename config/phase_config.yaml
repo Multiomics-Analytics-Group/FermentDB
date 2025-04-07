@@ -3,7 +3,7 @@ name:
   fed-batch growth arrest phase: feed
   batch: batch
   do-stat: feed
-  'fed-batch phase': feed
+  fed-batch phase: feed
   induction: feed
   feed#6: feed
   feed#7: feed
