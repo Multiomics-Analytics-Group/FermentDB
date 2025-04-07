@@ -25,3 +25,20 @@ phase_end:
   induction_end: feed_end
   feed#6_end: feed_end
   feed#7_end: feed_end
+event_name:
+  feed_start: feed_start
+  fed-batch growth arrest phase_start: feed_start
+  batch_start: batch_start
+  do-stat_start: feed_start
+  fed-batch phase_start: feed_start
+  induction_start: feed_start
+  feed#6_start: feed_start
+  feed#7_start: feed_start
+  feed_end: feed_end
+  fed-batch growth arrest phase_end: feed_end
+  batch_end: batch_end
+  do-stat-end: feed_end
+  fed-batch phase_end: feed_end
+  induction_end: feed_end
+  feed#6_end: feed_end
+  feed#7_end: feed end
