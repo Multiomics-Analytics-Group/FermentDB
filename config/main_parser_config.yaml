@@ -14,7 +14,8 @@ User:
 Experiment:
     batches:
         variables:
-            _key: 'Experiment' 
+            _key: 'Experiment'
+            id: 'Experiment'
             name: 'Experiment'
 Run:
     batches:
