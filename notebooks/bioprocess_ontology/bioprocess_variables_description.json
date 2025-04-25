@@ -42,7 +42,7 @@
     },
     "culture_id": {
         "synonyms": "Main Culture ID",
-        "definition": "Starter culture or initial culture prepared from a stock culture and grown until a certain concentration.",
+        "definition": "Starter culture or initial culture referring to the strain ID.",
         "node_type": {
             "is_a": "cultivation_cond",
             "subtype": {
@@ -52,7 +52,7 @@
     },
     "seed": {
         "synonyms": "Seed",
-        "definition": "Starter culture or initial culture prepared from a stock culture and grown until a certain concentration.",
+        "definition": "Starter culture or initial culture prepared from a stock culture and cultivated in smaller volume (either tubes, shake flasks or reactors) until a certain concentration is reached. The starter culture is also referred as a seed culture, pre-culture or inoculum.",
         "node_type": {
             "is_a": "cultivation_cond",
             "subtype": {
@@ -152,7 +152,7 @@
     },
     "starting_od": {
         "synonyms": "Starting OD",
-        "definition": "The optical density (OD) of the seed culture at the start of the bioprocess run, measuring the cell density or biomass concentration for the initial inoculum level.",
+        "definition": "The initial optical density (OD) of the fermentation. It is either measured (by taking a sample after inoculation and measuring the cell density) or  calculated (by knowing the final OD of the seed culture, volume inoculated and final cultivation volume).",
         "node_type": {
             "is_a": "cultivation_cond",
             "subtype": {
@@ -192,7 +192,7 @@
     },
     "feed_profile": {
         "synonyms": "Feed profile",
-        "definition": "Feeding strategies. IFR(Intermittent Feeding Regime: feeding pump in les than a 24 h time period), CFR(Continuous/Cyclic Feeding Regime: administered over 20-60 min every 4-6 hours wiht or without feeding pump), Bolus Feeding Regime(syringe or gravity drip over a 4-10 min period)",
+        "definition": "Feeding strategies typically found in a fed-batch fermentation. 1. Constant feeding rate, 2. Linear feeding rate and 3. Exponential feeding rate, 4. Combination of 1-2, 3-2 or 3-1 . The type of feeding profiles applied is process specific.",
         "node_type": {
             "is_a": "cultivation_cond",
             "subtype": {
@@ -250,19 +250,8 @@
         "node_type": {
             "is_a": "process_var",
             "subtype": {
-                "type": "volume", 
+                "type": "cultivation volume", 
                 "analysis_method":"inline"
-             }
-        }
-    },
-    "liquid_volume_without_corrected_samples": {
-        "synonyms": "Liquid volume (without corrected samples)",
-        "definition": "Total volume of liquid in the fermenter without subtracting the sample volume extracted, measured in L.",
-        "node_type": {
-            "is_a": "process_var",
-            "subtype": {
-                "type": "volume", 
-                "analysis_method": "inline"
              }
         }
     },
@@ -317,7 +306,7 @@
     },
     "base_volume": {
         "synonyms": "Base volume",
-        "definition": "Volume of the base solution pumped into the fermenter, measured  in L.",
+        "definition": "Volume of the concentration base solution pumped into the fermenter to maintain the pH of cultivation at a constant level, measured  in L.",
         "node_type": {
             "is_a": "process_var",
             "subtype": {
@@ -575,7 +564,7 @@
     },
     "volume_addednone": {
         "synonyms": "Volume AddedNone",
-        "definition": "",
+        "definition": "It is the actual final volume that has been added.",
         "node_type": {
             "is_a": "calculated_var",
             "subtype": {
@@ -588,20 +577,32 @@
     },
     "liquid_volume_downscaled": {
         "synonyms": "Liquid volume downscaled",
-        "definition": "",
+        "definition": "It is the actual volume at a certain time point where sampling was performed.",
         "node_type": {
             "is_a": "calculated_var",
             "subtype": {
                 "type": "volume", 
-                "source": "Ambr",
+                "source": "PAS-X",
                 "is_result": "False",
                 "performance_variable": "non_applicable" 
             }
         }
     },
+    "liquid_volume_without_corrected_samples": {
+        "synonyms": "Liquid volume (without corrected samples)",
+        "definition": "Total volume of liquid in the fermenter without subtracting the sample volume extracted, measured in L.",
+        "node_type": {
+            "is_a": "calculated_var",
+            "subtype": {
+                "type": "volume", 
+                "source": "PAS-X",
+                "is_result": "False",
+                "performance_variable": "non_applicable" 
+        }
+    },
     "volume_unitnone": {
         "synonyms": "Volume UnitNone",
-        "definition": "Categorical variable, such as mL",
+        "definition": "The unit for the additional volume added, categorical variable normally in mL",
         "node_type": {
             "is_a": "calculated_var",
             "subtype": {
@@ -614,7 +615,7 @@
     },
     "volume_to_addnone": {
         "synonyms": "Volume to AddNone",
-        "definition": "Scalar variable.",
+        "definition": "The volume that must be added ro reach a certain starting OD in the reactor, scalar variable pre-calculated.",
         "node_type": {
             "is_a": "calculated_var",
             "subtype": {
