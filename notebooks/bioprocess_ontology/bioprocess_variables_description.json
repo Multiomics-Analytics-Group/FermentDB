@@ -597,7 +597,8 @@
                 "type": "volume", 
                 "source": "PAS-X",
                 "is_result": "False",
-                "performance_variable": "non_applicable" 
+                "performance_variable": "non_applicable"
+            }
         }
     },
     "volume_unitnone": {
@@ -841,7 +842,6 @@
             "is_a": "calculated_var",
             "subtype": {
                 "type": "input_var", 
-
                 "source": "PAS-X",
                 "is_result": "True",
                 "performance_variable": "rate" 
@@ -855,7 +855,6 @@
             "is_a": "calculated_var",
             "subtype": {
                 "type": "input_var", 
-
                 "source": "PAS-X",
                 "is_result": "True",
                 "performance_variable": "yield" 
