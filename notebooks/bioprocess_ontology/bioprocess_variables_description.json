@@ -329,6 +329,20 @@
             }
         }
     },
+    "acid_rate": {
+        "synonyms": "Acid rate",
+        "definition": "The flow rate at which the acid solution is pumped into the fermenter, measured in L/h.",
+        "node_type": {
+            "is_a": "process_var",
+            "subtype": {
+                "type": "feed", 
+                "analysis_method": "inline",
+                "source": "non_applicable",
+                "is_result": "non_applicable",
+                "performance_variable": "non_applicable" 
+            }
+        }
+    },
     "feed_amount": {
         "synonyms": "Feed amount",
         "definition": "The quantity or total mass of feed added to the bioprocess, measured in kg.",
@@ -383,6 +397,17 @@
             "subtype": {
                 "type": "do", 
                 "analysis_method": "inline" 
+            }
+        }
+    },
+    "nitrogen_flow": {
+        "synonyms": "Nitrogen flow",
+        "definition": "Rate at which nitrogen is supplied to the fermenter, measured in lpm (liters per minute).",
+        "node_type": {
+            "is_a": "process_var",
+            "subtype": {
+                "type": "input_var", 
+                "analysis_method": "inline"
             }
         }
     },
@@ -1292,6 +1317,19 @@
             }
         }
     },
+    "co2_evolution_rate": {
+        "synonyms": "CO2 evolution rate",
+        "definition": "The rate at which CO2 is produced per unit of biomass (X), expressed in moles of CO2 per carbon mole of biomass per hour (mol/c-mol(X)*h). Reflecting how efficiently CO2 is released in relation to biomass production.",
+        "node_type": {
+            "is_a": "calculated_var",
+            "subtype": {
+                "type": "output_var", 
+                "source": "PAS-X",
+                "is_result": "True",
+                "performance_variable": "rate" 
+            }
+        }
+    },
     "co2_specific_evolution_rate": {
         "synonyms": "CO2 specific evolution rate",
         "definition": "The specific rate at which CO2 is produced per unit of biomass (X), expressed in moles of CO2 per carbon mole of biomass per hour (mol/c-mol(X)*h). Reflecting how efficiently CO2 is released in relation to biomass production.",
@@ -1464,6 +1502,19 @@
     "biomass_specific_growth_rate_u_mean_in_feed": {
         "synonyms": "Biomass specific growth rate μ_mean in Feed",
         "definition": "The average specific growth rate of biomass during the feeding phase, expressed in per hour (1/h).",
+        "node_type": {
+            "is_a": "calculated_var",
+            "subtype": {
+                "type": "biomass",
+                "source": "PAS-X",
+                "is_result": "True",
+                "performance_variable": "rate" 
+            }
+        }
+    },
+    "biomass_specific_growth_rate_u_mean_in_batch": {
+        "synonyms": "Biomass specific growth rate μ_mean in Batch",
+        "definition": "The average specific growth rate of biomass during the batch phase, expressed in per hour (1/h).",
         "node_type": {
             "is_a": "calculated_var",
             "subtype": {
