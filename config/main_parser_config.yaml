@@ -88,12 +88,14 @@ Process_var:
             accumulated_sample_volume: Accumulated sample volume
             acid_volume: Acid volume
             base_volume: Base volume
+            acid_rate: Acid rate
             base_rate: Base rate
             feed_amount: Feed amount
             feed_volume: Feed 1 volume
             feed_rate_volumetric: Feed 1 rate volumetric
             stirrer_speed: Stirrer speed
             air_flow: Air flow
+            nitrogen_flow: Nitrogen flow
             o2_flow: Oxygen flow
             o2_percentage_inflow: Inlet air O2
             co2_percentage_inflow: Inlet air CO2
@@ -122,7 +124,6 @@ Calculated_var:
             consumed_o2: Consumed O2
             offgas_co2: Offgas CO2
             offgas_o2: Offgas O2
-            biomass_concentration: Biomass concentration
             volume_addednone: Volume AddedNone
             liquid_volume_downscaled: Liquid volume downscaled
             volume_unitnone: Volume UnitNone
@@ -179,11 +180,13 @@ Calculated_var:
             co2_accumulated_downscaled: CO2 accumulated downscaled
             co2_q: CO2 Q
             co2_specific_evolution_rate: CO2 specific evolution rate
+            co2_evolution_rate: CO2 evolution rate
             co2_yield_S: CO2 yield (S)
             co2_yield_S_c_molar: CO2 yield c-molar (S)
             co2_yield_X: CO2 yield (X)
             biomass_amount: Biomass amount
             biomass_amount_molar: Biomass amount molar
+            biomass_concentration: Biomass concentration
             biomass_lost_in_sample: Biomas lost in sample
             biomass_formed: Biomass formed
             biomass_formed_molar: Biomass formed molar
@@ -192,6 +195,7 @@ Calculated_var:
             biomass_formation_rate_molar: Biomass formation rate molar
             biomass_specific_growth_rate_u: Biomass specific growth rate μ
             biomass_specific_growth_rate_u_mean_in_feed: Biomass specific growth rate μ_mean in Feed
+            biomass_specific_growth_rate_u_mean_in_batch: Biomass specific growth rate μ_mean in Batch
             biomass_specific_growth_rate_u_max_in_feed: Biomass specific growth rate μ_max in Feed
             biomass_specific_growth_rate_u_min_in_feed: Biomass specific growth rate μ_min in Feed
             biomass_yield_S: Biomass yield (S)
