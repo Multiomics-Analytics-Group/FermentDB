@@ -718,7 +718,7 @@
         }
     },
     "dor_yields": {
-        "synonyms": "DoR balance",
+        "synonyms": "DoR yields",
         "definition": "The degree of reduction calculated based on the yields of different products. This helps understand how efficiently the system is converting substrate into desired products, taking into account the redox state of each component.  No units.",
         "node_type": {
             "is_a": "calculated_var",
@@ -888,7 +888,7 @@
     },
     "substrate_yield_X_molar": {
         "synonyms": "D-glucose yield molar (X)",
-        "definition": "The amount of biomass produced per gram of substrate consumed, expressed in mol/c-mol(X)",
+        "definition": "The amount of biomass produced in mols per carbon mols of substrate consumed, expressed in mol/c-mol(X)",
         "node_type": {
             "is_a": "calculated_var",
             "subtype": {
@@ -901,7 +901,7 @@
     },
     "substrate_yield_X_c_molar": {
         "synonyms": "D-glucose yield c-molar (X)",
-        "definition": "The amount of biomass produced per gram of substrate consumed,expressed in c-,mol/c-mol(X)",
+        "definition": "The amount of biomass produced in carbon mols per carbon mols of substrate consumed,expressed in c-mol/c-mol(X)",
         "node_type": {
             "is_a": "calculated_var",
             "subtype": {
@@ -1043,8 +1043,8 @@
             }
         }
     },
-    "compound_formed": {
-        "synonyms": "Acetic acid formed",
+    "compound_produced": {
+        "synonyms": "Acetic acid produced",
         "definition": "Total amount of compound produced in the bioprocess, representing the cumulative production of the compound over time, measured in g.",
         "node_type": {
             "is_a": "calculated_var",
@@ -1423,7 +1423,7 @@
     },
     "biomass_formed": {
         "synonyms": "Biomass formed",
-        "definition": "The total amount of biomass, cumulative biomass producton, formed during the bioprocess, expressed in g.",
+        "definition": "The total amount of biomass, cumulative biomass production, formed during the bioprocess, expressed in g.",
         "node_type": {
             "is_a": "calculated_var",
             "subtype": {
@@ -1436,7 +1436,7 @@
     },
     "biomass_formed_molar": {
         "synonyms": "Biomass formed molar",
-        "definition": "The total amount of biomass, cumulative biomass producton, formed during the bioprocess, expressed in moles (mol).",
+        "definition": "The total amount of biomass, cumulative biomass production, formed during the bioprocess, expressed in moles (mol).",
         "node_type": {
             "is_a": "calculated_var",
             "subtype": {
@@ -1449,7 +1449,7 @@
     },
     "biomass_formed_c_molar": {
         "synonyms": "Biomass formed c-molar",
-        "definition": "The total amount of biomass, cumulative biomass producton, formed during the bioprocess, expressed in carbon moles (c-mol).",
+        "definition": "The total amount of biomass, cumulative biomass production, formed during the bioprocess, expressed in carbon moles (c-mol).",
         "node_type": {
             "is_a": "calculated_var",
             "subtype": {
