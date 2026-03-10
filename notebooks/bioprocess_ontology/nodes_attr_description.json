@@ -31,15 +31,15 @@
             "replicate_number": "Replicate run number. Number 1 means only 1 replicate.  Number 2 means a replicate from the previous run (previous culitivation_id run) E.j.: A run (name:DDB_PD_023_AMBR) with replicate_number = 2, is a replicate from the previous run (name:DDB_PD_022_AMBR) with replicate_number = 1." 
         }
     },
-    "Fermenter": {
+    "Bioreactor": {
         "node_description": "Concrete type of bioreactor environment where the fermentation occurs.",
         "node_attributes": {
             "id": "Fermenter ID",
             "name": "Container type implemented, such as Ambr250.",
             "brand": "The bioreactor type brand-specific, such as Sartorius: Ambr, Eppendorf: DASGIP, and Getinge: Applikon.",
-            "operation_mode":"The mode of operation in a bioreactor, which could be indetified as the mode of cultivation, includes batch, fed-batch and continuous.",
             "volume": "The volume of the bioreactor.",
             "unit": "The unit of the working volume, such as L, mL, m3.",
+            "operational_mode":"Different types of functional configurations of the bioreactor defining types of fermentations or cultivations, including batch, fed-batch and continuous (which could be chemostat or turbidostat)."
         }
     },
     "Strain": {
@@ -124,7 +124,7 @@
         }
     },
     "iModulon": {
-        "node_description": "Symbolizes a distinct iModulon activity from the iModulon database. An iModulon is an independently modulated group of genes, often representing the effect of a transcriptional regulator.",
+        "node_description": "An iModulon is an independently modulated group of genes, often representing the effect of a transcriptional regulator. For an iModulon, acivity values can be caluclated allowing to quantitatively estimate the activity of the gene set contained. Ref: ref: https://www.nature.com/articles/s41467-019-13483-w ",
         "node_attributes": {
             "name": "iModulon name",
             "regulator_readable": "Transcriptional regulator that is associated with the iModulon",

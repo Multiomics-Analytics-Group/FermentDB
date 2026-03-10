@@ -345,7 +345,7 @@
     },
     "feed_amount": {
         "synonyms": "Feed amount",
-        "definition": "The quantity or total mass of feed added to the bioprocess, measured in kg.",
+        "definition": "Total mass of feed medium added to the bioprocess, measured in kg.",
         "node_type": {
             "is_a": "calculated_var",
             "subtype": {
