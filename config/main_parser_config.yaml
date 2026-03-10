@@ -19,8 +19,7 @@ Experiment:
             name: 'Experiment'
 Run:
     batches:
-        _key: id
-        id: id
+        id: name
         name: name
         run_start: batch_start
         run_end: batch_end
