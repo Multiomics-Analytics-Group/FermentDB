@@ -1,0 +1,120 @@
+id: 
+  feed: feed
+  fed-batch growth arrest phase: feed
+  batch: batch
+  do-stat: feed
+  fed-batch phase: feed
+  induction: feed
+  feed#1: feed
+  feed#2: feed
+  feed#3: feed
+  feed#4: feed
+  feed#5: feed
+  feed#6: feed
+  feed#7: feed
+  exponential feed: feed
+  exponential: feed
+  batch tryptophan production phase: batch_tryptophan_production
+  fed-batch tryptophan production phase: feed_tryptophan_production
+  fed-batch tryptophan consumption phase: feed_tryptophan_consumption
+  tryptophan production: batch_tryptophan_production
+name: 
+  feed: feed
+  fed-batch growth arrest phase: feed
+  batch: batch
+  do-stat: feed
+  fed-batch phase: feed
+  induction: feed
+  feed#1: feed
+  feed#2: feed
+  feed#3: feed
+  feed#4: feed
+  feed#5: feed
+  feed#6: feed
+  feed#7: feed
+  exponential feed: feed
+  exponential: feed
+  batch tryptophan production phase: batch_tryptophan_production
+  fed-batch tryptophan production phase: feed_tryptophan_production
+  fed-batch tryptophan consumption phase: feed_tryptophan_consumption
+  tryptophan production: batch_tryptophan_production
+phase_start:
+  feed_start: feed_start
+  fed-batch growth arrest phase_start: feed_start
+  batch_start: batch_start
+  do-stat_start: feed_start
+  fed-batch phase_start: feed_start
+  induction_start: feed_start
+  feed#1_start: feed_start
+  feed#2_start: feed_start
+  feed#3_start: feed_start
+  feed#4_start: feed_start
+  feed#5_start: feed_start
+  feed#6_start: feed_start
+  feed#7_start: feed_start
+  exponential feed_start: feed_start
+  exponential_start: feed_start
+  batch tryptophan production phase_start: batch_tryptophan_production_start
+  fed-batch tryptophan production phase_start: feed_tryptophan_production_start
+  fed-batch tryptophan consumption phase_start: feed_tryptophan_consumption_start
+  tryptophan production_start: batch_tryptophan_production_start
+phase_end:
+  feed_end: feed_end
+  fed-batch growth arrest phase_end: feed_end
+  batch_end: batch_end
+  do-stat_end: feed_end
+  fed-batch phase_end: feed_end
+  induction_end: feed_end
+  feed#1_end: feed_end
+  feed#2_end: feed_end
+  feed#3_end: feed_end
+  feed#4_end: feed_end
+  feed#5_end: feed_end
+  feed#6_end: feed_end
+  feed#7_end: feed_end
+  exponential feed_end: feed_end
+  exponential_end: feed_end
+  batch tryptophan production phase_end: batch_tryptophan_production_end
+  fed-batch tryptophan consumption phase_end: feed_tryptophan_consumption_end
+  fed-batch tryptophan production phase_end: feed_tryptophan_production_end
+  tryptophan production_end: batch_tryptophan_production_end
+event_name:
+  feed_start: feed_start
+  fed-batch growth arrest phase_start: feed_start
+  batch_start: batch_start
+  do-stat_start: feed_start
+  do-stat_end: feed_end
+  fed-batch phase_start: feed_start
+  induction_start: feed_start
+  feed#1_start: feed_start
+  feed#2_start: feed_start
+  feed#3_start: feed_start
+  feed#4_start: feed_start
+  feed#5_start: feed_start
+  feed#6_start: feed_start
+  feed#7_start: feed_start
+  feed_end: feed_end
+  fed-batch growth arrest phase_end: feed_end
+  batch_end: batch_end
+  do-stat-end: feed_end
+  fed-batch phase_end: feed_end
+  induction_end: feed_end
+  feed#1_end: feed_end
+  feed#2_end: feed_end
+  feed#3_end: feed_end
+  feed#4_end: feed_end
+  feed#5_end: feed_end
+  feed#6_end: feed_end
+  feed#7_end: feed_end
+  exponential feed_start: feed_start
+  exponential_start: feed_start
+  batch tryptophan production phase_start: batch_tryptophan_production_start
+  fed-batch tryptophan production phase_start: feed_tryptophan_production_start
+  fed-batch tryptophan consumption phase_start: feed_tryptophan_consumption_start
+  tryptophan production_start: batch_tryptophan_production_start
+  exponential feed_end: feed_end
+  exponential_end: feed_end
+  batch tryptophan production phase_end: batch_tryptophan_production_end
+  fed-batch tryptophan consumption phase_end: feed_tryptophan_consumption_end
+  fed-batch tryptophan production phase_end: feed_tryptophan_production_end
+  tryptophan production_end: batch_tryptophan_production_end

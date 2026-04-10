@@ -1,0 +1,985 @@
+format-version: 1.2
+date: 10:06:2025 15:15
+default-namespace: fermentdb_ontology
+
+[Typedef]
+id: FDBO_RE:has_data_acquisition_mode
+name: has data acquisition mode
+
+[Term]
+id: FDBO:0000001
+name: bioprocess variable
+def: "Data o metadata of a variable relatated to bioprocesses????"
+synonym:
+
+[Term]
+id: FDBO:0000002
+name: run
+def: "A run is the individual bioprocess experiment running in a bioreactor."
+synonym:
+is_a: FDBO:0000001 ! bioprocess variable
+
+[Term]
+id: FDBO:0000003
+name: experiment
+def: "A set of runs within the same batch and/or project."
+synonym: 
+is_a: FDBO:0000001 ! bioprocess variable
+
+[Term]
+id: FDBO:0000004
+name: project
+def: "An experiment or set of experiments belonging to different batches within a research group."
+synonym:
+is_a: FDBO:0000001 ! bioprocess variable
+
+[Term]
+id: FDBO:0000005
+name: user
+def: "Project manager"
+synonym:
+is_a: FDBO:0000001 ! bioprocess variable
+
+[Term]
+id: FDBO:0000006
+name: institution
+def: "an institution where the project takes place."
+synonym:
+is_a: FDBO:0000001 ! bioprocess variable
+
+[Term]
+id: FDBO:0000007
+name: country
+def: "A country where the project takes place."
+synonym:
+is_a: FDBO:0000001 ! bioprocess variable
+
+[Term]
+id: FDBO:0000008
+name: cultivation condition
+def: "An initial experimental parameter and/or environmental setting established prior to or at the start of a bioprocess. This condition, which may be categorical or scalar variable, can include key environmental setpoints such as pH, temperature (Tº), initial volume, and optical density (OD) of the seed culture"
+synonym: "process_var"
+is_a: FDBO:0000001 ! bioprocess variable
+
+[Term]
+id: FDBO:0000009
+name: process variable
+def: "A technical parameter measured during a bioprocess, either through real-time (online, inline) or delayed (offline, atline) measurements, depending on the bioreactor setup. These variables are typically time-series data and are crucial for controlling and adjusting the initial parameters from cultivation conditions."
+synonym: "process_var"
+is_a: FDBO:0000001 ! bioprocess variable
+
+[Term]
+id: FDBO:0000010
+name: compound
+def:  "An offline bioprocess data refers to measurements obtained using instruments external to the bioreactor, such as High-Performance Liquid Chromatography (HPLC). These data typically include compound groups categorized as substrates, products, by-products, and chemical elements."
+synonym:
+is_a: FDBO:0000001 ! bioprocess variable
+
+[Term]
+id: FDBO:0000011
+name: medium
+def: "A solution containing macronutrients, micronutrients and buffering agents."
+synonym:
+is_a: FDBO:0000001 ! bioprocess variable
+
+[Term]
+id: FDBO:0000012
+name: strain
+def: "A distinct microbial strain within the database."
+synonym:
+is_a: FDBO:0000001 ! bioprocess variable
+
+[Term]
+id: FDBO:0000013
+name: taxon
+def: A specific taxa within the database, generally species, but it could also be genus, family, order, class, phylum, kingdom, and domain.
+synonym:
+is_a: FDBO:0000001 ! bioprocess variable
+
+[Term]
+id: FDBO:0000014
+name: fermenter
+def: "Concrete type of bioreactor environment where the fermentation occurs."
+synonym:
+is_a: FDBO:0000001 ! bioprocess variable
+
+[Term]
+id: FDBO:0000015
+name: phase
+def: "A fermentation phase."
+synonym:
+is_a: FDBO:0000001 ! bioprocess variable
+
+[Term]
+id: FDBO:0000016
+name: event
+def: "A fermentation event that triggers the fermentation phase to start or end."
+synonym:
+is_a: FDBO:0000001 ! bioprocess variable
+
+[Term]
+id: FDBO:0000017
+name: imodulon
+def: "An iModulon unit symbolizes a distinct iModulon activity from the iModulon database. An iModulon is an independently modulated group of genes, often representing the effect of a transcriptional regulator."
+synonym:
+is_a: FDBO:0000001 ! bioprocess variable
+
+[Term]
+id: FDBO:0000017
+name: computed variable
+def: "A computed variable includes intermediate measured results and final results, both of them calculated implementing bioprocess data: initial parameters from cultivation conditions and process variables (online and offline measurements)."
+synonym:
+is_a: FDBO:0000001 ! bioprocess variable
+
+[Term]
+id: FDBO:0000018
+name: temperature setpoint (C)
+def: "The target temperature value to be maintained within the fermenter, expressed in degrees Celsius (ºC)."
+synonym:
+is_a: FDBO:0000008 ! cultivation condition
+
+
+
+
+
+
+
+
+
+
+[Term]
+id: FDBO:0000019
+name: ph setpoint
+def: "Target pH value to be maintened within the fermenter throught the process."
+synonym: 
+is_a: FDBO:0000008 ! cultivation condition
+related_to: FDBO:0000039
+relationship: FDB_RE:has_analysis_method FDB:0000154 ! inline measurement
+
+
+[Term]
+id: FDBO:0000020
+name: ph control base solution
+def: "The alkaline (base) solution used to control and maintain the pH within the fermenter, when it reaches below the setpoint."
+synonym:
+is_a: FDBO:0000008 ! cultivation condition
+
+[Term]
+id: FDBO:0000021
+name: ph control acid solution
+def: "The acidic solution used to control and maintain the pH within the fermenter, when it rises above the setpoint."
+synonym:
+is_a: FDBO:0000008 ! cultivation condition
+
+[Term]
+id: FDBO:0000022
+name: main culture id
+def: "Starter culture or initial culture referring to the strain ID."
+synonym:
+
+[Term]
+id: FDBO:0000023
+name: Seed
+def: "Starter culture or initial culture prepared from a stock culture and cultivated in smaller volume (either tubes, shake flasks or reactors) until a certain concentration is reached. The starter culture is also referred as a seed culture, pre-culture or inoculum."
+synonym:
+
+[Term]
+id: FDBO:0000024
+name: DO Control Setpoint (%)
+def: "Target value for dissolved oxygen, in percentage."
+synonym:
+
+[Term]
+id: FDBO:0000025
+name: DO Control Cascade Level 1
+def: "First level of the cascade control system for dissolved oxygen. Level 1 involves adjusting the stirrer_speed parameter to ahcieve the desired DO level."
+synonym:
+
+[Term]
+id: FDBO:0000026
+name: Maximum Stirring or Shaking Speed (rpm)
+def: "The maximum complete revolutions the stirrer makes in one minute."
+synonym:
+
+[Term]
+id: FDBO:0000027
+name: Minimum Stirring or Shaking Speed (rpm)
+def: "The minimum complete revolutions the stirrer makes in one minute."
+synonym:
+
+[Term]
+id: FDBO:0000028
+name: DO Control Cascade Level 2
+def: "Second level of the cascade control system for dissolved oxygen. Level 2 involves adjusting the air_flow parameter to ahcieve the desired DO level."
+synonym:
+
+[Term]
+id: FDBO:0000029
+name: Aeration Gas Type
+def: "Type of gas used for aeration in the fermenter."
+synonym:
+
+[Term]
+id: FDBO:0000030
+name: Maximum Aeration (slpm)
+def: "Maximum rate of at which gas can be supplied to the fermenter, measured in slpm (standard liters per minute)."
+synonym:
+
+[Term]
+id: FDBO:0000031
+name: Minimum Aeration (slpm)
+def: "Minimum rate of at which gas can be supplied to the fermenter, measured in slpm (standard liters per minute)."
+synonym:
+
+[Term]
+id: FDBO:0000032
+name: DO Control Cascade Level 3
+def: "Third level of the cascade control system for dissolved oxygen. Level 3 involves adjusting the o2_flow parameter to ahcieve the desired DO level."
+synonym:
+
+[Term]
+id: FDBO:0000033
+name: Starting OD
+def: "The initial optical density (OD) of the fermentation. It is either measured (by taking a sample after inoculation and measuring the cell density) or  calculated (by knowing the final OD of the seed culture, volume inoculated and final cultivation volume)."
+synonym:
+
+[Term]
+id: FDBO:0000034
+name: Final Seed OD
+def: "The cell density of the seed culturre at the time it is inoculated to the main fermenter."
+synonym:
+
+[Term]
+id: FDBO:0000035
+name: Initial Culture VolumeNone
+def: "The total volume of the culture at the beginning of the bioprocess, representing the sum of culture medium and inoculum, no units."
+
+[Term]
+id: FDBO:0000036
+name: Culture Volume Unit
+def: "The unit of measurement for the culture volume, in mL."
+
+[Term]
+id: FDBO:0000037
+name: Feed profile
+def: "Feeding strategies typically found in a fed-batch fermentation. 1. Constant feeding rate, 2. Linear feeding rate and 3. Exponential feeding rate, 4. Combination of 1-2, 3-2 or 3-1 . The type of feeding profiles applied is process specific."
+
+[Term]
+id: FDBO:0000038
+name: DO
+def: "Level of free, non-compound oxygen ions present in an aqueous solution."
+is_a: FDBO:0000009 ! process condition
+
+[Term]
+id: FDBO:0000039
+name: pH
+def: "Bioreactor Potential of Hydrogen (pH) reading. Logarithmic scale used to specify the acidity or basicity of aqueous solutions."
+synonym:
+
+[Term]
+id: FDBO:0000040
+name: Temperature
+def: "Bioreactor temperature reading. Pyhsical quantity that quantitatively expresses the attribute of hotness or coldness, reflecting the average kinetic energy of the vibrating and colliding atoms making up a substance."
+synonym:
+
+[Term]
+id: FDBO:0000041
+name: Pressure
+def: "Bioreactor pressure reading."
+synonym:
+
+[Term]
+id: FDBO:0000042
+name: Liquid volume
+def: "Total volume of liquid in the fermenter, measured in L."
+synonym:
+
+[Term]
+id: FDBO:0000043
+name: Sample mass
+def: "The mass of the sample taken from the bioprocess/run, measured in grams. Implemented for quantifying the amount of biomass, product, other compounds."
+synonym:
+
+[Term]
+id: FDBO:0000044
+name: Sample volume
+def: "The volume of the sample taken from the bioprocess/run, measured in mL. Implemented for calculating concentrations, dilutions, etc."
+synonym:
+
+[Term]
+id: FDBO:0000045
+name: Accumulated sample volume
+def: "Total volume of all samples taken from the bioprocess/run up to a certain point in time, measured in mL."
+synonym:
+
+[Term]
+id: FDBO:0000046
+name: Accumulated sample volume
+def: "Total volume of all samples taken from the bioprocess/run up to a certain point in time, measured in mL."
+synonym:
+
+[Term]
+id: FDBO:0000047
+name: Acid volume
+def: "Volume of the acidic solution pumped into the fermenter, measured  in L."
+synonym:
+
+[Term]
+id: FDBO:0000048
+name: Base volume
+def: "Volume of the concentration base solution pumped into the fermenter to maintain the pH of cultivation at a constant level, measured  in L."
+synonym:
+
+[Term]
+id: FDBO:0000049
+name: Acid rate
+def: "The flow rate at which the acid solution is pumped into the fermenter, measured in L/h."
+synonym:
+
+[Term]
+id: FDBO:0000050
+name: Base rate
+def: "The flow rate at which the base solution is pumped into the fermenter, measured in L/h."
+synonym:
+
+[Term]
+id: FDBO:0000051
+name: Feed amount
+def: "The quantity or total mass of feed added to the bioprocess, measured in kg."
+synonym:
+
+[Term]
+id: FDBO:0000052
+name: Feed volume
+def: "The volume of the feed solution pumped to the bioprocess at a certain time point, measured in L."
+synonym:
+
+[Term]
+id: FDBO:0000053
+name: Feed rate volumetric 
+def: "Rate at which the feed (based on its volume) is added to the bioprocess, measured in L/h."
+synonym:
+
+[Term]
+id: FDBO:0000054
+name: Stirrer speed 
+def: "Speed at which the impeller shaft rotates, measured in rpm (revolutions per minute)."
+synonym:
+
+[Term]
+id: FDBO:0000055
+name: Air flow
+def: "Rate at which air is supplied to the fermnter, measured in lpm (liters per minute)"
+synonym:
+
+[Term]
+id: FDBO:0000056
+name: Nitrogen flow
+def: "Rate at which nitrogen is supplied to the fermenter, measured in lpm (liters per minute)."
+synonym:
+
+[Term]
+id: FDBO:0000057
+name: Oxygen flow
+def: "Rate at which oxygen is supplied to the fermenter, measured in lpm (liters per minute)."
+synonym:
+
+[Term]
+id: FDBO:0000058
+name: Inlet air O2
+def: "Percentaje of oxygen in the gas mixture that is being supplied into the fermenter."
+synonym:
+
+[Term]
+id: FDBO:0000059
+name: Inlet air CO2
+def: "Percentaje of carbon dioxide in the gas mixture that is being supplied into the fermenter."
+synonym:
+
+[Term]
+id: FDBO:0000060
+name: OD
+def: "OD600. Optical density to measure biomass. Absorbance is the logarithm of the ratio of incident to transmitted radiant power through a sample (excluding the effects on cell walls)"
+synonym:
+
+[Term]
+id: FDBO:0000061
+name: O2 uptake rate
+def: "Oxygen Uptake Rate: Online determination of the rate at which O2 is consumed by cells. Ambr records it as unnormalized in mmol/h, with factor 0.001"
+synonym:
+
+[Term]
+id: FDBO:0000062
+name: CO2 evolution rate
+def: "Online determination of the rate at which CO2 is produced by cells. Ambr records it as unnormalized in mmol/h, with factor 0.001."
+synonym:
+
+[Term]
+id: FDBO:0000063
+name: OTR
+def: "Oxygen Transfer Rate (mol/h): rate at which O2 is transferred from the gas phase or fermenter air into the liquid phase within a fermenter."
+synonym:
+
+[Term]
+id: FDBO:0000064
+name: CTR
+def: "Carbon dioxide Transfer Rate (mol/h): rate at which CO2 is transferred out of the fermenter. Important as CO2 is considered a by-product in aerobic processes, and so is a parameter used for predicting biomass concentration, evaluating energetic efficiencies of growth, monitoring growth yields and controlling fed batch processes like airflow rates or stir speeds."
+synonym:
+
+[Term]
+id: FDBO:0000065
+name: RQ
+def: "Respiratory Quotient: Ratio of CO2 produced to O2 consumed during cellular metabolism throught the bioprocess/run, dimensionless number. Used to assess the metabolic state of cells."
+synonym:
+
+[Term]
+id: FDBO:0000066
+name: Formed CO2
+def: "Amount of CO2 generated during the bioprocess. Ambr records it as unnormalized, integrated, in moles."
+synonym:
+
+[Term]
+id: FDBO:0000067
+name: Consumed CO2
+def: "Amount of O2 consumed during the bioprocess. Ambr records it as unnormalized, integrated, in moles."
+synonym:
+
+[Term]
+id: FDBO:0000068
+name: Offgas CO2
+def: "The percentage of CO2 present in the exhaust stream leaving the fermenter, indicating the amount of CO2 produced."
+synonym:
+
+[Term]
+id: FDBO:0000069
+name: Offgas O2
+def: "The percentage of O2 present in the exhaust stream leaving of the fermenter, indicating how much oxygen has been consumed."
+synonym:
+
+[Term]
+id: FDBO:0000070
+name: Offgas O2
+def: "The percentage of O2 present in the exhaust stream leaving of the fermenter, indicating how much oxygen has been consumed."
+synonym:
+
+[Term]
+id: FDBO:0000071
+name: Biomass concentration
+def: "Concentration of the biomass, measured in g/L."
+synonym:
+
+[Term]
+id: FDBO:0000072
+name: Biomass concentration
+def: "Concentration of the biomass, measured in g/L."
+synonym:
+
+[Term]
+id: FDBO:0000073
+name: Volume Added None
+def: "It is the actual final volume that has been added.(Change name!)" 
+synonym:
+
+[Term]
+id: FDBO:0000074
+name: Liquid volume downscaled
+def: "It is the actual volume at a certain time point where sampling was performed."
+synonym:
+
+[Term]
+id: FDBO:0000075
+name: Liquid volume (without corrected samples)
+def: "Total volume of liquid in the fermenter without subtracting the sample volume extracted, measured in L."
+synonym:
+
+[Term]
+id: FDBO:0000076
+name: Volume Unit None
+def: "The unit for the additional volume added, categorical variable normally in mL (change name!)"
+synonym:
+
+[Term]
+id: FDBO:0000077
+name: Volume to Add None 
+def: "The volume that must be added ro reach a certain starting OD in the reactor, scalar variable pre-calculated. (change name!)"
+synonym:
+
+[Term]
+id: FDBO:0000078
+name: Volume to Add None 
+def: "The volume that must be added ro reach a certain starting OD in the reactor, scalar variable pre-calculated. (change name!)"
+synonym:
+
+[Term]
+id: FDBO:0000079
+name: Dilution rate (D)
+def: "The rate at which fresh medium is fed into a main culture relative to the culture volume, representing the rate at which the culture is diluted, measured in 1/h."
+synonym:
+
+[Term]
+id: FDBO:0000080
+name: Carbon balance
+def: "Balance which compares the total amount of carbon entering the fermenter (through the substrate) to the total carbon leaving the fermenter (in products, biomass or by.products like CO2), expressed in percentage."
+synonym: C balance
+
+[Term]
+id: FDBO:0000081
+name: Carbon balance using carbon mols
+def: "The carbon balance calculated using carbon moles (c-mols), providing more molecular level view of the carbon flow, no units."
+synonym: C balance (c-mols)
+
+[Term]
+id: FDBO:0000082
+name: Elemental carbon balance with reference to substrate
+def: "The carbon balance specifically referenced to the substrate usedin the bioprocess, to asses substrate utilization efficiency. No units."
+synonym: carbon balance to substrate
+
+[Term]
+id: FDBO:0000083
+name: Degree of reduction balance
+def: "Degree of Reduction (DoR) balance, important for understanding the redox balance in the bioprocess. The balance ensures that the electrons entering the bioprocess are equal to the electrons leaving it. It is expressed in percentage."
+synonym: DoR balance
+
+[Term]
+id: FDBO:0000084
+name: Degree of reduction yields
+def: "The degree of reduction calculated based on the yields of different products. This helps understand how efficiently the system is converting substrate into desired products, taking into account the redox state of each component.  No units."
+synonym: DoR yields
+
+[Term]
+id: FDBO:0000085
+name: Substrate consumed
+def: "The total amount of substrate consumed by the cells during the bioprocess, expressed in g."
+synonym: 
+
+[Term]
+id: FDBO:0000086
+name: Substrate consumed molar
+def: "The total amount of substrate consumed by the cells during the bioprocess, expressed in moles."
+synonym: 
+
+[Term]
+id: FDBO:0000087
+name: Substrate consumed carbon molar
+def: "The total amount of substrate consumed by the cells during the bioprocess, expressed in c-mols."
+synonym: 
+
+[Term]
+id: FDBO:0000088
+name: Substrate lost in sampling
+def: "The amount of substrate removed from the run durning sampling, expressed in g."
+synonym: 
+
+[Term]
+id: FDBO:0000089
+name: Substrate uptake rate
+def: "Substrate uptake rate (qs). The rate at which substrate is consumed by the cells, expressed in g/h."
+synonym: QS
+
+[Term]
+id: FDBO:0000090
+name: Substrate uptake rate molar
+def: "The rate at which substrate is consumed by the cells, expressed in mol/h."
+synonym: 
+
+[Term]
+id: FDBO:0000091
+name: Substrate specific uptake rate
+def: "The rate of substrate uptake per unit of biomass, expressed in grams of substrate per grams of dry biomass per hour (g/g(DW)*h)."
+synonym: 
+
+[Term]
+id: FDBO:0000092
+name: Substrate specific uptake rate molar
+def: "The rate of substrate uptake per unit of biomass, expressed in mols of substrate per carbon mols of substrate per hour (mol/cmol(X)*h)."
+synonym: 
+
+[Term]
+id: FDBO:0000093
+name: Average substrate specific uptake rate in feed phase
+def: "The average specific uptake rate of substrate during the feeding phase, expressed in grams of substrate per gram of biomass per hour (g/g(DW)*h)."
+synonym: 
+
+[Term]
+id: FDBO:0000094
+name: Maximum substrate specific uptake rate in feed phase
+def: "The maximum specific uptake rate of substrate during the feeding phase, expressed in grams of substrate per gram of biomass per hour (g/g(DW)*h)."
+synonym: 
+
+[Term]
+id: FDBO:0000095
+name: Minimum substrate specific uptake rate in feed phase
+def: "The minimum specific uptake rate of substrate during the feeding phase, expressed in grams of substrate per gram of biomass per hour (g/g(DW)*h)."
+synonym: 
+
+[Term]
+id: FDBO:0000096
+name: Substrate yield
+def: "The amount of biomass produced per gram of substrate consumed, expressed in grams of biomass per gramsg/g(DW)"
+synonym: X
+
+[Term]
+id: FDBO:0000097
+name: Substrate yield molar
+def: "The amount of biomass produced in mols per carbon mols of substrate consumed, expressed in mol/c-mol(X)"
+synonym: X molar
+
+[Term]
+id: FDBO:0000098
+name: Substrate yield carbon molar
+def: "The amount of biomass produced in carbon mols per carbon mols of substrate consumed,expressed in c-mol/c-mol(X)"
+synonym: X c-molar
+
+[Term]
+id: FDBO:0000099
+name: O2 decimal
+def: "The decimal fraction of O2 in a gas stream, representing the proportion of O2 in the exhaust gas relative to the total gas volume, no units."
+synonym: 
+
+[Term]
+id: FDBO:0000100
+name: Oxygen partial integration
+def: "A time-based integration of O2 production, often calculated for specific time intervals??????, no units."
+synonym: 
+
+[Term]
+id: FDBO:0000101
+name: Oxygen accumulated
+def: "The total amount of O2 consumed and measured over the course of the bioprocess, tracked as an accumulated value, no units"
+synonym: 
+
+[Term]
+id: FDBO:0000102
+name: Oxygen accumulated downscaled
+def: "The total molar quantity of O2 generated, expressed in mol"
+synonym: 
+
+[Term]
+id: FDBO:0000103
+name: Oxygen Q
+def: "The volumetric rate of O2 consumed by the bioprocess over time, expressed in L/h."
+synonym: 
+
+[Term]
+id: FDBO:0000104
+name: Oxygen molar
+def: "The molar rate of O2 production, measuring the quantity of O2 generated by the bioprocess in terms of moles, expressed in mol/h."
+synonym: 
+
+[Term]
+id: FDBO:0000105
+name: Oxygen specific uptake rate
+def: "The specific rate at which O2 is produced per unit of biomass (X), expressed in moles of O2 per carbon mole of biomass per hour (mol/c-mol(X)*h). Reflecting how efficiently O2 is consumed in relation to biomass production."
+synonym: 
+
+[Term]
+id: FDBO:0000106
+name: Oxygen yield (S)
+def: "The yield of O2 consumed per mole of substrate consumed (S), expressed in moles of O2 per mole of substrate (mol/mol(S)), quantifying how much O2 is consumed relative to the substrate used in the bioprocess."
+synonym: O2 yield (S)
+
+[Term]
+id: FDBO:0000107
+name: Oxygen yield carbon molar (S)
+def: "The yield of O2 consumed per carbon mole of substrate consumed (S), expressed in moles of O2 per carbon mole of substrate (mol/c-mol(S)). More detailed yield accounting for the carbon content of the substrate."
+synonym: O2 yield c-molar (S)
+
+[Term]
+id: FDBO:0000108
+name: Oxygen yield (X)
+def: "The yield of O2 consumed per carbon mole of biomass (X), expressed in moles of O2 per carbon mole of biomass (mol/c-mol(X)), describing how much O2 is consumed relative to the amount of biomass generated."
+synonym: O2 yield (X)
+
+[Term]
+id: FDBO:0000109
+name: Compound produced
+def: "Total amount of compound produced in the bioprocess, representing the cumulative production of the compound over time, measured in g."
+synonym: 
+
+[Term]
+id: FDBO:0000110
+name: Compound produced molar
+def: "Total amount of compound produced in the bioprocess, expressed in moles(mol), providing molecular level quantification."
+synonym: 
+
+[Term]
+id: FDBO:0000111
+name: Compound produced carbon molar
+def: "Total amount of compound produced in the bioprocess, expressed in cmol, which is related with the carbon content of the compound."
+synonym: 
+
+[Term]
+id: FDBO:0000112
+name: Compound lost in sample
+def: "The amount of compound lost or removed from the fermenter during sampling, expressed in g."
+synonym: 
+
+[Term]
+id: FDBO:0000113
+name: Residual compound amount
+def: "The remaining amount of 'compound' left in the fermenter, expressed in g. It is calculated substracting the compound concentration measured offline, multiplied by the liquid_volume_downscaled to get the amount."
+synonym: 
+
+[Term]
+id: FDBO:0000114
+name: Residual compound amount
+def: "The remaining amount of 'compound' left in the fermenter, expressed in g. It is calculated substracting the compound concentration measured offline, multiplied by the liquid_volume_downscaled to get the amount."
+synonym: 
+
+[Term]
+id: FDBO:0000115
+name: Compound production rate
+def: "Rate at which the compound is produced over time, indicating the speed of compound production, expressed in g/h."
+synonym: 
+
+[Term]
+id: FDBO:0000116
+name: Compound production rate molar
+def: "Rate at which the compound is produced over time, expressed in mol/h."
+synonym: 
+
+[Term]
+id: FDBO:0000117
+name: Compound specific production rate 
+def: "The rate of compound production per unit of biomass (dry weight), providing the efficiency of compound production relative to biomass. It is expressed in grams per gram of dry weight per hour (g/g(DW)*h)."
+synonym: 
+
+[Term]
+id: FDBO:0000118
+name: Compound specific production rate molar
+def: "The rate of acetic acid production per unit of biomass, expressed in moles per carbon mole of biomass per hour (mol/cmol(X)*h)."
+synonym: 
+
+[Term]
+id: FDBO:0000119
+name: Compound yield (S)
+def: "The yield of compound produced per gram of substrate consumed, quantifying how much compound id produced relative to substrate consumption, expressed in g/g."
+synonym: 
+
+[Term]
+id: FDBO:0000120
+name: Compound yield molar (S)
+def: "The yield of compound produced per mole of substrate consumed, expressed in mol/mol (S)",
+synonym: 
+
+[Term]
+id: FDBO:0000121
+name: Compound yield carbon molar (S)
+def: "The yield of compound produced per carbon mole of substrate consumed, taking into account the carbon content of both the substrate and the compound, expressed in c-mol/c-mol(S)"
+synonym: 
+
+[Term]
+id: FDBO:0000122
+name: Compound yield (X)
+def: "The yield of 'compound' produced per gram of biomass (dry weight), measuring how efficiently compound is produced relative to biomass generation, expressed in grams per gram of dry weight (g/g(DW))."
+synonym: 
+
+[Term]
+id: FDBO:0000123
+name: Compound yield molar (X)
+def: "The yield of 'compound' produced per carbon mole of biomass, expressed in moles per carbon mole of biomass per hour (mol/cmol(X)*h)."
+synonym: 
+
+[Term]
+id: FDBO:0000124
+name: Compound yield carbon molar (X)
+def: "The yield of 'compound' produced per carbon mole of biomass, expressed in c-mol/c-mol(X)."
+synonym: 
+
+[Term]
+id: FDBO:0000125
+name: Carbon dioxide decimal
+def: "The decimal fraction of CO2 in a gas stream, representing the proportion of CO2 in the exhaust gas relative to the total gas volume, no units"
+synonym: CO2 decimal
+
+[Term]
+id: FDBO:0000126
+name: Carbon dioxide molar
+def: "The molar rate of CO2 production, measuring the quantity of CO2 generated by the bioprocess in terms of moles, expressed in mol/h."
+synonym: CO2 molar
+
+[Term]
+id: FDBO:0000127
+name: Carbon dioxide partial integration
+def: "A time-based integration of CO2 production, often calculated for specific time intervals??????, no units."
+synonym: CO2 partial integration
+
+[Term]
+id: FDBO:0000128
+name: Carbon dioxide accumulated
+def: "The total amount of CO2 produced and measured over the course of the bioprocess, tracked as an accumulated value, no units."
+synonym: CO2 accumulated
+
+[Term]
+id: FDBO:0000129
+name: Carbon dioxide accumulated downscaled
+def: "The total molar quantity of CO2 generated, expressed in mol."
+synonym: CO2 accumulated downscaled
+
+[Term]
+id: FDBO:0000130
+name: Carbon dioxide Q
+def: "The volumetric rate of CO2 produced by the bioprocess over time, expressed in L/h."
+synonym: CO2 Q
+
+[Term]
+id: FDBO:0000131
+name: Carbon dioxide evolution rate
+def: "The rate at which CO2 is produced per unit of biomass (X), expressed in moles of CO2 per carbon mole of biomass per hour (mol/c-mol(X)*h). Reflecting how efficiently CO2 is released in relation to biomass production."
+synonym: CO2 evolution rate
+
+[Term]
+id: FDBO:0000132
+name: Carbon dioxide specific evolution rate
+def: "The specific rate at which CO2 is produced per unit of biomass (X), expressed in moles of CO2 per carbon mole of biomass per hour (mol/c-mol(X)*h). Reflecting how efficiently CO2 is released in relation to biomass production."
+synonym: CO2 specific evolution rate
+
+[Term]
+id: FDBO:0000133
+name: Carbon dioxide yield (S)
+def: "The yield of CO2 produced per mole of substrate consumed (S), expressed in moles of CO2 per mole of substrate (mol/mol(S)), quantifying how much CO2 is produced relative to the substrate used in the bioprocess."
+synonym: CO2 yield (S)
+
+[Term]
+id: FDBO:0000134
+name: Carbon dioxide yield carbon molar (S)
+def: "The yield of CO2 produced per carbon mole of substrate consumed (S), expressed in moles of CO2 per carbon mole of substrate (mol/c-mol(S)). More detailed yield accounting for the carbon content of the substrate."
+synonym: CO2 yield c-molar (S)
+
+[Term]
+id: FDBO:0000135
+name: Carbon dioxide yield (X)
+def: "The yield of CO2 produced per carbon mole of biomass (X), expressed in moles of CO2 per carbon mole of biomass (mol/c-mol(X)), describing how much CO2 is produced relative to the amount of biomass generated."
+synonym: CO2 yield (X)
+
+[Term]
+id: FDBO:0000136
+name: Biomass amount
+def: "Total mass of biomass or total amount of cellular growth , measured in g."
+synonym: 
+
+[Term]
+id: FDBO:0000137
+name: Biomass amount molar
+def: "The total number (or amount) of biomass,  measured in moles."
+synonym: 
+
+[Term]
+id: FDBO:0000138
+name: Biomass lost in sampling
+def: "The amount of biomass removed from the bioreactor during sampling, expressed in grams (g)."
+synonym: 
+
+[Term]
+id: FDBO:0000139
+name: Biomass production
+def: "The total amount of biomass, cumulative biomass production, formed during the bioprocess, expressed in g."
+synonym: 
+
+[Term]
+id: FDBO:0000140
+name: Biomass production
+def: "The total amount of biomass, cumulative biomass production, formed during the bioprocess, expressed in g."
+synonym: 
+
+[Term]
+id: FDBO:0000141
+name: Biomass production molar
+def: "The total amount of biomass, cumulative biomass production, formed during the bioprocess, expressed in moles (mol)."
+synonym: 
+
+[Term]
+id: FDBO:0000142
+name: Biomass production carbon molar
+def: "The total amount of biomass, cumulative biomass production, formed during the bioprocess, expressed in carbon moles (c-mol)."
+synonym: 
+
+[Term]
+id: FDBO:0000143
+name: Biomass production rate
+def: " The rate at which the biomass is produced over time. expressed in grams per hour (g/h)."
+synonym: Rx
+
+[Term]
+id: FDBO:0000144
+name: Biomass production rate molar
+def:  "The rate at which the biomass is produced over time. expressed in c-mols per hour (c-mols/h)."
+synonym: Rx molar
+
+[Term]
+id: FDBO:0000145
+name: Biomass specific growth rate
+def: "The specific growth rate at which the biomass(X) grows per unit of biomass. Units: 1/h."
+synonym: μ
+
+[Term]
+id: FDBO:0000146
+name: Average biomass specific growth rate in feed phase
+def: "The average specific growth rate of biomass during the feeding phase, expressed in per hour (1/h)."
+synonym: 
+
+[Term]
+id: FDBO:0000147
+name: Average biomass specific growth rate in batch phase
+def: "The average specific growth rate of biomass during the batch phase, expressed in per hour (1/h)."
+synonym: 
+
+[Term]
+id: FDBO:0000148
+name: Maximum biomass specific growth rate in feed phase
+def: "The maximum specific growth rate of biomass during the feeding phase, expressed in per hour (1/h)."
+synonym: 
+
+[Term]
+id: FDBO:0000149
+name: Minimum biomass specific growth rate in feed phase
+def: "The minimum specific growth rate of biomass during the feeding phase, expressed in per hour (1/h)."
+synonym: 
+
+[Term]
+id: FDBO:0000150
+name: Biomass yield (S)
+def: "The grams of biomass produced per grams of substrate consumed, describing the efficiency of substrate conversion into biomass, expressed in g/g.""
+synonym: Ysx
+
+[Term]
+id: FDBO:0000151
+name: Biomass yield molar (S)
+def: "The biomass produced per mole of substrate consumed, expressed in c-mol/mol(S)"
+synonym: 
+
+[Term]
+id: FDBO:0000152
+name: Biomass yield carbon molar (S)
+def: "The biomass produced per carbon mole of substrate, considering the carbon efficiency of biomass formation relative to substrate, expressed in c-mol/c-mol(S)",
+is_a: 
+
+[Term]
+id: FDBO:0000153
+name: data acquisition mode
+def: "How where, and when process data or samples are collected and measured during a bioprocess. The modes included are inline, online, atline, and offline."
+
+[Term]
+id: FDBO:0000154
+name: inline measurement
+def: "The analyzer is integrated into the bioreactor and the measurement is taken continuosly into the bioreactor. The sample flows continuously through the analyzer. The measurament is real-time with high frequency data, enabling real-time process monitoring and control."
+is_a: FDBO:0000153 ! data acquisition mode
+
+[Term]
+id: FDBO:0000155
+name: online measurement
+def: "ONLINE: extract representative sample from the bioreactor and introduce it into the measurement zone. Sample can either be discarded or returned to the bioreactor."
+is_a: FDBO:0000153 ! data acquisition mode
+
+[Term]
+id: FDBO:0000156
+name: atline measurement
+def: "extract a sample from the process line and transporte it to a nerby analyzer. There is delay between sampling and measurment."
+is_a: FDBO:0000153 ! data acquisition mode
+
+[Term]
+id: FDBO:0000157
+name: offline measurement
+def: "Method that collects a sample from the process line and transports it to the analyzis laboratory. The sample is not returned to the process line"
+is_a: FDBO:0000153 ! data acquisition mode
+

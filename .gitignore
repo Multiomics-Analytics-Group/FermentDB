@@ -175,4 +175,5 @@ notebooks/bioprocess_ontology/doubts.txt
 notebooks/bioprocess_ontology/terminology_doubts.txt
 config/nodes_edges_datasource.txt
 config/parser_doubts.txt
+.DS_Store
 
