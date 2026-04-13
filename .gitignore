@@ -176,4 +176,5 @@ notebooks/bioprocess_ontology/terminology_doubts.txt
 config/nodes_edges_datasource.txt
 config/parser_doubts.txt
 .DS_Store
+dev-log.md
 
